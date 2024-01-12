@@ -4,11 +4,11 @@
 
 @layer components {
     .Backdrop {
-        @apply top-0 fixed bg-black/40 w-full h-full flex py-[300px] justify-center
+        @apply top-0 fixed bg-black/40 w-full flex py-[300px] justify-center
     }
 
     .Modal {
-        @apply w-[400px] p-6 bg-white rounded-xl flex-row items-center justify-center text-center text-slate-500
+        @apply w-[500px] p-6 bg-white rounded-xl flex-row justify-center text-center text-slate-500 
     }
     
     .text {
@@ -16,7 +16,7 @@
     }
     
     .SaleModal {
-        @apply w-[400px] p-6 bg-red-600 rounded-xl flex-row items-center justify-center text-center text-white
+        @apply w-[500px] p-6 bg-red-600 rounded-xl flex-row justify-center text-center text-white
     }
    
 
