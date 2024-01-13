@@ -15,7 +15,7 @@ export default {
   components: { block },
   data () {
     return {
-      isPlaying: true,
+      isPlaying: false,
       delay: null,
 
     }
