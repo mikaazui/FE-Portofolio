@@ -7,49 +7,16 @@
     <div class="min-h-screen w-28 flex-none max-md:hidden">
       <div class="fixed min-h-screen flex items-center">
         <div
-          class="border-2 border-neutral-600 p-5 rounded-full flex flex-col gap-5"
+          class="border-2 border-neutral-600 p-5 rounded-full flex flex-col gap-6"
         >
           <NuxtLink
-            :to="{ path: '/', hash: '#about' }"
+            v-for="(menu, i) in menus"
+            :key="i"
+            :to="{ path: menu.path, hash: menu.hash }"
             class="tooltip tooltip-left"
-            data-tip="About"
+            :data-tip="menu.title"
           >
-            <LucideUserRound :size="18" class="text-secondary" />
-          </NuxtLink>
-          <NuxtLink
-            :to="{ path: '/', hash: '#resume' }"
-            class="tooltip tooltip-left"
-            data-tip="Resume"
-          >
-            <LucideBriefcase :size="18" class="text-secondary" />
-          </NuxtLink>
-          <NuxtLink
-            :to="{ path: '/', hash: '#skills' }"
-            class="tooltip tooltip-left"
-            data-tip="Skills"
-          >
-            <LucideBlocks :size="18" class="text-secondary" />
-          </NuxtLink>
-          <NuxtLink
-            :to="{ path: '/', hash: '#project' }"
-            class="tooltip tooltip-left"
-            data-tip="Project"
-          >
-            <LucideNotebook-tabs :size="18" class="text-secondary" />
-          </NuxtLink>
-          <NuxtLink
-            :to="{ path: '/', hash: '#testimonials' }"
-            class="tooltip tooltip-left"
-            data-tip="Testimonials"
-          >
-            <LucideMessageSquareText :size="18" class="text-secondary" />
-          </NuxtLink>
-          <NuxtLink
-            :to="{ path: '/', hash: '#contact' }"
-            class="tooltip tooltip-left"
-            data-tip="Contact"
-          >
-            <LucideContact :size="18" class="text-secondary" />
+            <component :is="menu.icon" size="18" class="text-secondary" />
           </NuxtLink>
         </div>
       </div>
@@ -62,7 +29,12 @@
     </div>
   </div>
   <div class="drawer drawer-end">
-    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+    <input
+      v-model="toggleDrawer"
+      id="my-drawer-4"
+      type="checkbox"
+      class="drawer-toggle"
+    />
 
     <div class="drawer-side overflow-x-hidden text-accent">
       <label
@@ -73,59 +45,17 @@
       <div class="p-14 w-80 min-h-full bg-base-200">
         <div class="text-2xl mb-4 text-white">Menu</div>
         <ul class="flex-col flex gap-4">
-          <!-- Sidebar content here -->
+          <!-- MOBILE DRAWER -->
           <li>
             <NuxtLink
-              :to="{ path: '/', hash: '#about' }"
+            v-for="(menu, i) in menus"
+            :key="i"
+              @click="toggleDrawer = !toggleDrawer"
+              :to="{ path: menu.path, hash: menu.hash }"
               class="flex items-center gap-3"
             >
-              <LucideUserRound :size="18" class="text-secondary" />
-              <div>About</div>
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink
-              :to="{ path: '/', hash: '#resume' }"
-              class="flex items-center gap-3"
-            >
-              <LucideBriefcase :size="18" class="text-secondary" />
-              <div>Resume</div>
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink
-              :to="{ path: '/', hash: '#skills' }"
-              class="flex items-center gap-3"
-            >
-              <LucideBlocks :size="18" class="text-secondary" />
-              <div>Skills</div>
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink
-              :to="{ path: '/', hash: '#project' }"
-              class="flex items-center gap-3"
-            >
-              <LucideNotebook-tabs :size="18" class="text-secondary" />
-              <div>Project</div>
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink
-              :to="{ path: '/', hash: '#testiomonials' }"
-              class="flex items-center gap-3"
-            >
-              <LucideMessageSquareText :size="18" class="text-secondary" />
-              <div>Testimonials</div>
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink
-              :to="{ path: '/', hash: '#contact' }"
-              class="flex items-center gap-3"
-            >
-              <LucideContact :size="18" class="text-secondary" />
-              <div>Contact</div>
+              <component :is="menu.icon" :size="18" class="text-secondary" />
+              <div>{{menu.title}}</div>
             </NuxtLink>
           </li>
         </ul>
@@ -143,3 +73,54 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { resolveComponent } from "vue";
+
+//toggle open/close drawer
+const toggleDrawer = ref(false);
+
+const menus = [
+  {
+    path: "/",
+    hash: "#about",
+    title: "About",
+    icon: resolveComponent("LucideUserRound"),
+  },
+  {
+    path: "/",
+    hash: "#resume",
+    title: "Resume",
+    icon: resolveComponent("LucideBriefcase"),
+  },
+  {
+    path: "/",
+    hash: "#skills",
+    title: "Skills",
+    icon: resolveComponent("LucideBlocks"),
+  },
+  {
+    path: "/",
+    hash: "#project",
+    title: "Project",
+    icon: resolveComponent("LucideNotebook-tabs"),
+  },
+  {
+    path: "/",
+    hash: "#testimonials",
+    title: "Testimonials",
+    icon: resolveComponent("LucideMessageSquareText"),
+  },
+  {
+    path: "/",
+    hash: "#contact",
+    title: "Contact",
+    icon: resolveComponent("LucideContact"),
+  },
+];
+</script>
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>
