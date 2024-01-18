@@ -8,7 +8,7 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
       <IndexProfileCard />
     </div>
     <!-- SECTIONS -->
-    <div class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7">
+    <div class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:px-20 xl:px-40 pt-12">
       <div class="min-h-screen" id="about">
         <indexAbout />
       </div>
@@ -21,8 +21,8 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
       <div class="min-h-screen" id="project">
         <IndexProject />
       </div>
-      <div class="min-h-screen" id="testimonials">
-        <IndexTestimonials />
+      <div class="min-h-screen" id="blog">
+        <IndexBlog />
       </div>
       <div class="min-h-screen" id="contact">
         <IndexContact />

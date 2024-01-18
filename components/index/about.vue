@@ -1,10 +1,10 @@
 <template>
   <div class="min-h-screen py-16">
     <div
-      class="border border-neutral items-center gap-1 w-fit flex rounded-full py-1 px-4"
+      class="border border-neutral items-center gap-1 w-fit flex rounded-full py-1 px-4 mb-5"
     >
       <lucideUserRound :size="18" class="text-accent" />
-      <div>About</div>
+      <div class="uppercase text-sm font-light">About</div>
     </div>
       <div class="text-3xl font-semibold text-white mb-4">Every great design begin with an even better story</div>
       <div class="text-white font-light opacity-60">
@@ -15,7 +15,6 @@
         perpetually working on improving my chopsone design problem at a time.
       </div>
     </div>
-  <div class="min-h-screen" id="resume"></div>
 </template>
 
 <script lang="ts" setup></script>

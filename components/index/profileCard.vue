@@ -8,8 +8,7 @@
         <div class="text-right">Framer Designer <br />& Developer</div>
       </div>
 
-      <div class="aspect-square flex justify-center items-center bg-base-100">
-        <LucideUserRound :size="250" class="text-secondary" />
+      <div class="aspect-square m-4 rounded-2xl flex justify-center items-center bg-base-300">
       </div>
       <!-- EMAIL & CONTACT -->
       <div class="text-center font-bold">

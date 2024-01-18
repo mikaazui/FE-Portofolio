@@ -64,7 +64,7 @@
 
         <!-- social -->
         <div class="p-6">
-          <div class="text-2xl my-4 text-white">S ocial</div>
+          <div class="text-2xl my-4 text-white">Social</div>
           <div class="flex gap-4">
               <a href="https://www.instagram.com/mikaazui/" target="_blank">
                   <lucideInstagram :size="18" class="text-secondary" />
@@ -115,8 +115,8 @@ const menus = [
   },
   {
     path: "/",
-    hash: "#testimonials",
-    title: "Testimonials",
+    hash: "#blog",
+    title: "Blog",
     icon: resolveComponent("LucideMessageSquareText"),
   },
   {
