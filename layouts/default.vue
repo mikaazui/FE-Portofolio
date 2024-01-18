@@ -2,7 +2,9 @@
   <div class="min-h-screen flex text-accent">
     <!-- MAIN CONTENT -->
     <!-- PROFILE CARD -->
-    <slot />
+    <div class="min-h-screen grow">
+      <slot />
+    </div>
     <!-- SIDEMENU -->
     <div class="min-h-screen w-28 flex-none max-md:hidden">
       <div class="fixed min-h-screen flex items-center">
@@ -22,7 +24,7 @@
       </div>
     </div>
     <!-- sidebar toggle -->
-    <div class="md:hidden drawer-content fixed right-0 mt-8 mr-8">
+    <div class="z-10 md:hidden drawer-content fixed right-0 mt-8 mr-8">
       <label for="my-drawer-4" class="btn btn-circle btn-outline">
         <lucideMenu :size="18" />
       </label>
@@ -43,8 +45,8 @@
         class="drawer-overlay"
       ></label>
       <div class="p-14 w-80 min-h-full bg-base-200">
-        <div class="text-2xl mb-4 text-white">Menu</div>
-        <ul class="flex-col flex gap-4">
+        <div class="text-2xl mb-4 px-6 text-white">Menu</div>
+        <ul class="menu">
           <!-- MOBILE DRAWER -->
           <li>
             <NuxtLink
@@ -61,12 +63,18 @@
         </ul>
 
         <!-- social -->
-        <div>
-          <div class="text-2xl my-4 text-white">social</div>
+        <div class="p-6">
+          <div class="text-2xl my-4 text-white">S ocial</div>
           <div class="flex gap-4">
-            <lucideInstagram :size="18" class="text-secondary" />
+              <a href="https://www.instagram.com/mikaazui/" target="_blank">
+                  <lucideInstagram :size="18" class="text-secondary" />
+              </a>
+              <a href="https://twitter.com/myrfellon" target="_blank">
+                <lucideTwitter :size="18" class="text-secondary" />
+              </a>
+              <a href="https://github.com/mikaazui" target="_blank">
             <lucideGithub :size="18" class="text-secondary" />
-            <lucideTwitter :size="18" class="text-secondary" />
+              </a>
           </div>
         </div>
       </div>
