@@ -6,7 +6,8 @@
       <slot />
     </div>
     <!-- SIDEMENU -->
-    <div class="min-h-screen w-28 flex-none max-md:hidden">
+    <IndexDefaultlayoutSidemenu :menus="menus"/>
+    <!-- <div class="min-h-screen w-28 flex-none max-md:hidden">
       <div class="fixed min-h-screen flex items-center">
         <div
           class="border-2 border-neutral-600 p-5 rounded-full flex flex-col gap-6"
@@ -22,7 +23,7 @@
           </NuxtLink>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- sidebar toggle -->
     <div class="z-10 md:hidden drawer-content fixed right-0 mt-8 mr-8">
       <label for="my-drawer-4" class="btn btn-circle btn-outline">
