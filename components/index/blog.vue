@@ -9,11 +9,11 @@
     <div class="flex flex-col mt-5 gap-5">
       <div class="text-3xl font-semibold">Latest Blog</div>
       <!-- blog list -->
-      <div class="grid grid-cols-10 gap-3" v-for="n in 4" :key="n">
+      <d  iv class="grid grid-cols-10 gap-3 group hover:bg-base-200 p-2 rounded-xl" v-for="n in 4" :key="n">
         <!-- image -->
-        <div class="aspect-video bg-neutral col-span-3 rounded-lg"></div>
+        <div class="aspect-video bg-neutral col-span-3 rounded-lg group-hover:scale-110 duration-200"></div>
         <div class="col-span-6 lg:col-span-7">
-          <div class="text-2xl mb-2 font-semibold">Blog title</div>
+          <div class="text-2xl mb-2 font-semibold group-hover:text-secondary">Blog title</div>
           <div class="font-light line-clamp-2 text-sm lg:line-clamp-3">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo culpa,
             officiis, vero eos, voluptates consequuntur ipsam qui dolore
@@ -29,7 +29,7 @@
             numquam explicabo? Quaerat, doloribus blanditiis.
           </div>
         </div>
-      </div>
+      </d>
     </div>
   </div>
 </template>

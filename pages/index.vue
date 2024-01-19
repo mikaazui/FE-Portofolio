@@ -12,8 +12,11 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
       <div class="min-h-screen" id="about">
         <indexAbout />
       </div>
-      <div class="min-h-screen" id="resume">
-        <indexResume />
+      <!-- <div class="min-h-screen" id="experience">
+        <indexExperience />
+      </div>
+      <div class="min-h-screen" id="education">
+        <indexEducation />
       </div>
       <div class="min-h-screen" id="skills">
         <indexSkills />
@@ -26,7 +29,7 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
       </div>
       <div class="min-h-screen" id="contact">
         <IndexContact />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

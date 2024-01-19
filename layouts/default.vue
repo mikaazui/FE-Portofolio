@@ -30,56 +30,7 @@
       </label>
     </div>
   </div>
-  <div class="drawer drawer-end">
-    <input
-      v-model="toggleDrawer"
-      id="my-drawer-4"
-      type="checkbox"
-      class="drawer-toggle"
-    />
-
-    <div class="drawer-side overflow-x-hidden text-accent">
-      <label
-        for="my-drawer-4"
-        aria-label="close sidebar"
-        class="drawer-overlay"
-      ></label>
-      <div class="p-14 w-80 min-h-full bg-base-200">
-        <div class="text-2xl mb-4 px-6 text-white">Menu</div>
-        <ul class="menu">
-          <!-- MOBILE DRAWER -->
-          <li>
-            <NuxtLink
-            v-for="(menu, i) in menus"
-            :key="i"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: menu.path, hash: menu.hash }"
-              class="flex items-center gap-3"
-            >
-              <component :is="menu.icon" :size="18" class="text-secondary" />
-              <div>{{menu.title}}</div>
-            </NuxtLink>
-          </li>
-        </ul>
-
-        <!-- social -->
-        <div class="p-6">
-          <div class="text-2xl my-4 text-white">Social</div>
-          <div class="flex gap-4">
-              <a href="https://www.instagram.com/mikaazui/" target="_blank">
-                  <lucideInstagram :size="18" class="text-secondary" />
-              </a>
-              <a href="https://twitter.com/myrfellon" target="_blank">
-                <lucideTwitter :size="18" class="text-secondary" />
-              </a>
-              <a href="https://github.com/mikaazui" target="_blank">
-            <lucideGithub :size="18" class="text-secondary" />
-              </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <IndexDefaultlayoutMenudrawer :toggleDrawer="toggleDrawer" :menus="menus" />
 </template>
 
 <script setup>
@@ -97,9 +48,15 @@ const menus = [
   },
   {
     path: "/",
-    hash: "#resume",
-    title: "Resume",
+    hash: "#experience",
+    title: "Experience",
     icon: resolveComponent("LucideBriefcase"),
+  },
+  {
+    path: "/",
+    hash: "#education",
+    title: "Education",
+    icon: resolveComponent("LucideSchool"),
   },
   {
     path: "/",

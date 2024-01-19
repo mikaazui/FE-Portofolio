@@ -1,6 +1,6 @@
 <template>
   <div
-    class="md:fixed min-h-screen md:flex items-center md:w-[25%] lg:w-[26%] xl:w-[24%] p-2 rounded-xl"
+    class="md:fixed min-h-screen md:flex items-center md:w-[25%] lg:w-[26%] xl:w-[24%] p-2 rounded-xl py-24"
   >
     <div class="p-8 w-full rounded-3xl flex-col gap-6 border border-accent">
       <div class="justify-between flex items-end">
