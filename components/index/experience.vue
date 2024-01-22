@@ -4,10 +4,10 @@
       class="border border-neutral items-center gap-1 w-fit flex rounded-full py-1 px-4 mb-5"
     >
       <LucideBriefcase :size="18" class="text-accent" />
-      <div class="uppercase text-sm font-light">About</div>
+      <div class="uppercase text-sm font-light">Experience</div>
     </div>
     <div class="text-3xl font-semibold text-white mb-4">
-      Education & Experience
+       Experience
     </div>
     <!-- list experience -->
     <div class="flex gap-12 group" v-for="n in 2" :key="n">
@@ -20,11 +20,11 @@
         <div class="group-hover:text-secondary">2020 - Present</div>
         <div class="flex flex-col gap-4">
           <div>
-            <div class="text-4xl font-semibold mt-5">Framer Design & Developer</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">Framer Design & Developer</div>
             <div class="text-light">Brunodee Agency</div>
           </div>
           <div>
-            <div class="text-4xl font-semibold mt-5">Front End WordPress Developer</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">Front End WordPress Developer</div>
             <div class="text-light">Envato Market</div>
           </div>
         </div>

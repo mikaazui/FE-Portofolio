@@ -7,10 +7,10 @@
       <div class="uppercase text-sm font-light">Education</div>
     </div>
     <div class="text-3xl font-semibold text-white mb-4">
-      Education
+       Education
     </div>
-    <!-- list education -->
-    <div class="flex md:gap-12 group" v-for="n in 2" :key="n">
+    <!-- list experience -->
+    <div class="flex gap-12 group" v-for="n in 2" :key="n">
       <div class="flex flex-col items-center">
         <lucideCircle :size="12" class="fill-neutral stroke-none group-hover:fill-secondary" />
         <div class="grow w-px bg-neutral"></div>
@@ -20,12 +20,12 @@
         <div class="group-hover:text-secondary">2020 - Present</div>
         <div class="flex flex-col gap-4">
           <div>
-            <div class="text-4xl font-semibold mt-5">framer and Developer</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">Framer Design & Developer</div>
             <div class="text-light">Brunodee Agency</div>
           </div>
           <div>
-            <div class="text-4xl font-semibold mt-5">Front End</div>
-            <div class="text-light">Brunodee Agency</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">Front End WordPress Developer</div>
+            <div class="text-light">Envato Market</div>
           </div>
         </div>
       </div>
@@ -33,7 +33,6 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>
 
 <style></style>

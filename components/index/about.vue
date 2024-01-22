@@ -7,7 +7,7 @@
       <div class="uppercase text-sm font-light">About</div>
     </div>
 	<div class="flex flex-col grow">
-		<div class="text-5xl font-semibold ">Say Hi from <span class="text-success">Drake</span>, Webflow Designer and Developer</div>
+		<div class="text-5xl font-semibold mb-5">Say Hi from <span class="text-success">Drake</span>, Webflow Designer and Developer</div>
 		  <div class="  text-3xl font-semibold mb-4">Every great design begin with an even better story</div>
 		  <div class=" font-light opacity-60">
 			Since beginning my journey as a freelance designer nearly 8 years ago,
