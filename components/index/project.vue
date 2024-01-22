@@ -18,8 +18,8 @@
           </div>
 
           <div class="aspect-video bg-neutral rounded-xl mt-2 group-hover:scale-105 duration-200"></div>
-          <div class="flex gap-2 no-scrollbar overflow-scroll mt-2">
-            <div v-for="n in 10" :key="n" class="rounded-xl border border-neutral text-nowrap px-2">Skill {{ n }}</div>
+          <div class="flex gap-2 max-md:no-scrollbar overflow-x-auto mt-2">
+            <div v-for="n in 6" :key="n" class="rounded-xl border border-neutral text-nowrap px-2">Skill {{ n }}</div>
           </div>
         </div>
       </div>
