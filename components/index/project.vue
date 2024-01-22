@@ -9,7 +9,7 @@
     <div class="mt-10">
       <div class="text-3xl font-semibold text-white mb-4">Latest Project</div>
       <!-- list Project -->
-      <div class="grid grid-cols-2 gap-4">
+      <div class="md:grid md:grid-cols-2 flex flex-col gap-4">
         <!-- project items -->
         <div class="col-span-1 md:col-span-1 group" v-for="n in 4" :key="n">
           <div class="flex items-end justify-between">
