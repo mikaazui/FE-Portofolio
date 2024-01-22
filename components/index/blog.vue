@@ -9,27 +9,28 @@
     <div class="flex flex-col mt-5 gap-5">
       <div class="text-3xl font-semibold">Latest Blog</div>
       <!-- blog list -->
-      <d  iv class="grid grid-cols-10 gap-3 group hover:bg-base-200 p-2 rounded-xl" v-for="n in 4" :key="n">
-        <!-- image -->
-        <div class="aspect-video bg-neutral col-span-3 rounded-lg group-hover:scale-110 duration-200"></div>
-        <div class="col-span-6 lg:col-span-7">
-          <div class="text-2xl mb-2 font-semibold group-hover:text-secondary">Blog title</div>
-          <div class="font-light line-clamp-2 text-sm lg:line-clamp-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo culpa,
-            officiis, vero eos, voluptates consequuntur ipsam qui dolore
-            distinctio reiciendis perferendis maxime. Consequatur accusantium
-            dolor, recusandae quidem rerum maxime harum placeat obcaecati ipsam
-            facere temporibus architecto minus incidunt, ad ratione distinctio
-            excepturi eum officia accusamus fuga delectus aliquid sapiente? Quo
-            facere repellendus, ex cum sapiente eligendi odit eaque, natus,
-            explicabo iure voluptate voluptatum nihil ipsum quas ea quisquam id.
-            Ad, sit fuga. Obcaecati delectus neque consequuntur amet asperiores?
-            Quos at sapiente dignissimos facere perspiciatis tempore, quam fuga
-            unde, itaque iste, voluptatum vero illo consequuntur excepturi
-            numquam explicabo? Quaerat, doloribus blanditiis.
+      <div v-for="n in 4" class="grid grid-cols-10 gap-3 group hover:bg-base-200 p-3">
+        <div
+          class="aspect-video rounded-lg col-span-10 md:col-span-3 bg-neutral w-full"
+        ></div>
+        <div class="md:col-span-7 col-span-10">
+          <div class="text-lg font-semibold group-hover:text-success">Title Blog</div>
+          <div class="line-clamp-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere,
+            eius. A eligendi aliquid laborum placeat eius possimus quia ea
+            minima incidunt maiores! Nostrum quasi inventore ut officia beatae
+            facere amet in iusto natus illum, architecto atque neque unde
+            repellat minus aperiam? Aliquid at optio ratione, consequuntur
+            blanditiis repellendus commodi, rerum illo provident unde ducimus
+            iste ullam, laborum reiciendis quis magnam? Dolorem pariatur
+            architecto voluptatum optio odit accusamus quisquam nam excepturi
+            officia. Repellat unde laborum minus! Ullam quod autem quaerat
+            pariatur placeat vero harum debitis sed accusamus, nulla ipsa vel
+            quam dolores velit natus nemo, tempora necessitatibus, ea cum.
+            Nostrum, quis.
           </div>
         </div>
-      </d>
+      </div>
     </div>
   </div>
 </template>
