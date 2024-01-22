@@ -17,7 +17,7 @@
         <div class="text-2xl mb-4 px-6 text-white">Menu</div>
         <ul class="menu">
           <!-- MOBILE DRAWER -->
-          <!-- <li>
+          <li>
             <NuxtLink
             v-for="(menu, i) in menus"
             :key="i"
@@ -28,7 +28,7 @@
               <component :is="menu.icon" :size="18" class="text-secondary" />
               <div>{{menu.title}}</div>
             </NuxtLink>
-          </li> -->
+          </li>
         </ul>
 
         <!-- social -->
