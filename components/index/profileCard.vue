@@ -11,15 +11,16 @@
       </div>
 
       <div
-        class="aspect-square m-4 rounded-2xl flex justify-center items-center bg-base-300"
-      ></div>
+        v-if="profile.avatar"
+        class="aspect-square m-4 rounded-2xl flex justify-center items-center"
+      > </div>
       <!-- EMAIL & CONTACT -->
       <div class="text-center font-bold">
         <div>{{ profile.email }}</div>
         <div>{{ profile.city }}, {{ profile.country }}</div>
       </div>
       <div class="text-center mt-5 text-white opacity-50">
-        &copy;{{year}} {{profile.firstName}}, All Rights Reserved
+        &copy;{{ year }} {{ profile.firstName }}, All Rights Reserved
       </div>
 
       <!-- social buttons -->
@@ -59,7 +60,7 @@ defineProps({
   profile: Object,
 });
 
-const year = new Date().getFullYear()
+const year = new Date().getFullYear();
 </script>
 
 <style></style>

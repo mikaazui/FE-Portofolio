@@ -6,13 +6,14 @@
       <LucideBriefcase :size="18" class="text-accent" />
       <div class="uppercase text-sm font-light">Experience</div>
     </div>
-    <div class="text-3xl font-semibold text-white mb-4">
-       Experience
-    </div>
+    <div class="text-3xl font-semibold text-white mb-4">Experience</div>
     <!-- list experience -->
     <div class="flex gap-12 group" v-for="n in 2" :key="n">
       <div class="flex flex-col items-center">
-        <lucideCircle :size="12" class="fill-neutral stroke-none group-hover:fill-secondary" />
+        <lucideCircle
+          :size="12"
+          class="fill-neutral stroke-none group-hover:fill-secondary"
+        />
         <div class="grow w-px bg-neutral"></div>
       </div>
 
@@ -20,11 +21,15 @@
         <div class="group-hover:text-secondary">2020 - Present</div>
         <div class="flex flex-col gap-4">
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">Framer Design & Developer</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">
+              Framer Design & Developer
+            </div>
             <div class="text-light">Brunodee Agency</div>
           </div>
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">Front End WordPress Developer</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">
+              Front End WordPress Developer
+            </div>
             <div class="text-light">Envato Market</div>
           </div>
         </div>
@@ -33,6 +38,10 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+defineProps({
+  projects: Object,
+});
+</script>
 
 <style></style>
