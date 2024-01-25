@@ -11,7 +11,7 @@
       <!-- blog list -->
       <div v-for="n in 4" class="grid grid-cols-10 gap-3 group hover:bg-base-200 p-3">
         <div
-          class="aspect-video rounded-lg col-span-10 md:col-span- bg-neutral w-full"
+          class="aspect-video rounded-lg col-span-10 md:col-span-3 bg-neutral w-full"
         ></div>
         <div class="md:col-span-7 col-span-10">
           <div class="text-lg font-semibold group-hover:text-success">Title Blog</div>

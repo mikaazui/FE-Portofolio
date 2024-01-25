@@ -4,19 +4,22 @@
   >
     <div class="p-8 w-full rounded-3xl flex-col gap-6 border border-accent">
       <div class="justify-between flex items-end">
-        <div class="text-3xl font-bold">Drake</div>
-        <div class="text-right">Framer Designer <br />& Developer</div>
+        <div class="text-3xl font-bold">
+          {{ profile.firstName }} {{ profile.lastName }}
+        </div>
+        <div class="text-right">{{ profile.job }}</div>
       </div>
 
-      <div class="aspect-square m-4 rounded-2xl flex justify-center items-center bg-base-300">
-      </div>
+      <div
+        class="aspect-square m-4 rounded-2xl flex justify-center items-center bg-base-300"
+      ></div>
       <!-- EMAIL & CONTACT -->
       <div class="text-center font-bold">
-        <div>example@email.com</div>
-        <div>jakarta, indonesia</div>
+        <div>{{ profile.email }}</div>
+        <div>{{ profile.city }}, {{ profile.country }}</div>
       </div>
       <div class="text-center mt-5 text-white opacity-50">
-        &copy;2023 Valt, All Rights Reserved
+        &copy;{{year}} {{profile.firstName}}, All Rights Reserved
       </div>
 
       <!-- social buttons -->
@@ -51,6 +54,12 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+defineProps({
+  profile: Object,
+});
+
+const year = new Date().getFullYear()
+</script>
 
 <style></style>
