@@ -5,15 +5,23 @@
     <div class="p-8 w-full rounded-3xl flex-col gap-6 border border-accent">
       <div class="justify-between flex items-end">
         <div class="text-3xl font-bold">
-          {{ profile.firstName }} {{ profile.lastName }}
+          {{ fullName }}
         </div>
         <div class="text-right">{{ profile.job }}</div>
       </div>
 
       <div
         v-if="profile.avatar"
-        class="aspect-square m-4 rounded-2xl flex justify-center items-center"
-      > </div>
+        class="aspect-square m-4 overflow-hidden rounded-2xl flex justify-center items-center"
+      >
+        <img
+          :src="apiUri + profile.avatar"
+          alt="avatar.jpg"
+          class="object-cover mih-h-full min-w-wfull"
+          width="100%"
+        />
+      </div>
+      <div v-else class="apect-square bg-neutal rounded-2xl w-full"></div>
       <!-- EMAIL & CONTACT -->
       <div class="text-center font-bold">
         <div>{{ profile.email }}</div>
@@ -24,18 +32,27 @@
       </div>
 
       <!-- social buttons -->
-      <div class="flex justify-between p-4">
+      <div class="flex p-4 justify-center">
         <div
+          v-if="profile.instagram"
+          href="https://www.instagram.com/mikaazui/"
+          target="__blank"
           class="btn-outline btn-circle btn border-neutral hover:bg-transparent hover:border-green"
         >
           <lucideInstagram :size="20" class="text-secondary" />
         </div>
         <div
+          v-if="profile.twitter"
+          href="https://twitter.com/myrfellon"
+          target="__blank"
           class="btn-outline btn-circle btn border-neutral hover:bg-transparent hover:border-green"
         >
           <LucideTwitter :size="20" class="text-secondary" />
         </div>
         <div
+          v-if="profile.github"
+          href="https://github.com/mikaazui"
+          target="__blank"
           class="btn-outline btn-circle btn border-neutral hover:bg-transparent hover:border-green"
         >
           <LucideGithub :size="20" class="text-secondary" />
@@ -43,7 +60,12 @@
         <div
           class="btn-outline btn-circle btn border-neutral hover:bg-transparent hover:border-green"
         >
-          <LucideGlobe :size="20" class="text-secondary" />
+          <IconsDiscord
+            :size="10"
+            class="text-secondary w-10 stroke-secondary"
+            href="https://discord.gg/RmagA6vQxu"
+            target="__blank"
+          />
         </div>
       </div>
       <!-- HIRE ME -->
@@ -56,10 +78,16 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   profile: Object,
 });
+//computing full name
+const fullName = computed(() => {
+  return `${props.profile.firstName} ${props.profile.lastName}`
+});
 
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
 const year = new Date().getFullYear();
 </script>
 

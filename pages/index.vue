@@ -45,16 +45,16 @@ const educations = data.education;
 const experiences = data.experiences;
 const blog = data.blogs;
 
-console.log("data profile");
-console.log(profile);
-console.log("data project");
-console.log(projects);
-console.log("data skills");
-console.log(skills);
-console.log("data educations");
-console.log(educations);
-console.log("data experiences");
-console.log(experiences);
-console.log("data blog");
-console.log(blog);
+// console.log("data profile");
+// console.log(profile);
+// console.log("data project");
+// console.log(projects);
+// console.log("data skills");
+// console.log(skills);
+// console.log("data educations");
+// console.log(educations);
+// console.log("data experiences");
+// console.log(experiences);
+// console.log("data blog");
+// console.log(blog);
 </script>
