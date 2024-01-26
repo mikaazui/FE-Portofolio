@@ -27,7 +27,7 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
         <IndexProject />
       </div>
       <div class="min-h-screen" id="blog">
-        <IndexBlog />
+        <IndexBlog :blogs="blogs"/>
       </div>
       <div class="min-h-screen" id="contact">
         <IndexContact />
@@ -43,7 +43,7 @@ const projects = data.projects;
 const skills = data.skills;
 const educations = data.education;
 const experiences = data.experiences;
-const blog = data.blogs;
+const blogs = data.blogs;
 
 // console.log("data profile");
 // console.log(profile);
