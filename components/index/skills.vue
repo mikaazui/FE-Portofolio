@@ -7,28 +7,33 @@
       <div class="uppercase text-sm font-light">Skills</div>
     </div>
     <div class="mt-5">
-      <div class="text-2xl md:text-4xl font-semibold text-accent mb-5">Every great Projects begin with Wilingness to learn</div>
+      <div class="text-2xl md:text-4xl font-semibold text-accent mb-5">
+        Every great Projects begin with Wilingness to learn
+      </div>
 
-      <div v-for="m in 2">
-        <div class="font-semibold text-accent text-lg md:text-xl py-3">Skill category</div>
+      <div v-for="(category, i) in skills" :key="i">
+        <div class="font-semibold text-accent text-lg md:text-xl py-3">
+          {{ category.title }}
+        </div>
         <div class="flex overflow-scroll no-scrollbar md:flex-wrap gap-6">
-          <div v-for="n in 6" :key="n" class="">
-            <div class="aspect-square bg-neutral w-20 md:w-12 rounded-xl flex items-center justify-center">
-              <LucideWrench :size="20" />
-            </div>
-            <div>skills {{ n }}</div>
-            <div class="aspect-square bg-neutral w-20 md:w-12 rounded-xl flex items-center justify-center">
-              <LucideWrench :size="20" />
-            </div>
-            <div>skills {{ n }}</div>
+          <!-- list skills -->
+          <div v-for="(skill, k) in category.Skill" :key="k" class="">
+            <div
+              class="aspect-square bg-white opacity-75 w-24 p-1 md:w-12 rounded-xl flex items-center justify-center"
+              v-html="skill.svg"
+            ></div>
+            <div>{{ skill.title }}</div>
           </div>
         </div>
       </div>
-
-      </div>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+const props = defineProps({
+  skills: Array,
+});
+</script>
 
 <style></style>
