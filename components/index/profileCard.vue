@@ -3,11 +3,11 @@
     class="md:fixed min-h-screen md:flex items-center md:w-[25%] lg:w-[26%] xl:w-[24%] p-2 rounded-xl py-24"
   >
     <div class="p-8 w-full rounded-3xl flex-col gap-6 border border-accent">
-      <div class="justify-between flex items-end">
+      <div class="justify-between flex items-center">
         <div class="text-3xl font-bold">
-          {{ fullName }}
+          {{ profile.firstName }}
         </div>
-        <div class="text-right">{{ profile.job }}</div>
+        <div class="text-right font-semibold">{{ profile.job }}</div>
       </div>
 
       <div
@@ -32,7 +32,7 @@
       </div>
 
       <!-- social buttons -->
-      <div class="flex p-4 justify-center">
+      <div class="flex p-4 justify-center gap-3" >
         <div
           v-if="profile.instagram"
           href="https://www.instagram.com/mikaazui/"
@@ -58,15 +58,22 @@
           <LucideGithub :size="20" class="text-secondary" />
         </div>
         <div
+          href="https://github.com/mikaazui"
+          target="__blank"
+          class="btn-outline btn-circle btn border-neutral hover:bg-transparent hover:border-green"
+        >
+          <LucideGlobe :size="20" class="text-secondary" />
+        </div>
+        <!-- <div
           class="btn-outline btn-circle btn border-neutral hover:bg-transparent hover:border-green"
         >
           <IconsDiscord
-            :size="10"
-            class="text-secondary w-10 stroke-secondary"
+            :size="7"
+            class="text-secondary w-9 stroke-secondary"
             href="https://discord.gg/RmagA6vQxu"
             target="__blank"
           />
-        </div>
+        </div> -->
       </div>
       <!-- HIRE ME -->
       <button class="btn btn-success w-full">

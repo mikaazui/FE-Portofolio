@@ -6,26 +6,33 @@
       <LucideSchool :size="18" class="text-accent" />
       <div class="uppercase text-sm font-light">Education</div>
     </div>
-    <div class="text-3xl font-semibold text-white mb-4">
-       Education
-    </div>
+    <div class="text-3xl font-semibold text-white mb-4">Education</div>
     <!-- list experience -->
-    <div class="flex gap-12 group" v-for="n in 2" :key="n">
+    <div class="flex gap-12 group" v-for="(ed, i) in educations" :key="i">
       <div class="flex flex-col items-center">
-        <lucideCircle :size="12" class="fill-neutral stroke-none group-hover:fill-secondary" />
+        <lucideCircle
+          :size="12"
+          class="fill-neutral stroke-none group-hover:fill-secondary"
+        />
         <div class="grow w-px bg-neutral"></div>
       </div>
 
       <div class="mb-10">
-        <div class="group-hover:text-secondary">2020 - Present</div>
+        <div class="group-hover:text-secondary">
+          {{ ed.startYear }} - {{ ed.endYear ? ed.endYear : "Present" }}
+        </div>
         <div class="flex flex-col gap-4">
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">Framer Design & Developer</div>
-            <div class="text-light">Brunodee Agency</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">
+              {{ed.insituitionName}}
+            </div>
+            <div class="text-light">{{ed.degree}}</div>
           </div>
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">Front End WordPress Developer</div>
-            <div class="text-light">Envato Market</div>
+            <div class="text-2xl md:text-4xl font-semibold mt-5">
+              {{ed.major}}
+            </div>
+            <div class="text-light">{{ed.city}}</div>
           </div>
         </div>
       </div>
@@ -33,6 +40,10 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+defineProps({
+  educations: Object,
+});
+</script>
 
 <style></style>

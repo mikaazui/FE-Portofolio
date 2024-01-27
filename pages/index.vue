@@ -18,7 +18,7 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
         <indexExperience :experiences="experiences"/>
       </div>
       <div class="min-h-screen" id="education">
-        <indexEducation />
+        <indexEducation :educations="educations"/>
       </div>
       <div class="min-h-screen" id="skills">
         <indexSkills />
@@ -41,20 +41,21 @@ const { data } = await $fetch(" http://localhost:5000/portofolio");
 const profile = data.profile;
 const projects = data.projects;
 const skills = data.skills;
-const educations = data.education;
+const educations = data.educations;
 const experiences = data.experiences;
 const blogs = data.blogs;
 
 // console.log("data profile");
 // console.log(profile);
+console.log(data)
 // console.log("data project");
 // console.log(projects);
 // console.log("data skills");
 // console.log(skills);
-// console.log("data educations");
-// console.log(educations);
-// console.log("data experiences");
-// console.log(experiences);
+console.log("data educations");
+console.log(educations);
+console.log("data experiences");
+console.log(experiences);
 // console.log("data blog");
 // console.log(blog);
 </script>

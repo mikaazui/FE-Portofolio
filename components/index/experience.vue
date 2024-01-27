@@ -8,7 +8,7 @@
     </div>
     <div class="text-3xl font-semibold text-white mb-4">Experience</div>
     <!-- list experience -->
-    <div class="flex gap-12 group" v-for="n in 2" :key="n">
+    <div class="flex gap-12 group" v-for="(exp, i) in experiences" :key="i">
       <div class="flex flex-col items-center">
         <lucideCircle
           :size="12"
@@ -18,19 +18,21 @@
       </div>
 
       <div class="mb-10">
-        <div class="group-hover:text-secondary">2020 - Present</div>
+        <div class="group-hover:text-secondary">
+          <!-- TODO redeable data -->
+          {{ exp.startDate }} - {{ exp.endDate ? exp.endDate : "present" }}
+        </div>
         <div class="flex flex-col gap-4">
           <div>
             <div class="text-2xl md:text-4xl font-semibold mt-5">
-              Framer Design & Developer
+              {{ exp.title }}
             </div>
-            <div class="text-light">Brunodee Agency</div>
+            <div class="text-light">{{ exp.company }}</div>
           </div>
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">
-              Front End WordPress Developer
+            <div class="font-semibold mt-5">
+              {{ exp.location }}
             </div>
-            <div class="text-light">Envato Market</div>
           </div>
         </div>
       </div>
@@ -40,7 +42,7 @@
 
 <script setup>
 defineProps({
-  projects: Object,
+  experiences: Object,
 });
 </script>
 
