@@ -21,7 +21,8 @@
               <div class="text-xl font-semibold text-accent">
                 {{ pj.title }}
               </div>
-              <div class="font-light opacity-60">{{pj.shortDate}}</div>
+              <!-- TODO BENERIN NTAR -->
+              <div class="font-light opacity-60">{{pj.startDate}}</div>
             </div>
             <!-- TODO create photo -->
             <div
