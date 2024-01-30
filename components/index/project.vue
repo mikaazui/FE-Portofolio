@@ -22,7 +22,7 @@
                 {{ pj.title }}
               </div>
               <!-- TODO BENERIN NTAR -->
-              <div class="font-light opacity-60">{{pj.startDate}}</div>
+              <div class="font-light opacity-60">{{ pj.readableStartDate }}</div>
             </div>
             <!-- TODO create photo -->
             <div
