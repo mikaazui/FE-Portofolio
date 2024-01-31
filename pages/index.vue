@@ -37,7 +37,8 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
 </template>
 
 <script setup>
-const { data } = await $fetch(" http://localhost:5000/portofolio");
+//csr fetch diubah ke ssr
+const { data } = await $fetch("/api/portofolio");
 const profile = data.profile;
 const projects = data.projects;
 const skills = data.skills;
