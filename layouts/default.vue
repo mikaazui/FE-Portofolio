@@ -6,7 +6,7 @@
       <slot />
     </div>
     <!-- SIDEMENU -->
-    <IndexDefaultlayoutSidemenu :menus="menus"/>
+    <IndexDefaultlayoutSidemenu :menus="menus" />
     <!-- sidebar toggle -->
     <div class="z-10 md:hidden drawer-content fixed right-0 mt-8 mr-8">
       <label for="my-drawer-4" class="btn btn-circle btn-outline">
@@ -60,12 +60,12 @@ const menus = [
     title: "Blog",
     icon: resolveComponent("LucideMessageSquareText"),
   },
-  {
-    path: "/",
-    hash: "#contact",
-    title: "Contact",
-    icon: resolveComponent("LucideContact"),
-  },
+  // {
+  //   path: "/",
+  //   hash: "#contact",
+  //   title: "Contact",
+  //   icon: resolveComponent("LucideContact"),
+  // },
 ];
 </script>
 <style>

@@ -12,26 +12,26 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
       class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:px-20 xl:px-40 pt-12"
     >
       <div class="min-h-screen" id="about">
-        <indexAbout :profile="profile"/>
+        <indexAbout :profile="profile" />
       </div>
       <div class="min-h-screen" id="experience">
-        <indexExperience :experiences="experiences"/>
+        <indexExperience :experiences="experiences" />
       </div>
       <div class="min-h-screen" id="education">
-        <indexEducation :educations="educations"/>
+        <indexEducation :educations="educations" />
       </div>
       <div class="min-h-screen" id="skills">
-        <indexSkills :skills="skills"/>
+        <indexSkills :skills="skills" />
       </div>
       <div class="min-h-screen" id="project">
-        <IndexProject :projects="projects"/>
+        <IndexProject :projects="projects" />
       </div>
       <div class="min-h-screen" id="blog">
-        <IndexBlog :blogs="blogs"/>
+        <IndexBlog :blogs="blogs" />
       </div>
-      <div class="min-h-screen" id="contact">
-        <IndexContact />
-      </div>
+      <!-- <div class="min-h-screen" id="contact">
+        <IndexContact /> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -44,19 +44,4 @@ const skills = data.skills;
 const educations = data.educations;
 const experiences = data.experiences;
 const blogs = data.blogs;
-
-// console.log("data profile");
-// console.log(profile);
-console.log(data)
-// console.log("data project");
-// console.log(projects);
-console.log("data skills");
-console.log(skills.skill);
-console.log("data educations");
-console.log(educations);
-console.log("data experiences");
-console.log(experiences);
-// console.log("data blog");
-// console.log(blog);
-
 </script>

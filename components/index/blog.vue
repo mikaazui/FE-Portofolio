@@ -16,13 +16,14 @@
       >
         <!-- images -->
         <!-- TODO bikin images -->
-        <div class="rounded-lg col-span-10 md:col-span-3 overflow-hidden">
+        <div
+          class="rounded-lg col-span-10 md:col-span-3 overflow-hidden group-hover:scale-105 duration-200"
+        >
           <div
             v-if="!blog.photos.length"
-            class="aspect-video rounded-lg col-span-10 md:col-span-3 bg-neutral group-hover:scale-110 duration-150"
+            class="aspect-video rounded-lg col-span-10 md:col-span-3 bg-neutral group-hover:scale-105 duration-200"
           ></div>
           <!-- photo pertama -->
-          <!-- TODO BENERIN INI PHOTO KAGAK MUNCUL -->
           <div v-else>
             <img
               :src="apiUri + blog.photos[0].path"
@@ -54,7 +55,6 @@
 const props = defineProps({
   blogs: Array,
 });
-console.log(props.blogs);
 
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;

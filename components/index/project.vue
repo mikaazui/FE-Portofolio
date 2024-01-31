@@ -27,7 +27,10 @@
               </div>
             </div>
             <!-- TODO create photo -->
-            <div v-if="pj.photos.length" class="overflow-hidden group-hover:scale-105 duration-200 aspect-video rounded-xl mt-2 ">
+            <div
+              v-if="pj.photos.length"
+              class="overflow-hidden group-hover:scale-105 duration-200 aspect-video rounded-xl mt-2"
+            >
               <img
                 :src="apiUri + pj.photos[0].path"
                 alt="pj.title"
@@ -44,7 +47,7 @@
                 v-for="skills in pj.skills"
                 class="rounded-xl border border-neutral text-nowrap px-2"
               >
-                Skill {{ skills.Skill.title }}
+                Skill {{ skills.title }}
               </div>
             </div>
           </div>
@@ -60,8 +63,6 @@ const props = defineProps({
 });
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-
-console.log(props.projects);
 </script>
 
 <style></style>
