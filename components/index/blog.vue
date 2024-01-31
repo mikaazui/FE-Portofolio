@@ -10,7 +10,8 @@
       <div class="text-3xl font-semibold">Latest Blog</div>
       <!-- blog list -->
       <div
-        v-for="(blog, i) in blogs" :key="i"
+        v-for="(blog, i) in blogs"
+        :key="i"
         class="grid grid-cols-10 gap-3 group hover:bg-base-200 p-3"
       >
         <!-- images -->
@@ -22,13 +23,12 @@
           ></div>
           <!-- photo pertama -->
           <!-- TODO BENERIN INI PHOTO KAGAK MUNCUL -->
-          <div
-            v-else
-            :src="apiUri + blog.photos[0].path"
-            alt="blog.title"
-            class="bg-cover h-full"
-          >
-            photo
+          <div v-else>
+            <img
+              :src="apiUri + blog.photos[0].path"
+              alt="blog.title"
+              class="bg-cover h-full"
+            />
           </div>
         </div>
 
