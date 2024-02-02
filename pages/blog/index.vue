@@ -4,12 +4,22 @@
       class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
     >
       <div class="text-4xl font-bold">FULLNAME</div>
-      <div>BLOG</div>
+      <NuxtLink to="/blog">BLOG</NuxtLink>
     </div>
 
     <!-- loop data -->
-    <div class="grid grid-cols-3 gap-6">
-      <NuxtLink :to="'/blog/' + blog.id" v-for="blog in blogs.data" class="w-full flex flex-col group">
+
+    <div class="grid grid-cols-3 justify-center gap-6">
+      <div class="join">
+        <button class="join-item btn">«</button>
+        <button class="join-item btn">{{ page }}</button>
+        <button class="join-item btn">»</button>
+      </div>
+      <NuxtLink
+        :to="'/blog/' + blog.id"
+        v-for="blog in blogs.data"
+        class="w-full flex flex-col group"
+      >
         <div
           class="text-2xl font-bold text-success pb-4 border-b border-b-neutral grow"
         >
@@ -39,6 +49,7 @@
 const blogs = await $fetch("/api/blog");
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
+const page = blogs.page;
 
 console.log(blogs);
 </script>

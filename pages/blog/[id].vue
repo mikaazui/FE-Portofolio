@@ -5,7 +5,8 @@
       class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
     >
       <div class="text-4xl font-bold">FULLNAME</div>
-      <div>BLOG</div>
+      <NuxtLink to="/blog">BLOG</NuxtLink>
+
     </div>
 
     <!-- content -->
@@ -51,6 +52,7 @@ const route = useRoute();
 const blogID = route.params.id;
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
+
 
 const blog = await $fetch(`/api/blog/${blogID}`);
 console.log(blog);

@@ -9,7 +9,7 @@
     <div class="flex flex-col mt-5 gap-5">
       <div class="text-3xl font-semibold">Latest Blog</div>
       <!-- blog list -->
-      <NuxtLink to="'/blog/' + blog.id"
+      <NuxtLink :to="'/blog/' + blog.id"
         v-for="(blog, i) in blogs"
         :key="i"
         class="grid grid-cols-10 gap-3 group hover:bg-base-200 p-3"
@@ -58,6 +58,7 @@ const props = defineProps({
 
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
+
 </script>
 
 <style></style>
