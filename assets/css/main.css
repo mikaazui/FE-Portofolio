@@ -29,12 +29,34 @@
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: rgb(42, 47, 52)                      ;
+        background: rgb(42, 47, 52);                      
         border-radius: 5px;
     }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: slategray;
+    }
+}
+
+.carousel {
+    display: block;
+}
+
+.carousel__viewport {
+    border-radius: 0.25rem;
+}
+
+@media (min-width: 768px) {
+
+    .carousel__viewport {
+        border-radius: 0.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .carousel__viewport {
+
+        border-radius: 1rem;
     }
 }

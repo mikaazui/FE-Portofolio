@@ -47,7 +47,7 @@
                 v-for="skills in pj.skills"
                 class="rounded-xl border border-neutral text-nowrap px-2"
               >
-                Skill {{ skills.title }}
+                {{ skills.title }}
               </div>
             </div>
           </div>

@@ -1,5 +1,3 @@
-import { LucideTwitter } from '#build/components'; import { IndexContact } from
-'#build/components';
 <template>
   <!-- MAIN CONTENT -->
   <div class="min-h-screen grow grid grid-cols-10">
@@ -37,12 +35,13 @@ import { LucideTwitter } from '#build/components'; import { IndexContact } from
 </template>
 
 <script setup>
+const getPortofolio = async () => {
+  try {
+    return await $fetch("/api/portofolio");
+  } catch (error) {
+    throw createError(error)
+  }
+}
+const {profile, projects, skills, educations, experiences, blogs}  = await $fetch("/api/portofolio");
 //csr fetch diubah ke ssr
-const { data } = await $fetch("/api/portofolio");
-const profile = data.profile;
-const projects = data.projects;
-const skills = data.skills;
-const educations = data.educations;
-const experiences = data.experiences;
-const blogs = data.blogs;
 </script>
