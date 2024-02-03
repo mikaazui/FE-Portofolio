@@ -3,18 +3,21 @@
     <div
       class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
     >
-      <div class="text-4xl font-bold">FULLNAME</div>
+      <div class="text-4xl font-bold">Blogs</div>
       <NuxtLink to="/blog">BLOG</NuxtLink>
     </div>
 
+    <template v-if="blogs">
+    
     <!-- loop data -->
-
-    <div class="grid grid-cols-3 justify-center gap-6">
+    <div class="flex justify-end">
       <div class="join">
-        <button class="join-item btn">«</button>
+        <button class="join-item btn" :class="{'btn-disabled' : page == 1}" @click="page--">«</button>
         <button class="join-item btn">{{ page }}</button>
-        <button class="join-item btn">»</button>
+        <button class="join-item btn" :class="{'btn-disabled' : page == maxPage}"  @click="page++">»</button>
       </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 justify-center gap-6">
       <NuxtLink
         :to="'/blog/' + blog.id"
         v-for="blog in blogs.data"
@@ -26,13 +29,13 @@
           {{ blog.title }}
         </div>
         <div>{{ blog.readableDate }}</div>
-        <div>
+        <div class="grow">
           <!-- image data -->
           <img
             v-if="blog.photos.length"
             :src="apiUri + blog.photos[0].path"
             alt=""
-            class="w-full aspect-video h-full"
+            class="w-full aspect-video h-full object-cover"
           />
           <div v-else class="w-full aspect-video bg-white"></div>
           <div class="line-clamp-2 font-light">
@@ -41,15 +44,41 @@
         </div>
       </NuxtLink>
     </div>
+    <div class="flex justify-end mt-10">
+      <div class="join">
+        <button class="join-item btn" :class="{'btn-disabled' : page == 1}" @click="page--">«</button>
+        <button class="join-item btn">{{ page }}</button>
+        <button class="join-item btn" :class="{'btn-disabled' : page == maxPage}"  @click="page++">»</button>
+      </div>
+    </div>
+  </template>
+
   </div>
 </template>
 
 <script setup>
 //ambil data blogs melalui server nuxt
-const blogs = await $fetch("/api/blog");
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-const page = blogs.page;
+
+const blogs = ref(null)
+//register on before mount
+
+
+const fetchData = (async () => {
+  blogs.value = await $fetch ("/api/blog?page=" + page.value);
+  maxPage.value = blogs.value.last_page;
+}); 
+onBeforeMount(async () => {
+  await fetchData();
+});
+const maxPage = ref(1);
+const page = ref(1);
+
+watchEffect(async () => {
+  await fetchData();
+});
+
 
 console.log(blogs);
 </script>
