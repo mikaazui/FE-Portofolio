@@ -5,7 +5,7 @@
       class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
     >
       <div class="text-4xl font-bold">FULLNAME</div>
-      <NuxtLink to="/blog">BLOG</NuxtLink>
+      <NuxtLink to="/project">Project</NuxtLink>
 
     </div>
 
@@ -24,7 +24,7 @@
               <img
                 v-for="photo in project.photos"
                 :src="apiUri + photo.path"
-                class="w-[600px] h-full rounded-xl"
+                class="w-[600px] h-full rounded-xl px-2"
                 alt=""
               />
             </div>
@@ -37,9 +37,9 @@
         </template>
       </Carousel>
     </div>
-    <div class="my-4 text-3xl font-bold text-success pb-4 border-b border-b-neutral">{{ blog.title }}</div>
-    <div class="my-4 text-lg font-light">{{ blog.readableDate }}</div>
-    <div class="my-4 justify-center">{{ blog.content }}</div>
+    <div class="my-4 text-3xl font-bold text-success pb-4 border-b border-b-neutral">{{ project.title }}</div>
+    <div class="my-4 text-lg font-light"> {{ project.readableStartDate }} - {{ project.readableEndDate ? project.readableEndDate : "Present" }}</div>
+    <div class="my-4 justify-center">{{ project.description }}</div>
 
   </div>
 </template>

@@ -53,6 +53,7 @@
           </div>
         </div>
       </div>
+      <NuxtLink to="/project" class="btn btn-primary w-full mt-5">See All Projects</NuxtLink>
     </div>
   </div>
 </template>

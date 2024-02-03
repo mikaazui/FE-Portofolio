@@ -34,7 +34,7 @@
             v-if="blog.photos.length"
             :src="apiUri + blog.photos[0].path"
             alt=""
-            class="w-full aspect-video h-full object-cover"
+            class="w-full aspect-video h-full object-cover rounded-lg"
           />
           <div v-else class="w-full aspect-video bg-white"></div>
           <div class="line-clamp-2 font-light">
@@ -63,10 +63,9 @@ const apiUri = config.public.apiUri;
 const blogs = ref(null)
 //register on before mount
 
-
 const fetchData = (async () => {
   blogs.value = await $fetch ("/api/blog?page=" + page.value);
-  maxPage.value = blogs.value.last_page;
+  maxPage.value = blogs.value.maxPage;
 }); 
 onBeforeMount(async () => {
   await fetchData();
@@ -77,7 +76,6 @@ const page = ref(1);
 watchEffect(async () => {
   await fetchData();
 });
-
 
 console.log(blogs);
 </script>
