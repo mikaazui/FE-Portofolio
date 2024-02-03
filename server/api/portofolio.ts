@@ -8,6 +8,6 @@ export default defineEventHandler(async (event) => {
     const response =  await $fetch(apiUri + "/portofolio")
     return response;
   } catch (error) {
-    throw Error;
+    throw error;
   }
 })

@@ -9,6 +9,6 @@ export default defineEventHandler(async (event) => {
   try {
     return await $fetch(`${apiUri}/blog/${id}`);
   } catch (error) {
-    throw Error;
+    throw error;
   }
 });
