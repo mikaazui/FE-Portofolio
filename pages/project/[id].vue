@@ -1,7 +1,7 @@
 <template>
     <div class="px-16">
         <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
-            <div class="text-4xl font-bold">FULLNAME</div>
+            <div class="text-4xl font-bold">{{ fullname }}</div>
             <NuxtLink to="/project">Project</NuxtLink>
 
         </div>
@@ -88,7 +88,11 @@ const apiUri = config.public.apiUri;
 const status = computed(() => {
     return project.status.replaceAll("_", " ")
 })
-
+// fetch profile
+const profile = await $fetch("/api/profile");
+const fullname = computed (() => {
+    return `${profile.firstName} ${profile.lastName}`
+})
 
 const project = await $fetch(`/api/project/${projectID}`);
 console.log(project);

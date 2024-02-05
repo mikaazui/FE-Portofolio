@@ -76,6 +76,10 @@ const page = ref(1);
 watchEffect(async () => {
   await fetchData();
 });
+// fetch fullname
+const fullname = computed (() => {
+    return `${profile.firstName} ${profile.lastName}`
+});
 
 console.log(blogs);
 </script>

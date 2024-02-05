@@ -47,5 +47,11 @@ const page = ref(1);
 watchEffect(async () => {
     await fetchData();
 });
+
+// fetch profile
+const profile = await $fetch("/api/profile");
+const fullname = computed (() => {
+    return `${profile.firstName} ${profile.lastName}`
+})
 console.log(projects);
 </script>
