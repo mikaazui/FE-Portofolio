@@ -19,9 +19,11 @@
             <div v-else class="aspect-video bg-neutral rounded-xl mt-2 group-hover:scale-105 duration-200"></div>
             <div class="flex gap-2 max-md:no-scrollbar overflow-x-auto mt-2">
                 <!-- TODO make skill relationship -->
-                <div v-for="skills in project.skills" class="rounded-xl border border-neutral text-nowrap px-2">
-                    {{ skills.title }}
-                </div>
+                <template v-if="project.skills">
+                    <div v-for="skills in project.skills" class="rounded-xl border border-neutral text-nowrap px-2">
+                        {{ skills.title }}
+                    </div>
+                </template>
             </div>
         </div>
     </NuxtLink>
