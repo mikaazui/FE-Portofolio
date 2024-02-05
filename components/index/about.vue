@@ -1,15 +1,12 @@
 <template>
   <div class="min-h-screen py-16 flex flex-col">
-    <div
-      class="border border-neutral items-center gap-1 w-fit flex rounded-full py-1 px-4 mb-5"
-    >
+    <div class="border border-neutral items-center gap-1 w-fit flex rounded-full py-1 px-4 mb-5">
       <lucideUserRound :size="18" class="text-accent" />
       <div class="uppercase text-sm font-light">About</div>
     </div>
     <div class="flex flex-col grow">
       <div class="text-5xl font-semibold mb-5">
-        Say Hi from <span class="text-success">{{ profile.firstName }}</span
-        >, Webflow Designer and Developer
+        Say Hi from <span class="text-success">{{ profile.firstName }}</span>, Webflow Designer and Developer
       </div>
       <div class="text-3xl font-semibold mb-4">
         Every great design begin with an even better story

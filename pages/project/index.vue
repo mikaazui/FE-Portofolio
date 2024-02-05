@@ -1,8 +1,6 @@
 <template>
     <div class="p-16">
-        <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
-            <NuxtLink to="/#project" class="text-4xl font-bold">Projects</NuxtLink>
-        </div>
+        <indexHeader :ttile="projects" :url="'/project'" />
 
         <template v-if="projects">
             <!-- loop data -->
@@ -27,6 +25,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "profile"
+});
+
 //ambil data blogs melalui server nuxt
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
@@ -48,10 +50,4 @@ watchEffect(async () => {
     await fetchData();
 });
 
-// fetch profile
-const profile = await $fetch("/api/profile");
-const fullname = computed (() => {
-    return `${profile.firstName} ${profile.lastName}`
-})
-console.log(projects);
 </script>

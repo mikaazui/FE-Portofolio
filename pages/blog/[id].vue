@@ -1,11 +1,7 @@
 <template>
     <div class="px-16">
         <!-- header -->
-        <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
-            <div class="text-4xl font-bold">{{ fullname }}</div>
-            <NuxtLink to="/blog">BLOG</NuxtLink>
-
-        </div>
+        <indexHeader :ttile="blogs" :url="'/blog'" />
 
         <!-- content -->
         <!-- <div class="my-4">{{ blog.content }}</div> -->
@@ -39,6 +35,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "profile"
+});
+
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
@@ -47,10 +47,7 @@ const blogID = route.params.id;
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const blog = await $fetch(`/api/blog/${blogID}`);
-const profile = await $fetch("/api/profile");
-// fetch fullname
-const fullname = computed (() => {
-    return `${profile.firstName} ${profile.lastName}`
-});
+
+
 console.log(blog);
 </script>

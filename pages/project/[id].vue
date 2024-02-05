@@ -1,15 +1,11 @@
 <template>
     <div class="px-16">
-        <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
-            <div class="text-4xl font-bold">{{ fullname }}</div>
-            <NuxtLink to="/project">Project</NuxtLink>
-
-        </div>
+        <indexHeader :ttile="blogs" :url="'/project'" />
         <!-- content project -->
         <div class="grid grid-cols-10 gap-6 items-center">
             <!-- sebelah kanan -->
 
-            <div class="col-span-full md:col-span-7">
+            <div class="col-span-full md:col-span-6">
                 <!-- photos -->
                 <div>
                     <Carousel :items-to-show="2" :wrapAround="true" :autoplay="3000">
@@ -31,7 +27,7 @@
 
             </div>
             <!-- sebelah kiri -->
-            <div class="col-span-full md:col-span-3 bg-base-300 p-6 rounded-xl">
+            <div class="col-span-full md:col-span-4 bg-base-300 p-6 rounded-xl">
                 <!-- data detail -->
                 <!-- content -->
                 <div class="flex items-center">
@@ -77,6 +73,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "profile"
+});
+
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
@@ -84,16 +84,11 @@ const route = useRoute();
 const projectID = route.params.id;
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
+const project = await $fetch(`/api/project/${projectID}`);
+console.log(project);
 //modify status string
 const status = computed(() => {
     return project.status.replaceAll("_", " ")
 })
-// fetch profile
-const profile = await $fetch("/api/profile");
-const fullname = computed (() => {
-    return `${profile.firstName} ${profile.lastName}`
-})
 
-const project = await $fetch(`/api/project/${projectID}`);
-console.log(project);
 </script>
