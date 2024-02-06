@@ -1,14 +1,18 @@
 <template>
-    <div>
-
-        <div class="flex flex-col items-center p-16">
-            <div class="font-bold text-4xl">Oops...</div>
-            <div class="flex gap-3">
-                <div class="font-bold text-3xl">{{ error.statusCode }}</div>
-                <div class="font-bold text-3xl">{{ error.statusMessage }}</div>
+    <div class="bg-neutral-100 w-full min-h-screen flex flex-col items-center justify-center p-16" data-theme='retro'>
+        <div>
+            <div class="flex flex-col items-center">
+                <div class="text-8xl text-error font-semibold mb-5">
+                    {{ error.statusCode }}
+                </div>
+                <div class="text-2xl font-semibold mb-5">
+                    Oops.. the page you're looking for aren't exist.
+                </div>
+                <div class="text-3xl font-semibold mb-5">
+                    {{ error.message }}
+                </div>
+                <a href="/#" class="btn btn-outline btn-primary-content">back to home</a>
             </div>
-            <ImagesBottle class="opacity-90" />
-            <NuxtLink to="/" class="text-xl font-semibold btn btn-primary">Back To Home</NuxtLink>
         </div>
     </div>
 </template>
