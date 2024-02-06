@@ -6,9 +6,7 @@
       <IndexProfileCard :profile="profile" />
     </div>
     <!-- SECTIONS -->
-    <div
-      class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:px-20 xl:px-40 pt-12"
-    >
+    <div class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:px-20 xl:px-40 pt-12">
       <div class="min-h-screen" id="about">
         <indexAbout :profile="profile" />
       </div>
@@ -35,13 +33,24 @@
 </template>
 
 <script setup>
-const getPortofolio = async () => {
-  try {
-    return await $fetch("/api/portofolio");
-  } catch (error) {
-    throw createError(error)
-  }
-}
-const {profile, projects, skills, educations, experiences, blogs}  = await $fetch("/api/portofolio");
+// const getPortofolio = async () => {
+//   try {
+//     return await $fetch("/api/portofolio");
+//   } catch (error) {
+//     throw createError(error)
+//   }
+// }
+
+definePageMeta({
+  middleware: "profile"
+});
+const { value: useProfile } = useState('profile')
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`
+useSeoMeta({
+  title: fullname + ' | Portofolio',
+  description: useProfile.bio
+});
+
+const { profile, projects, skills, educations, experiences, blogs } = await $fetch("/api/portofolio");
 //csr fetch diubah ke ssr
 </script>
