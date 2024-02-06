@@ -41,10 +41,11 @@
                     <div class="font-bold">Company: {{ project.company ? project.company : 'No Company' }}
                     </div>
                 </div>
-                <template v-if ="project.skills">
+                <template v-if="project.skills">
                     <!-- skills -->
                     <div class="flex gap-2 auto mt-3">
-                        <div v-for="skills in project.skills" class="rounded-xl badge badge-outline badge-success text-nowrap px-2">
+                        <div v-for="skills in project.skills"
+                            class="rounded-xl badge badge-outline badge-success text-nowrap px-2">
                             {{ skills.title }}
                         </div>
                     </div>
@@ -55,11 +56,13 @@
         <div class="">
             <div class="my-4 justify-center">{{ project.description }}</div>
             <div class="my-4 justify-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam tenetur
-                voluptatibus aspernatur ipsam, aperiam error veniam cumque aut in corrupti placeat ea libero quia. Magnam culpa
+                voluptatibus aspernatur ipsam, aperiam error veniam cumque aut in corrupti placeat ea libero quia. Magnam
+                culpa
                 dolorum totam dicta, veritatis dolor numquam! Repudiandae dicta, id sapiente rerum autem neque! Repudiandae
                 tempora
                 incidunt nulla soluta neque perspiciatis unde rem ea molestias dolores ipsa in consequuntur veniam, suscipit
-                laboriosam. Itaque dolores voluptates ratione illo fuga, quisquam praesentium qui, et obcaecati corporis iste
+                laboriosam. Itaque dolores voluptates ratione illo fuga, quisquam praesentium qui, et obcaecati corporis
+                iste
                 ab?
                 Veritatis cum nihil totam doloribus delectus mollitia labore corrupti nulla voluptatibus nam voluptatem
                 possimus,
@@ -67,24 +70,36 @@
                 perferendis
                 amet ipsa?</div>
         </div>
-        </div>
-        <!-- header -->
-
+    </div>
+    <!-- header -->
 </template>
 
 <script setup>
 definePageMeta({
-  middleware: "profile"
+    middleware: "profile"
 });
+const route = useRoute();
+const projectID = route.params.id;
+const project = await $fetch(`/api/project/${projectID}`);
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
+
+const { value: useProfile } = useState('profile')
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`
+useSeoMeta({
+    title:  `${fullname} | Project | ${ project.id }`,
+    description: useProfile.bio,
+    ogTitle: fullname + ' | Portofolio',
+    ogDescription: useProfile.bio,
+    ogImage: apiUri + useProfile.avatar,
+    twitterCard: 'summary_large_image'
+});
+
 
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
-const route = useRoute();
-const projectID = route.params.id;
-const config = useRuntimeConfig();
-const apiUri = config.public.apiUri;
-const project = await $fetch(`/api/project/${projectID}`);
+
 console.log(project);
 //modify status string
 const status = computed(() => {

@@ -28,10 +28,19 @@
 definePageMeta({
   middleware: "profile"
 });
-
-//ambil data blogs melalui server nuxt
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
+
+const { value: useProfile } = useState('profile')
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`
+useSeoMeta({
+    title: fullname + ' | Projects',
+    description: useProfile.bio,
+    ogTitle: fullname + ' | Portofolio',
+    ogDescription: useProfile.bio,
+    ogImage: apiUri + useProfile.avatar,
+    twitterCard: 'summary_large_image'
+});
 
 const projects = ref(null);
 //register on before mount

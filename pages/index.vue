@@ -44,11 +44,18 @@
 definePageMeta({
   middleware: "profile"
 });
+// seo meta
+const config = useRuntimeConfig()
+const apiUri = config.apiUri
 const { value: useProfile } = useState('profile')
 const fullname = `${useProfile.firstName} ${useProfile.lastName}`
 useSeoMeta({
   title: fullname + ' | Portofolio',
-  description: useProfile.bio
+  description: useProfile.bio,
+  ogTitle: fullname + ' | Portofolio',
+  ogDescription: useProfile.bio,
+  ogImage:apiUri + useProfile.avatar,
+  twitterCard: 'summary_large_image'
 });
 
 const { profile, projects, skills, educations, experiences, blogs } = await $fetch("/api/portofolio");
