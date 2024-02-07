@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
-    <NuxtLink to="/#blog" class="text-4xl font-bold">{{ fullname }}</NuxtLink>
+    <NuxtLink to="/#blog" class="text-4xl text-accent font-bold">{{ fullname }}</NuxtLink>
   </div>
 </template>
 
