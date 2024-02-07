@@ -6,7 +6,7 @@
       <LucideBriefcase :size="18" class="text-accent" />
       <div class="uppercase text-sm font-light">Experience</div>
     </div>
-    <div class="text-3xl font-semibold text-white mb-4">Experience</div>
+    <div class="text-3xl font-semibold mb-4">Experience</div>
     <!-- list experience -->
     <div class="flex gap-12 group" v-for="(exp, i) in experiences" :key="i">
       <div class="flex flex-col items-center">

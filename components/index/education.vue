@@ -6,7 +6,7 @@
       <LucideSchool :size="18" class="text-accent" />
       <div class="uppercase text-sm font-light">Education</div>
     </div>
-    <div class="text-3xl font-semibold text-white mb-4">Education</div>
+    <div class="text-3xl font-semibold mb-4">Education</div>
     <!-- list experience -->
     <div class="flex gap-12 group" v-for="(ed, i) in educations" :key="i">
       <div class="flex flex-col items-center">

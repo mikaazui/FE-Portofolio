@@ -5,7 +5,7 @@
       <div class="uppercase text-sm font-light">Project</div>
     </div>
     <div class="mt-10">
-      <div class="text-3xl font-semibold text-white mb-4">Latest Project</div>
+      <div class="text-3xl font-semibold mb-4">Latest Project</div>
       <!-- list Project -->
       <div class="md:grid md:grid-cols-2 flex flex-col gap-4">
         <!-- project items -->
