@@ -73,8 +73,12 @@
           <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
           <ul class="menu p-4  w-64 min-h-full text-base-content max-lg:bg-base-200">
             <!-- Sidebar content here -->
-            <li><a>Sidebar Item 1</a></li>
-            <li><a>Sidebar Item 2</a></li>
+            <li><a>Profile</a></li>
+            <li><a>Projects</a></li>
+            <li><a>Blogs</a></li>
+            <li><a>Educations</a></li>
+            <li><a>Experiences</a></li>
+            <li><a>Skills</a></li>
           </ul>
 
         </div>
