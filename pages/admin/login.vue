@@ -1,34 +1,35 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen items-center justify-center" data-theme="retro">
-    <div class="bg-white h-full w-full flex justify-center">
-      <imagesProgrammer />
-    </div>
-    <div class="max-md:absolute p-16 h-full w-full flex flex-col items-center justify-center">
-      <!-- content form -->
-      <div class="bg-black/10 md:bg-white/50 rounded-md h-[400px] w-[380px] p-16">
-        <div class="text-4xl text-center font-semibold">{{ fullname }}</div>
-
-        <div class="flex flex-col items-center h-full w-full justify-center">
+  <div>
+    <div
+    class="w-full flex flex-col justify-center min-h-screen bg-gradient-to-tl from-gray-400 from-10% to-transparent to-100%"
+    data-theme="dark">
+      <div class="text-white/70 flex flex-col items-center">
+        <div class="p-5 border flex flex-col items-center w-[360px] md:w-[380px] border-white/30 rounded-lg">
+          <div class="flex-none pb-24 pt-20">
+            <img src="/logo.svg" class="w-20" alt="" srcset="">
+          </div>
           <!-- email -->
-          <div class="w-full">
-            <label for="email">Email</label>
-            <input v-model="formData.email" class="p-1.5 rounded-sm block w-full" type="email" name="email" id="email"
-              placeholder="Type your Email" />
-          </div>
+          <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Email Address</span>
+            </div>
+            <input input v-model="formData.email" type="text" placeholder="Email"
+              class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
+          </label>
           <!-- password -->
-          <div class="w-full">
-            <label for="email">Password</label>
-            <input v-model="formData.password" class="p-1.5 rounded-sm block w-full" type="password" name="password"
-              id="password" placeholder="Type your password" />
-          </div>
-          <!-- submit button -->
-          <div class="w-full flex items-center my-7 justify-center">
-            <button @click="doLogin" type="submit" class="btn btn-success rounded-sm w-full">Submit</button>
-
-          </div>
+          <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Password</span>
+            </div>
+            <input input v-model="formData.password" type="text" placeholder="Password"
+              class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
+          </label>
+          <button @click="doLogin" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>
         </div>
       </div>
+
     </div>
+    <div class="fixed bottom-2 right-2 text-xs text-white/40">&copy2024 Valent, All Rights Reserved.</div>
 
   </div>
 </template>
@@ -65,6 +66,5 @@ const doLogin = async () => {
   console.log(response)
   //sementara redirect ke halaman home
   navigateTo('/admin')
-
-}
+};
 </script>

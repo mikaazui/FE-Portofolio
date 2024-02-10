@@ -19,7 +19,7 @@
                 <div>{{ profile.email }}</div>
                 <div>{{ profile.city }}, {{ profile.country }}</div>
             </div>
-            <div class="text-center mt-5  opacity-50">
+            <div class="text-center mt-5 opacity-50">
                 &copy;{{ year }} {{ profile.firstName }}, All Rights Reserved
             </div>
 
