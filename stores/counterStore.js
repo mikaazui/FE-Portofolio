@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter' {
+//latihan state management w pinia
+export const useCounterStore = defineStore('counter', {
   state: () => {
     return {count: 0}
   },

@@ -13,6 +13,6 @@
 definePageMeta({
     layout: 'admin'
 })
-import { useCounterStore } from '../../stores/counterStore';
+import { useCounterStore } from '../stores/counterStore';
 const CounterStore = useCounterStore(); 
 </script>
