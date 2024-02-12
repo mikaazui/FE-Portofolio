@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-lucide-icons"],
+  modules: ["nuxt-lucide-icons", "@pinia/nuxt"],
   runtimeConfig: {
     apiUri: "http://localhost:5000", // can be overridden by NUXT_API_SECRET environment variable
     public: {
