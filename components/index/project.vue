@@ -9,7 +9,7 @@
       <!-- list Project -->
       <div class="md:grid md:grid-cols-2 flex flex-col gap-4">
         <!-- project items -->
-        <template v-for="(pj, i) in projects">
+        <template v-for="(pj) in projects">
           <ProjectThumbnail :project="pj" />
         </template>
       </div>
