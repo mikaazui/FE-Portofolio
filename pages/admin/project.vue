@@ -2,9 +2,6 @@
   <div>
     ini halaman project
   </div>
-  <div>
-    {{ CounterStore.count }}
-  </div>
 </template>
 
 <script setup>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            class="w-full flex flex-col justify-center min-h-screen bg-gradient-to-tl from-gray-400 from-10% to-transparent to-100%">
+            class="w-full flex flex-col justify-center min-h-screen bg-gradient-to-br from-gray-400 from-10% to-transparent to-100%">
             <div class="text-white/70 flex flex-col items-center">
                 <div class="p-5 flex flex-col items-center w-[360px] md:w-[380px] border-2 border-white/30 rounded-lg">
                     <div class="flex-none pb-24 pt-20">

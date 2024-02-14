@@ -18,6 +18,11 @@ const menus = [
     title: "Project",
     to: "/admin/project",
     icon: resolveComponent("LucideNotebook-tabs"),
+  },
+  {
+    title: "Profile",
+    to: "/admin/profile",
+    icon: resolveComponent("LucideUser"),
   }
 ];
 

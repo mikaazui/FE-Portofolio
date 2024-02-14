@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-blue-800 transition ease-out duration-1000">
+    class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-gradient-to-br from-gray-500 from-10% to-transparent to-100% transition-all duration-300">
     <!-- mobile header -->
     <div class="lg:hidden h-[70px] relative border-b border-white/20 px-3">
       <div class="h-full flex justify-between items-center">
@@ -8,7 +8,7 @@
           <img src="/logo.svg" class="h-8" alt="" srcset="">
         </a>
         <label for="my-drawer-2" class="btn btn-ghost btn-circle">
-          <LucideAlignRight :size="20" class="cursor-pointer text-white" />
+          <LucideAlignRight :size="20" class="cursor-pointer " />
         </label>
       </div>
     </div>
@@ -39,7 +39,7 @@
               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" class="rounded-full" />
             </div>
           </div>
-          <div class="dropdown-content z-[1] rounded-md menu shadow bg-blue-700 w-52">
+          <div class="dropdown-content z-[1] rounded-md menu shadow bg-gradient-to-tl from-gray-500 from-10% to-slate-600 to-100% text-white w-52">
             <ul tabindex="0" class="p-2">
               <div class="border-b border-white/30 px-1.5 pb-3">
                 <div class="font-semibold">Valent Stefanos</div>
@@ -66,7 +66,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col items-center justify-center">
           <!-- main content -->
-          <div class="bg-base-100 h-full w-full rounded-2xl lg-rounded-3xl flex flex-col p-16">
+          <div class="bg-base-100 h-full w-full rounded-2xl shadow-xl lg-rounded-3xl flex flex-col p-16">
             <div class="h-40">
               <slot />
             </div>

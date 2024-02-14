@@ -1,6 +1,4 @@
 <template>
-    
-    
     <!-- ga punya children -->
     <li v-if="!menu.children">
         <NuxtLink :to="menu.to" class="p-4 mt-1">
