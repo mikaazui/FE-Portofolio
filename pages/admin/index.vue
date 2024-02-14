@@ -5,8 +5,6 @@
     <div>
         {{ CounterStore.count }}
     </div>
-    <button class="btn btn-primary" @click="CounterStore.increment">add counter</button>
-    <button class="btn btn-primary" @click="CounterStore.decrement">add counter</button>
 </template>
 
 <script setup>
