@@ -1,6 +1,6 @@
 <template>
   <!-- MAIN CONTENT -->
-  <div class="min-h-screen grow grid grid-cols-10" data-theme="dark">
+  <div class="min-h-screen grow grid grid-cols-10">
     <!-- PROFILE CARD -->
     <div class="col-span-10 md:col-span-5 lg:col-span-4 xl:col-span-3 w-full">
       <IndexProfileCard :profile="profile" />

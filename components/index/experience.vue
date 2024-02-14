@@ -23,11 +23,12 @@
           {{ exp.startDate }} - {{ exp.endDate ? exp.endDate : "present" }}
         </div>
         <div class="flex flex-col gap-4">
+          <!-- TODO ubah sesuai kebutuhan (mana yang harus pertama) -->
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">
+            <div class="text-2xl md:text-4xl font-semibold mt-5 mb-3">{{ exp.company }}</div>
+            <div class="text-light" >
               {{ exp.title }}
             </div>
-            <div class="text-light">{{ exp.company }}</div>
           </div>
           <div>
             <div class="font-semibold mt-5">
