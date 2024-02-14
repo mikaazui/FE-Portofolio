@@ -20,7 +20,7 @@
                         <div class="label">
                             <span class="label-text">Password</span>
                         </div>
-                        <input input v-model="formData.password" type="text" placeholder="Password"
+                        <input input v-model="formData.password" type="password" placeholder="Password"
                             class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
                     </label>
                     <button @click="doLogin" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>

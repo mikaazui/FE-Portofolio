@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-blue-800" data-theme="light">
+  <div class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-blue-800 transition ease-out duration-1000">
     <!-- mobile header -->
     <div class="lg:hidden h-[70px] relative border-b border-white/20 px-3">
       <div class="h-full flex justify-between items-center">
@@ -22,12 +22,13 @@
           <div class="font-semibold text-2xl max-lg:hidden">Valent Stefanos</div>
         </a>
         <!-- sisi kanan -->
-        <div class="grow flex justify-between items-center text-sm breadcrumbs pl-4 lg:border-l border-white/30">
+        <div class="grow flex overflow-hidden justify-between items-center text-sm breadcrumbs pl-4 lg:border-l border-white/30">
           <ul class="font-light">
             <li><a>Home</a></li>
             <li><a>Documents</a></li>
             <li>Add Document</li>
           </ul>
+          <DefaultlayoutThemeToggle />
         </div>
         <!-- avatar -->
         <div class="dropdown dropdown-end">
