@@ -1,5 +1,6 @@
 <template>
-  <div class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-blue-800 transition ease-out duration-1000">
+  <div
+    class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-blue-800 transition ease-out duration-1000">
     <!-- mobile header -->
     <div class="lg:hidden h-[70px] relative border-b border-white/20 px-3">
       <div class="h-full flex justify-between items-center">
@@ -22,7 +23,8 @@
           <div class="font-semibold text-2xl max-lg:hidden">Valent Stefanos</div>
         </a>
         <!-- sisi kanan -->
-        <div class="grow flex overflow-hidden justify-between items-center text-sm breadcrumbs pl-4 lg:border-l border-white/30">
+        <div
+          class="grow flex overflow-hidden justify-between items-center text-sm breadcrumbs pl-4 lg:border-l border-white/30">
           <ul class="font-light">
             <li><a>Home</a></li>
             <li><a>Documents</a></li>
@@ -72,7 +74,7 @@
         </div>
         <div class="drawer-side">
           <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-         <AdminLayoutNavigation />
+          <AdminLayoutNavigation />
         </div>
       </div>
 
@@ -82,6 +84,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  colorMode: 'system'
+});
 
 const config = useRuntimeConfig()
 const apiUri = config.public.apiUri

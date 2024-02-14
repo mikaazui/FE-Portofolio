@@ -14,6 +14,7 @@
   </div>
 </template>
 
+
 <script setup>
 const colorMode = useColorMode();
 </script>

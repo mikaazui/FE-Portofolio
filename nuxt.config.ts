@@ -10,8 +10,8 @@ export default defineNuxtConfig({
   },
   modules: ['nuxt-lucide-icons', '@pinia/nuxt', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@vueuse/nuxt'],
   colorMode: {
-    preference: 'light', // default theme
-    dataValue: 'dark', // activate data-theme in <html> tag
+    preference: 'system', // default theme
+    dataValue: 'light', // activate data-theme in <html> tag
   },
   runtimeConfig: {
     apiUri: "http://localhost:5000", // can be overridden by NUXT_API_SECRET environment variable
