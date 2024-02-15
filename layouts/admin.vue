@@ -1,11 +1,10 @@
 <template>
   <div
-  data-theme = 'theme'
     class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-gradient-to-br from-gray-500 from-10% to-transparent to-100% transition-all duration-300">
     <!-- mobile header -->
     <div class="lg:hidden h-[70px] relative border-b border-white/20 px-3">
       <div class="h-full flex justify-between items-center">
-        <a href="" class="flex-none flex-gap-4 items-center">
+        <NuxtLink to="/admin" class="flex-none flex-gap-4 items-center">
           <img src="/logo.svg" class="h-8" alt="" srcset="">
         </a>
         <label for="my-drawer-2" class="btn btn-ghost btn-circle">
@@ -19,10 +18,10 @@
       <div class=" h-full flex items-center gap-3">
         <!-- sisi kiri -->
 
-        <a href="/admin" class="intro-x hidden lg:flex items-center gap-3">
+        <NuxtLink to="/admin" class="intro-x hidden lg:flex items-center gap-3">
           <img src="/logo.svg" alt="logo.svg" class="w-7 max-lg:hidden" srcset="">
           <div class="font-semibold text-2xl max-lg:hidden">Valent Stefanos</div>
-        </a>
+        </NUxtLink>
         <!-- sisi kanan -->
         <div
           class="grow flex overflow-hidden justify-between items-center text-sm breadcrumbs pl-4 lg:border-l border-white/30">
