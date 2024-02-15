@@ -3,8 +3,10 @@
         ini halaman index
     </div>
     <div>
-        name:{{ authStore.user.name }}
-        email:{{ authStore.user.email }}
+        name: {{ authStore.user.name }}
+    </div>
+    <div>
+        email: {{ authStore.user.email }}
     </div>
 </template>
 

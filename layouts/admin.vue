@@ -1,5 +1,6 @@
 <template>
   <div
+  data-theme = 'theme'
     class="w-screen h-screen max-w-screen overflow-x-hidden min-h-screen bg-gradient-to-br from-gray-500 from-10% to-transparent to-100% transition-all duration-300">
     <!-- mobile header -->
     <div class="lg:hidden h-[70px] relative border-b border-white/20 px-3">
