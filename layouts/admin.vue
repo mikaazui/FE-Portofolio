@@ -83,7 +83,8 @@
 
 <script setup>
 definePageMeta({
-  colorMode: 'system'
+  colorMode: 'system',
+  middleware: ['auth']
 });
 
 onMounted(() => {
