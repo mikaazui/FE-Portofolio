@@ -89,7 +89,6 @@ definePageMeta({
 onMounted(() => {
   console.log("mounted")
 })
-
 const authStore = useAuthStore()
 </script>
 

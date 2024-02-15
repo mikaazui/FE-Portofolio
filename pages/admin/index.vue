@@ -2,12 +2,15 @@
     <div>
         ini halaman index
     </div>
+    <div>
+        name:{{ authStore.user.name }}
+        email:{{ authStore.user.email }}
+    </div>
 </template>
 
 <script setup>
 definePageMeta({
     layout: 'admin'
 })
-import { useCounterStore } from '../stores/counterStore';
-const CounterStore = useCounterStore(); 
+const authStore = useAuthStore()
 </script>

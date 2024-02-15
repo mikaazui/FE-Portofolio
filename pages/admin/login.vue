@@ -37,15 +37,9 @@
 <script setup>
 definePageMeta({
     layout: false,
-    middleware: ['profile']
+    middleware: ['auth']
 
 });
-const config = useRuntimeConfig()
-const apiUri = config.public.apiUri
-
-const { value: useProfile } = useState('profile')
-const fullname = `${useProfile.firstName} ${useProfile.lastName}`
-
 const formData = ref({
     email: '',
     password: ''

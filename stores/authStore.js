@@ -1,17 +1,21 @@
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", {
-  state: () => ({}),
+  state: () => ({
+    user: {
+      email: ""
+    }
+  }),
   actions: {
     async login(formData) {
       // get api uri
       const config = useRuntimeConfig();
-      const apiUri = config.apiUri;
+      const apiUri = config.public.apiUri;
       console.log(formData);
       //convert to json
       const jsonData = JSON.stringify(formData);
 
-      const response = await $fetch(apiUri + "/login", {
+      const user = await $fetch(apiUri + "/login", {
         method: "POST",
         body: jsonData,
         headers: {
@@ -19,25 +23,25 @@ export const useAuthStore = defineStore("auth", {
         },
         credentials: "include",
       });
-      console.log(response);
+      
+      console.log(user);
+      this.user = user;
       //sementara redirect ke halaman home
       navigateTo("/admin");
-      //handle login
-      console.log("handle login");
     },
     async logout() {
       //handle logout
       const config = useRuntimeConfig();
-      const apiUri = config.apiUri;
-      const response = await $fetch(apiUri + '/logout', {
-        method: 'DELETE',
+      const apiUri = config.public.apiUri;
+      const response = await $fetch(apiUri + "/logout", {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        credentials: 'include'
+        credentials: "include",
       });
-      console.log(response)
-      navigateTo('/admin/login')
+      console.log(response);
+      navigateTo("/admin/login");
     },
   },
 });
