@@ -23,7 +23,7 @@
                         <input input v-model="formData.password" type="password" placeholder="Password"
                             class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
                     </label>
-                    <button @click="doLogin" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>
+                    <button @click="authStore.login(formData)" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>
                 </div>
                 <DefaultlayoutThemeToggle class=" fixed left-2 bottom-2 opacity-50"/>    
             </div>
@@ -37,7 +37,7 @@
 <script setup>
 definePageMeta({
     layout: false,
-    middleware: 'profile'
+    middleware: ['profile']
 
 });
 const config = useRuntimeConfig()
@@ -51,20 +51,9 @@ const formData = ref({
     password: ''
 });
 
-
-const doLogin = async () => {
-    console.log(formData.value)
-    const jsonData = JSON.stringify(formData.value)
-    const response = await $fetch(apiUri + '/login', {
-        method: 'POST',
-        body: jsonData,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include'
-    });
-    console.log(response)
-    //sementara redirect ke halaman home
-    navigateTo('/admin')
-};
+onMounted(() => {   
+  console.log("mounted")
+})
+//AuthStore/ PINIA
+const authStore = useAuthStore()
 </script>

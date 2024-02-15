@@ -77,9 +77,7 @@
           <AdminLayoutNavigation />
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -102,6 +100,9 @@ const logout = async () => {
   navigateTo('/admin/login')
 }
 
+onMounted(() => {
+  console.log("mounted")
+})
 </script>
 
 <style>
