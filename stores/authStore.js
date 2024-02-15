@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("auth", {
       console.log(formData);
       //convert to json
       const jsonData = JSON.stringify(formData);
-      
+
       const response = await $fetch(apiUri + "/login", {
         method: "POST",
         body: jsonData,
@@ -25,9 +25,19 @@ export const useAuthStore = defineStore("auth", {
       //handle login
       console.log("handle login");
     },
-    logout() {
+    async logout() {
       //handle logout
-      console.log("handle logout");
+      const config = useRuntimeConfig();
+      const apiUri = config.apiUri;
+      const response = await $fetch(apiUri + '/logout', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+      console.log(response)
+      navigateTo('/admin/login')
     },
   },
 });

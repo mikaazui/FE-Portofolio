@@ -49,7 +49,7 @@
                   <LucideUser :size="16" /> User
                 </a>
               </li>
-              <li><button @click="logout">
+              <li><button @click="authStore.logout">
                   <LucideLogOut :size="16" /> Log Out
                 </button>
               </li>
@@ -86,23 +86,11 @@ definePageMeta({
   colorMode: 'system'
 });
 
-const config = useRuntimeConfig()
-const apiUri = config.public.apiUri
-const logout = async () => {
-  const response = await $fetch(apiUri + '/logout', {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include'
-  });
-  console.log(response)
-  navigateTo('/admin/login')
-}
-
 onMounted(() => {
   console.log("mounted")
 })
+
+const authStore = useAuthStore()
 </script>
 
 <style>
