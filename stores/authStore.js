@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", {
-  state: () => ({user: null}),
+  state: () => ({ user: null }),
   actions: {
     async login(formData) {
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
-      console.log(formData);
+      // console.log(formData);
       //convert to json
       const jsonData = JSON.stringify(formData);
 
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore("auth", {
         credentials: "include",
       });
 
-      console.log(user);
+      // console.log(user);
       this.user = user;
       //sementara redirect ke halaman home
       navigateTo("/admin");
@@ -41,25 +41,8 @@ export const useAuthStore = defineStore("auth", {
     },
     async getUser() {
       const Api = useApiStore();
-      const user = await Api.get('/user')
+      const user = await Api.get("/user");
       this.user = user;
-      
-      // try {
-      //   const config = useRuntimeConfig();
-      //   const apiUri = config.public.apiUri;
-      //   const user = await $fetch(apiUri + "/user", {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     credentials: "include",
-      //   });
-      //   this.user = user;
-        
-      // } catch (error) {
-      //   console.log('========= Error =========')
-      //   console.log(error)
-      // }
     },
   },
 });

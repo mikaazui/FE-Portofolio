@@ -21,7 +21,7 @@
         <div class="group-hover:text-secondary">
           {{ ed.startYear }} - {{ ed.endYear ? ed.endYear : "Present" }}
         </div>
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col">
           <div>
             <div class="text-2xl md:text-4xl font-semibold mt-5">
               {{ed.insituitionName}}
@@ -29,10 +29,10 @@
             <div class="text-light">{{ed.degree}}</div>
           </div>
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">
+            <div class="text-lg text-light mt-2">
               {{ed.major}}
             </div>
-            <div class="text-light">{{ed.city}}</div>
+            <div class="text-light mt-5">{{ed.city}}</div>
           </div>
         </div>
       </div>

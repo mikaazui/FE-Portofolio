@@ -4,17 +4,17 @@ export const useApiStore = defineStore('api', {
   actions: {
     //get
     async get(path) {
+      const config = useRuntimeConfig();
+      const apiUri = config.public.apiUri;
       try {
-        const config = useRuntimeConfig();
-        const apiUri = config.public.apiUri;
-        const user = await $fetch(apiUri + "/user", {
+        const data = await $fetch(apiUri + path, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
         });
-        this.user = user;
+        return data;
         
       } catch (error) {
         console.log('========= Error =========');

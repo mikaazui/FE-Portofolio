@@ -6,7 +6,7 @@
       <div class="h-full flex justify-between items-center">
         <NuxtLink to="/admin" class="flex-none flex-gap-4 items-center">
           <img src="/logo.svg" class="h-8" alt="" srcset="">
-        </a>
+        </NuxtLink>
         <label for="my-drawer-2" class="btn btn-ghost btn-circle">
           <LucideAlignRight :size="20" class="cursor-pointer " />
         </label>

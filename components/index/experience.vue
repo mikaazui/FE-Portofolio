@@ -20,7 +20,7 @@
       <div class="mb-10">
         <div class="group-hover:text-secondary">
           <!-- TODO redeable data -->
-          {{ exp.startDate }} - {{ exp.endDate ? exp.endDate : "present" }}
+          {{ exp.readableStartDate }} - {{ exp.readableEndDate }}
         </div>
         <div class="flex flex-col gap-4">
           <!-- TODO ubah sesuai kebutuhan (mana yang harus pertama) -->
