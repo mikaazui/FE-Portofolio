@@ -1,77 +1,77 @@
 <template>
-    <div class="px-16">
-        <indexHeader :ttile="blogs" :url="'/project'" />
-        <!-- content project -->
-        <div class="grid grid-cols-10 gap-6 items-center">
-            <!-- sebelah kanan -->
-
-            <div class="col-span-full md:col-span-6">
-                <!-- photos -->
-                <div>
-                    <Carousel :items-to-show="2" :wrapAround="true" :autoplay="3000">
-                        <Slide v-for="photo in project.photos" :key="photo.id">
-                            <div class="w-full h-full">
-                                <div class="justify-center bg-contain">
-                                    <img v-for="photo in project.photos" :src="apiUri + photo.path"
-                                        class="w-[600px] h-full rounded-xl px-2" alt="" />
-                                </div>
-                            </div>
-                        </Slide>
-
-                        <template #addons>
-                            <Navigation />
-                            <Pagination />
-                        </template>
-                    </Carousel>
-                </div>
-
-            </div>
-            <!-- sebelah kiri -->
-            <div class="col-span-full md:col-span-4 bg-base-300 p-6 rounded-xl">
-                <!-- data detail -->
-                <!-- content -->
-                <div class="flex items-center">
-                    <div class="text-3xl font-bold text-success border-b border-b-neutral">{{ project.title }}</div>
-                    <div class="font-bold p-2 bg-base-200 rounded-xl flex justify-center">{{ status }}</div>
-                </div>
-
-                <div class="mt-4">
-                    <div class="text-lg font-semibold">Date: {{ project.readableStartDate }} - {{ project.readableEndDate ?
-                        project.readableEndDate : "Present " }}</div>
-                    <div class="font-bold">Company: {{ project.company ? project.company : 'No Company' }}
+    <div>
+        <IndexHeader />
+    </div>
+    <div class="grid grid-cols-10 min-h-screen w-full gap-3 p-6 md:p-14">
+        <!-- carousel/kiri/photos -->
+        <div class="col-span-full md:col-span-6">
+            <div class="col-span-full md:col-span-4 flex order-first md:hidden">
+                <!-- Mobile Version -->
+                <!-- project details -->
+                <div class="bg-base-200 rounded-2xl mb-2 mt-4 grow p-3 md:p-6">
+                    <div class="flex flex-col gap-3">
+                        <div class="text-2xl font-bold text-success">{{ project.title }}</div>
+                        <div class="text-md">{{ project.readableStartDate }} - {{ project.readableEndDate }}</div>
+                        <div class=" capitalize badge badge-success">{{ status }}</div>
                     </div>
-                </div>
-                <template v-if="project.skills">
                     <!-- skills -->
-                    <div class="flex gap-2 auto mt-3">
+                    <div class="flex gap-2 my-3">
                         <div v-for="skills in project.skills"
                             class="rounded-xl badge badge-outline badge-success text-nowrap px-2">
                             {{ skills.title }}
                         </div>
                     </div>
-                </template>
+                </div>
+            </div>
+
+            <template>
+                <carousel :items-to-show="1">
+                    <slide v-for="photo in 2" :key="photo">
+                        <img v-for="photo in project.photos" :src="apiUri + photo.path" class="" alt="">
+                        <!-- <div class="aspect-video bg-white w-full h-full"></div> -->
+                    </slide>
+
+                    <template #addons>
+                        <navigation />
+                        <pagination />
+                    </template>
+                </carousel>
+            </template>
+
+            <div>
+                <div>
+                    <!-- {{ project.description }} -->
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto a repudiandae, impedit deserunt numquam,
+                    harum non quibusdam provident odio quasi quaerat quo laudantium, saepe adipisci libero eos ut! Eum,
+                    voluptas accusantium! Rerum porro eaque, voluptates cum consequatur sint doloremque expedita soluta ab
+                    voluptatum, labore nobis nostrum totam laborum itaque sunt, nesciunt ex aperiam accusantium laudantium
+                    maxime aspernatur magni quia. Voluptas vel, adipisci eaque facere quibusdam doloremque quos libero
+                    temporibus magni! Omnis rerum recusandae, unde reiciendis nihil debitis maxime veniam dignissimos
+                    tenetur! Molestias nemo modi libero corporis sint placeat vero dolore ea, eaque hic, sed similique
+                    dolorem harum eos nam perspiciatis.
+                </div>
             </div>
         </div>
-
-        <div class="">
-            <div class="my-4 justify-center">{{ project.description }}</div>
-            <div class="my-4 justify-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam tenetur
-                voluptatibus aspernatur ipsam, aperiam error veniam cumque aut in corrupti placeat ea libero quia. Magnam
-                culpa
-                dolorum totam dicta, veritatis dolor numquam! Repudiandae dicta, id sapiente rerum autem neque! Repudiandae
-                tempora
-                incidunt nulla soluta neque perspiciatis unde rem ea molestias dolores ipsa in consequuntur veniam, suscipit
-                laboriosam. Itaque dolores voluptates ratione illo fuga, quisquam praesentium qui, et obcaecati corporis
-                iste
-                ab?
-                Veritatis cum nihil totam doloribus delectus mollitia labore corrupti nulla voluptatibus nam voluptatem
-                possimus,
-                obcaecati cupiditate praesentium. Aspernatur atque aut odit nihil autem, suscipit corporis voluptatum
-                perferendis
-                amet ipsa?</div>
+        <!-- TODO NTAR ISI DENGAN SESUATU/POKOKNYA REVISI LAGI -->
+        <!-- kanan/detail project -->
+        <div class="col-span-full md:col-span-4 flex max-md:hidden">
+            <!-- project details -->
+            <div class="bg-base-200 rounded-2xl grow p-6">
+                <div class="flex flex-col gap-3">
+                    <div class="text-4xl font-bold text-success">{{ project.title }}</div>
+                    <div class="text-xl">{{ project.readableStartDate }} - {{ project.readableEndDate }}</div>
+                    <div class=" capitalize badge badge-success">{{ status }}</div>
+                </div>
+                <!-- skills -->
+                <div class="flex gap-2 my-3">
+                    <div v-for="skills in project.skills"
+                        class="rounded-xl badge badge-outline badge-success text-nowrap px-2">
+                        {{ skills.title }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- header -->
 </template>
 
 <script setup>
@@ -87,7 +87,7 @@ const apiUri = config.public.apiUri;
 const { value: useProfile } = useState('profile')
 const fullname = `${useProfile.firstName} ${useProfile.lastName}`
 useSeoMeta({
-    title:  `${fullname} | Project | ${ project.id }`,
+    title: `${fullname} | Project | ${project.id}`,
     description: useProfile.bio,
     ogTitle: fullname + ' | Portofolio',
     ogDescription: useProfile.bio,
@@ -95,6 +95,9 @@ useSeoMeta({
     twitterCard: 'summary_large_image'
 });
 
+const status = computed(() => {
+    return project.status.replaceAll("_", " ").toLowerCase();
+})
 
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
@@ -102,8 +105,4 @@ import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 console.log(project);
 //modify status string
-const status = computed(() => {
-    return project.status.replaceAll("_", " ")
-})
-
 </script>
