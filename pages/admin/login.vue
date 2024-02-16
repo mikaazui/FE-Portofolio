@@ -14,6 +14,7 @@
                         </div>
                         <input input v-model="formData.email" type="text" placeholder="Email"
                             class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
+                        <span class="text-right text-sm text-error" v-if="errorMessage.email">{{ errorMessage.email }}</span>
                     </label>
                     <!-- password -->
                     <label class="form-control w-full max-w-xs">
@@ -22,10 +23,12 @@
                         </div>
                         <input input v-model="formData.password" type="password" placeholder="Password"
                             class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
+                        <span class="text-right text-sm text-error" v-if="errorMessage.password">{{ errorMessage.password }}</span>
                     </label>
-                    <button @click="authStore.login(formData)" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>
+                    <button @click="handleLogin" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>
+                    <span class="pt-5 text-sm text-error">{{ fetchError }}</span>
                 </div>
-                <DefaultlayoutThemeToggle class=" fixed left-2 bottom-2 opacity-50"/>    
+                <DefaultlayoutThemeToggle class=" fixed left-2 bottom-2 opacity-50" />
             </div>
 
         </div>
@@ -35,19 +38,50 @@
 </template>
 
 <script setup>
+import Joi from 'joi';
+import { Validate } from '~/utils/Validate';
+
 definePageMeta({
     layout: false,
     middleware: ['auth']
 
 });
+
+const errorMessage = ref({})
+const fetchError = ref('')
 const formData = ref({
     email: '',
     password: ''
 });
-
-onMounted(() => {   
-  console.log("mounted")
-})
-//AuthStore/ PINIA
+//PINIA/AUTH STORE
 const authStore = useAuthStore()
+const handleLogin = async () => {
+    //reset error messages
+    errorMessage.value = {}
+    fetchError.value = ('')
+
+    try {
+        console.log('masuk handle login')
+
+        //copy dari backend
+        const loginValidate = Joi.object({
+            email: Joi.string().email({ tlds: { allow: false } }).required().label('Email'),
+            password: Joi.string().min(4).required().label('Password')
+        });
+        //throw jika error
+        const data = Validate(loginValidate, formData.value)
+        await authStore.login(data)
+
+    } catch (error) {
+
+        if (error instanceof Joi.ValidationError) {
+            errorMessage.value = joiError(error)
+        } else {
+            // fetchError.value = error.data.message
+            console.log(error)
+            fetchError.value = error.data.message
+
+        }
+    }
+};
 </script>

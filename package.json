@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@nuxtjs/color-mode": "^3.3.2",
+    "joi": "^17.12.1",
     "lucide-vue-next": "^0.323.0",
     "pinia": "^2.1.7",
     "vue3-carousel": "^0.3.1"
