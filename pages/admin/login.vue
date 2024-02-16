@@ -61,6 +61,8 @@ const formData = ref({
 //PINIA/AUTH STORE
 const authStore = useAuthStore()
 const handleLogin = async () => {
+    if (isLoading.value) return;
+    
     //reset error messages
     errorMessage.value = {};
     fetchError.value = ('');
