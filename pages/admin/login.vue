@@ -14,7 +14,8 @@
                         </div>
                         <input input v-model="formData.email" type="text" placeholder="Email"
                             class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
-                        <span class="text-right text-sm text-error" v-if="errorMessage.email">{{ errorMessage.email }}</span>
+                        <span class="text-right text-sm text-error" v-if="errorMessage.email">{{ errorMessage.email
+                        }}</span>
                     </label>
                     <!-- password -->
                     <label class="form-control w-full max-w-xs">
@@ -23,10 +24,13 @@
                         </div>
                         <input input v-model="formData.password" type="password" placeholder="Password"
                             class="input bg-transparent input-sm input-ghost input-bordered rounded-sm w-full max-w-xs" />
-                        <span class="text-right text-sm text-error" v-if="errorMessage.password">{{ errorMessage.password }}</span>
+                        <span class="text-right text-sm text-error" v-if="errorMessage.password">{{ errorMessage.password
+                        }}</span>
                     </label>
-                    <button @click="handleLogin" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login</button>
-                    <span class="pt-5 text-sm text-error">{{ fetchError }}</span>
+                    <button @click="handleLogin" class=" btn btn-ghost btn-outline w-[319px] mt-5 rounded-sm">Login
+                    </button>
+                    <span class="loading loading-spinner loading-sm mt-5" v-if="isLoading"></span>
+                    <span class="pt-5 text-sm text-error" v-if="fetchError">{{ fetchError }}</span>
                 </div>
                 <DefaultlayoutThemeToggle class=" fixed left-2 bottom-2 opacity-50" />
             </div>
@@ -49,6 +53,7 @@ definePageMeta({
 
 const errorMessage = ref({})
 const fetchError = ref('')
+const isLoading = ref(false)
 const formData = ref({
     email: '',
     password: ''
@@ -57,8 +62,9 @@ const formData = ref({
 const authStore = useAuthStore()
 const handleLogin = async () => {
     //reset error messages
-    errorMessage.value = {}
-    fetchError.value = ('')
+    errorMessage.value = {};
+    fetchError.value = ('');
+    isLoading.value = true;
 
     try {
         console.log('masuk handle login')
@@ -82,6 +88,7 @@ const handleLogin = async () => {
             fetchError.value = error.data.message
 
         }
+        isLoading.value = false;
     }
 };
 </script>
