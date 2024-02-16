@@ -19,6 +19,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         if (!authStore.user) {
             return navigateTo('/admin/login')
         }
+        token.value = ''
     }
     else {
         //ke halaman login
