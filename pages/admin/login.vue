@@ -48,16 +48,17 @@ definePageMeta({
     middleware: ['auth'],
     ssr: true
 });
+const AuthStore = useAuthStore()
 
 const errorMessage = ref({})
 const fetchError = ref('')
 const isLoading = ref(false)
 const formData = ref({
-    email: '',
+    // TODO FIX!! error = cannot reading email
+    email: AuthStore.user.email,
     password: ''
 });
 //PINIA/AUTH STORE
-const authStore = useAuthStore()
 const handleLogin = async () => {
     if (isLoading.value) return;
     
@@ -68,7 +69,7 @@ const handleLogin = async () => {
 
     try {
         console.log('masuk handle login')
-        await authStore.login(formData.value)
+        await AuthStore.login(formData.value)
 
     } catch (error) {
 
