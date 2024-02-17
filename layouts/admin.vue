@@ -72,9 +72,7 @@
         <div class="drawer-content flex flex-col items-center justify-center">
           <!-- main content -->
           <div class="bg-base-100 h-full w-full rounded-2xl shadow-xl lg-rounded-3xl flex flex-col p-16">
-            <div class="h-40">
-              <slot />
-            </div>
+            <slot />
           </div>
         </div>
         <div class="drawer-side">

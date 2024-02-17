@@ -42,10 +42,26 @@
           class="input input-bordered w-full max-w-xs" />
         <div class="text-right text-error" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</div>
       </label>
+      <label class="btn grow mt-3 w-[320px]" for="confirm">Submit</label>
     </div>
-    <div class="flex">
-      <button class="btn hover:border-primary grow">Submit</button>
-
+    <!-- Submit button to open modal -->
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="confirm" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <form method="dialog">
+          <label for="confirm" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        </form>
+        <h3 class="font-bold text-lg">Hello!</h3>
+        <p class="py-4">Are you sure?</p>
+        <div class="modal-action">
+          <label for="confirm" class="btn text-white btn-error">Cancel</label>
+          <label for="confirm" class="btn text-white btn-success">Yes</label>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <label for="confirm">close</label>
+      </form>
     </div>
 
 
@@ -70,8 +86,11 @@ const formData = ref({
   confirmPassword: ''
 });
 
-const handleupdate() => {
-  
+const handleupdate = () => {
+  //konfirmasi
+  //validasi
+  //eksekusi
+
 }
 
 </script>
