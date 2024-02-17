@@ -33,13 +33,6 @@
 </template>
 
 <script setup>
-// const getPortofolio = async () => {
-//   try {
-//     return await $fetch("/api/portofolio");
-//   } catch (error) {
-//     throw createError(error)
-//   }
-// }
 
 definePageMeta({
   middleware: "profile"
