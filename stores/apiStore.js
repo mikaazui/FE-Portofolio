@@ -17,7 +17,7 @@ export const useApiStore = defineStore("Api", {
         return data;
       } catch (error) {
         console.log('error di get')
-        this.handleError(error);
+        // this.handleError(error);
       }
     },
     //post
@@ -101,7 +101,7 @@ export const useApiStore = defineStore("Api", {
       if (error.status == 401) {
         //hapus token
         const token = useCookie("token");
-        token.value = "";
+        // token.value = "";
 
         //lempar ke halaman login
         return navigateTo("/admin/login");

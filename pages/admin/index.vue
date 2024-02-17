@@ -8,6 +8,7 @@
     <div>
         email: {{ authStore.user.email }}
     </div>
+    <button class="btn btn-neutral" @click="getUser">click</button>
 </template>
 
 <script setup>
@@ -16,4 +17,7 @@ definePageMeta({
     middleware: ['auth']
 })
 const authStore = useAuthStore()
+const getUser = async() => {
+    await authStore.getUser()
+}
 </script>

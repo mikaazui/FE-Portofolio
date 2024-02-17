@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("auth", {
       const Api = useApiStore();
       //delete data using api method
       // return data dipake ke state, supaya bisa dibaca oleh page yang membutuhkan
-      this.user = await Api.delete("/logout");
+      await Api.delete("/logout");
       navigateTo("/admin/login");
     },
     async getUser() {

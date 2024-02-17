@@ -17,7 +17,8 @@
         <div class="label">
           <span class="label-text">Email</span>
         </div>
-        <input v-model="formData.email" type="text" placeholder="Email"
+        <!-- TODO ini email di-disabled -->
+        <input v-model="formData.email" type="text" disabled placeholder="Email"
           class="input input-bordered input-disabled w-full max-w-xs" />
         <div class="text-right text-error" v-if="errors.email">{{ errors.email }}</div>
 
@@ -52,11 +53,11 @@
         <form method="dialog">
           <label for="confirm" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
         </form>
-        <h3 class="font-bold text-lg">Hello!</h3>
+        <h3 class="font-bold text-lg">Confirm To Proceed</h3>
         <p class="py-4">Are you sure?</p>
         <div class="modal-action">
           <label for="confirm" class="btn text-white btn-error">Cancel</label>
-          <label for="confirm" class="btn text-white btn-success">Yes</label>
+          <label for="confirm" class="btn text-white btn-success">Yes Update!</label>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">

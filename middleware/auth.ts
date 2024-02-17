@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware( async(to, from) => {
     const authStore = useAuthStore();
     const token = useCookie('token')
 
@@ -13,15 +13,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
         }
         if (!authStore.user) {
             //fetch user data
-            authStore.getUser()
+            await authStore.getUser()
+            //kalo error balik ke halaman login
+            if (!authStore.user) {
+                token.value = ''
+                return navigateTo('/admin/login')
+            }
         }
-        //kalo error balik ke halaman login
-        if (!authStore.user) {
-            return navigateTo('/admin/login')
-        }
-        // token.value = ''
-    }
-    else {
+    } else {
         //ke halaman login
         // check token, jika return ke halaman index
         if (token.value) {
