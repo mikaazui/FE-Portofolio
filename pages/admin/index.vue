@@ -8,7 +8,6 @@
     <div>
         email: {{ authStore.user.email }}
     </div>
-    <button class="btn btn-neutral" @click="getUser">click</button>
 </template>
 
 <script setup>

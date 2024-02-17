@@ -8,7 +8,7 @@
           <img src="/logo.svg" class="h-8" alt="" srcset="">
         </NuxtLink>
         <label for="my-drawer-2" class="btn btn-ghost btn-circle">
-          <LucideAlignRight :size="20" class="cursor-pointer " />
+          <LucideAlignRight :size="20" class="cursor-pointer text-white" />
         </label>
       </div>
     </div>
@@ -65,7 +65,7 @@
     </div>
 
     <!-- content -->
-    <div class="w-full h-content px-3 lg:px-16 py-5">
+    <div class="w-full h-content px-3 lg:px-16 py-5 ">
       <div class="wrapper -z-0 relative "></div>
       <div class="drawer max-lg:drawer-end bg-base-200 lg:drawer-open 0 rounded-3xl">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -90,9 +90,15 @@ definePageMeta({
   middleware: ['auth']
 });
 
+const props = defineProps({
+  toggleDrawer: Boolean
+});
+
 onMounted(() => {
   console.log("mounted")
-})
+});
+
+//use watch effect to handle problem
 const authStore = useAuthStore()
 console.log(authStore.user)
 </script>
