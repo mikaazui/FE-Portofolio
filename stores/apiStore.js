@@ -16,6 +16,7 @@ export const useApiStore = defineStore("Api", {
         });
         return data;
       } catch (error) {
+        console.log('error di get')
         this.handleError(error);
       }
     },
@@ -35,6 +36,7 @@ export const useApiStore = defineStore("Api", {
         });
         return data;
       } catch (error) {
+        console.log('kena error')
         this.handleError(error);
       }
     },
@@ -94,6 +96,7 @@ export const useApiStore = defineStore("Api", {
       }
     },
     handleError(error) {
+      console.log('masuk error handle error')
       //buat method untuk catch error ini supaya bisa dipakai semua method
       if (error.status == 401) {
         //hapus token

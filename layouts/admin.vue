@@ -39,15 +39,20 @@
               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" class="rounded-full" />
             </div>
           </div>
-          <div class="dropdown-content z-[1] rounded-md menu shadow bg-gradient-to-tl from-gray-500 from-10% to-slate-600 to-100% text-white w-52">
+          <div
+            class="dropdown-content z-[1] rounded-md menu shadow bg-gradient-to-tl from-gray-500 from-10% to-slate-600 to-100% text-white w-52">
             <ul tabindex="0" class="p-2">
               <div class="border-b border-white/30 px-1.5 pb-3">
-                <div class="font-semibold">Valent Stefanos</div>
-                <div class="text-xs">Administrator</div>
+                <!-- ganti nama sesuai state -->
+                <div class="font-semibold capitalize">{{ authStore.user.name }}</div>
+                <!-- TODO ubah sesuai state (email)-->
+                <div class="text-xs capitalize">Administrator</div>
               </div>
-              <li><a>
-                  <LucideUser :size="16" /> User
-                </a>
+              <li>
+                <NuxtLink to="/admin/user">
+                  <!-- TODO bikin user setting -->
+                  <LucideUserCog :size="16" /> User Setting
+                </NuxtLink>
               </li>
               <li><button @click="authStore.logout">
                   <LucideLogOut :size="16" /> Log Out
@@ -91,6 +96,7 @@ onMounted(() => {
   console.log("mounted")
 })
 const authStore = useAuthStore()
+console.log(authStore.user)
 </script>
 
 <style>

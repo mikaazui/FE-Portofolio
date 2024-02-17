@@ -8,9 +8,7 @@ export const useAuthStore = defineStore("auth", {
     async login(data) {
       try {
         const Api = useApiStore();
-
         data = Validate(loginValidate, data);
-
         //fetch data using api method
         // return data dipake ke state, supaya bisa dibaca oleh page yang membutuhkan
         this.user = await Api.post("/login", data);
