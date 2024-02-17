@@ -46,7 +46,7 @@
                 <!-- ganti nama sesuai state -->
                 <div class="font-semibold capitalize">{{ authStore.user.name }}</div>
                 <!-- TODO ubah sesuai state (email)-->
-                <div class="text-xs capitalize">Administrator</div>
+                <div class="text-xs ">{{ authStore.user.email }}</div>
               </div>
               <li>
                 <NuxtLink to="/admin/user">

@@ -43,7 +43,8 @@ export const useApiStore = defineStore("Api", {
     //put
     async put(path, data) {
       const config = useRuntimeConfig();
-      const apiUri = config.apiUri;
+      const apiUri = config.public.apiUri;
+      console.log(config) 
       const jsonData = JSON.stringify(data);
       try {
         const data = await $fetch(apiUri + path, {

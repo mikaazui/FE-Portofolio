@@ -46,7 +46,6 @@
       <label class="btn grow mt-3 w-[320px]" for="confirm" @click="handleUpdate">Submit</label>
     </div>
     <!-- Submit button to open modal -->
-    <!-- Put this part before </body> tag -->
     <input type="checkbox" id="confirm" class="modal-toggle" />
     <div class="modal" role="dialog">
       <div class="modal-box">
@@ -90,12 +89,12 @@ const handleUpdate = async (response) => {
   let data = formData.value;
   console.log('=================')
   console.log(data.password)
+  console.log(data)
   data = Validate(updateUserValidation, data);
   //konfirmasi
   if (response === 'yes') {
-    const updatedUser = await AuthStore.put('/user', data);
-    console.log('Operation Success');
-    console.log(updatedUser);
+    await AuthStore.updateUser(data);
+    alert ('success!')
   } else if (response === 'no') {
     console.log('Operation Canceled');
   }
@@ -103,5 +102,3 @@ const handleUpdate = async (response) => {
 };
 
 </script>
-
-<style></style>
