@@ -43,12 +43,10 @@
 
 <script setup>
 import Joi from 'joi';
-import { Validate } from '~/utils/Validate';
-
 definePageMeta({
     layout: false,
-    middleware: ['auth']
-
+    middleware: ['auth'],
+    ssr: true
 });
 
 const errorMessage = ref({})
@@ -70,15 +68,7 @@ const handleLogin = async () => {
 
     try {
         console.log('masuk handle login')
-
-        //copy dari backend
-        const loginValidate = Joi.object({
-            email: Joi.string().email({ tlds: { allow: false } }).required().label('Email'),
-            password: Joi.string().min(4).required().label('Password')
-        });
-        //throw jika error
-        const data = Validate(loginValidate, formData.value)
-        await authStore.login(data)
+        await authStore.login(formData.value)
 
     } catch (error) {
 
@@ -93,4 +83,5 @@ const handleLogin = async () => {
         isLoading.value = false;
     }
 };
+
 </script>
