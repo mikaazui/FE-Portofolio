@@ -17,7 +17,7 @@ export const useApiStore = defineStore("Api", {
         return data;
       } catch (error) {
         console.log('error di get')
-        // this.handleError(error);
+        this.handleError(error);
       }
     },
     //post
@@ -43,7 +43,7 @@ export const useApiStore = defineStore("Api", {
     //put
     async put(path, data) {
       const config = useRuntimeConfig();
-      const apiUri = config.public.apiUri;
+      const apiUri = config.apiUri;
       const jsonData = JSON.stringify(data);
       try {
         const data = await $fetch(apiUri + path, {

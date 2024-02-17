@@ -56,8 +56,8 @@
         <h3 class="font-bold text-lg">Confirm To Proceed</h3>
         <p class="py-4">Are you sure?</p>
         <div class="modal-action">
-          <label for="confirm" class="btn text-white btn-error" >Cancel</label>
-          <label for="confirm" class="btn text-white btn-success" @click="handleUpdate.yes">Yes Update!</label>
+          <label for="confirm" class="btn text-white btn-error" @click="handleUpdate('no')">Cancel</label>
+          <label for="confirm" class="btn text-white btn-success" @click="handleUpdate('yes')">Yes Update!</label>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
@@ -75,7 +75,6 @@ definePageMeta({
   layout: 'admin',
   middleware: ['auth']
 });
-
 const AuthStore = useAuthStore();
 
 const errors = ref({});
@@ -87,17 +86,20 @@ const formData = ref({
   confirm_password: ''
 });
 
-const handleUpdate = () => {
+const handleUpdate = async (response) => {
   let data = formData.value;
+  console.log('=================')
+  console.log(data.password)
   data = Validate(updateUserValidation, data);
-  console.log(data);
   //konfirmasi
-  const yes = () => {
-    // AuthStore.updateUser(data);
-    console.log('iya!')
-  };
+  if (response === 'yes') {
+    const updatedUser = await AuthStore.put('/user', data);
+    console.log('Operation Success');
+    console.log(updatedUser);
+  } else if (response === 'no') {
+    console.log('Operation Canceled');
+  }
   //validasi
-
 };
 
 </script>
