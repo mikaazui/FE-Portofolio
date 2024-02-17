@@ -16,14 +16,11 @@ export const useApiStore = defineStore("Api", {
         });
         return data;
       } catch (error) {
-        console.log("========= Error =========");
-        console.log(error);
-        throw error;
+        this.handleError(error);
       }
     },
     //post
     async post(path, data) {
-      console.log('masuk method post')
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
       const jsonData = JSON.stringify(data);
@@ -38,11 +35,47 @@ export const useApiStore = defineStore("Api", {
         });
         return data;
       } catch (error) {
-        throw error;
+        this.handleError(error);
       }
     },
     //put
+    async put(path, data) {
+      const config = useRuntimeConfig();
+      const apiUri = config.public.apiUri;
+      const jsonData = JSON.stringify(data);
+      try {
+        const data = await $fetch(apiUri + path, {
+          method: "PUT",
+          body: jsonData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+        return data;
+      } catch (error) {
+        this.handleError(error);
+      }
+    },
     //patch
+    async patch(path, data) {
+      const config = useRuntimeConfig();
+      const apiUri = config.public.apiUri;
+      const jsonData = JSON.stringify(data);
+      try {
+        const data = await $fetch(apiUri + path, {
+          method: "PATCH",
+          body: jsonData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+        return data;
+      } catch (error) {
+        this.handleError(error);
+      }
+    },
     //delete
     async delete(path) {
       const config = useRuntimeConfig();
@@ -57,9 +90,28 @@ export const useApiStore = defineStore("Api", {
         });
         return data;
       } catch (error) {
-        console.log("========= Error =========");
-        console.log(error);
+        this.handleError(error);
       }
-    }
-  }
+    },
+    handleError(error) {
+      //buat method untuk catch error ini supaya bisa dipakai semua method
+      if (error.status == 401) {
+        //hapus token
+        const token = useCookie("token");
+        token.value = "";
+
+        //lempar ke halaman login
+        return navigateTo("/admin/login");
+      }
+      //400 Bad request
+      if (error.status == 400) {
+        throw error;
+      }
+      //selain 401
+      throw createError({
+        statusCode: error.status || 500, //default code 500
+        statusMessage: error.data.message || "Internal Server Error!", //default message
+      });
+    },
+  },
 });
