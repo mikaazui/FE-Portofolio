@@ -39,11 +39,11 @@
         <div class="label">
           <span class="label-text">Confirm Password</span>
         </div>
-        <input v-model="formData.confirmPassword" type="password" placeholder="Confirm Password"
+        <input v-model="formData.confirm_password" type="password" placeholder="Confirm Password"
           class="input input-bordered w-full max-w-xs" />
         <div class="text-right text-error" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</div>
       </label>
-      <label class="btn grow mt-3 w-[320px]" for="confirm">Submit</label>
+      <label class="btn grow mt-3 w-[320px]" for="confirm" @click="handleUpdate">Submit</label>
     </div>
     <!-- Submit button to open modal -->
     <!-- Put this part before </body> tag -->
@@ -56,8 +56,8 @@
         <h3 class="font-bold text-lg">Confirm To Proceed</h3>
         <p class="py-4">Are you sure?</p>
         <div class="modal-action">
-          <label for="confirm" class="btn text-white btn-error">Cancel</label>
-          <label for="confirm" class="btn text-white btn-success">Yes Update!</label>
+          <label for="confirm" class="btn text-white btn-error" >Cancel</label>
+          <label for="confirm" class="btn text-white btn-success" @click="handleUpdate.yes">Yes Update!</label>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
@@ -84,15 +84,21 @@ const formData = ref({
   name: AuthStore.user.name,
   email: AuthStore.user.email,
   password: '',
-  confirmPassword: ''
+  confirm_password: ''
 });
 
-const handleupdate = () => {
+const handleUpdate = () => {
+  let data = formData.value;
+  data = Validate(updateUserValidation, data);
+  console.log(data);
   //konfirmasi
+  const yes = () => {
+    // AuthStore.updateUser(data);
+    console.log('iya!')
+  };
   //validasi
-  //eksekusi
 
-}
+};
 
 </script>
 

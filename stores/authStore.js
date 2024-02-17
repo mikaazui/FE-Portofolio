@@ -33,5 +33,11 @@ export const useAuthStore = defineStore("auth", {
       // return data dipake ke state, supaya bisa dibaca oleh page yang membutuhkan
       this.user = await Api.get("/user");
     },
+    async put() {
+      const Api = useApiStore();
+      //fetch data using api method
+      // return data dipake ke state, supaya bisa dibaca oleh page yang membutuhkan
+      this.user = await Api.put("/user", this.user);
+    },
   },
 });
