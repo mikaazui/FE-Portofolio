@@ -113,9 +113,9 @@ const handleUpdate = async () => {
   errors.value = {};
   fetchError.value = '';
   try {
-    success.value = true
     console.log('masuk handle update')
     await AuthStore.updateUser(formData.value);
+    success.value = true
 
   } catch (error) {
     console.log('ada error')
