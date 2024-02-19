@@ -34,11 +34,12 @@ export const useAuthStore = defineStore("auth", {
       this.user = await Api.get("/user");
     },
     async updateUser(data) {
-      const Api = useApiStore();
-      //fetch data using api method
+      data = Validate(updateUserValidation, data)
       // return data dipake ke state, supaya bisa dibaca oleh page yang membutuhkan
       console.log('data dari pinia ================')
       console.log(data)
+      //fetch data using api method
+      const Api = useApiStore();
       this.user = await Api.put("/user", data);
     },
   },
