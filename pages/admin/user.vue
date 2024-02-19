@@ -2,6 +2,14 @@
   <div>
     <div class="capitalize font-semibold text-lg">User Setting</div>
     <div class="flex flex-col gap-3">
+      <label v-if="success === true" role="alert" class="alert alert-success">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Success!</span>
+          </label>
 
       <!-- name -->
       <label class="form-control w-full max-w-xs">
@@ -68,6 +76,7 @@
         <div class="modal-action">
           <label for="confirm" class="btn text-white btn-error">Cancel</label>
           <label for="confirm" class="btn text-white btn-success" @click="handleUpdate">Yes Update!</label>
+         
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
@@ -99,10 +108,12 @@ const formData = ref({
   confirm_password: ''
 });
 
+const success = ref(false)
 const handleUpdate = async () => {
   errors.value = {};
   fetchError.value = '';
   try {
+    success.value = true
     console.log('masuk handle update')
     await AuthStore.updateUser(formData.value);
 
