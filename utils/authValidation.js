@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 const loginValidate = Joi.object({
-    email: Joi.string()
+    email: isString100
       .email({ tlds: { allow: false } })
       .required()
       .label("Email"),
@@ -9,10 +9,11 @@ const loginValidate = Joi.object({
   });
 
   const updateUserValidation = Joi.object({
-    name: Joi.string().required().label("Name"),
-    email: Joi.string().email({ tlds: { allow: false } }).required().label("Email"),
-    password: Joi.string().min(4).required().label("Password"),
-    confirm_password: Joi.string()
+    name: isString100.required().label("Name"),
+    email: isString100.email({ tlds: { allow: false } }).required().label("Email"),
+    current_password: isString100.min(4).required().label("Current Password"),
+    password: isString100.min(4).required().label("Password"),
+    confirm_password: isString100
       .min(4)
       .required()
       .label("Password")

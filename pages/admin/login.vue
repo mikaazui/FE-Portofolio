@@ -55,7 +55,7 @@ const fetchError = ref('')
 const isLoading = ref(false)
 const formData = ref({
     // TODO FIX!! error = cannot reading email
-    email: AuthStore.user.email,
+    email: '',
     password: ''
 });
 //PINIA/AUTH STORE

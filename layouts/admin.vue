@@ -85,10 +85,9 @@
 </template>
 
 <script setup>
-definePageMeta({
-  colorMode: 'system',
-  middleware: ['auth']
-});
+  definePageMeta({
+    colorMode: 'system'
+  });
 
 const props = defineProps({
   toggleDrawer: Boolean
