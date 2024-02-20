@@ -33,6 +33,7 @@
   <label class="btn grow mt-3 w-[320px]" @click="confirm=true">Submit</label>
   <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
   <AdminModalConfirm  :show="confirm" @close="confirm=false" @confirm="handleUpdate" />
+  <!-- oke fixed -->
  
 </template>
 
