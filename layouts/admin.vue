@@ -20,7 +20,7 @@
 
         <NuxtLink to="/admin" class="intro-x hidden lg:flex items-center gap-3">
           <img src="/logo.svg" alt="logo.svg" class="w-7 max-lg:hidden" srcset="">
-          <div class="font-semibold text-2xl max-lg:hidden">Valent Stefanos</div>
+          <div class="font-semibold text-2xl max-lg:hidden">{{ authStore.user.name }}</div>
         </NUxtLink>
         <!-- sisi kanan -->
         <div
@@ -93,13 +93,9 @@ const props = defineProps({
   toggleDrawer: Boolean
 });
 
-onMounted(() => {
-  console.log("mounted")
-});
-
 //use watch effect to handle problem
 const authStore = useAuthStore()
-console.log(authStore.user)
+
 </script>
 
 <style>
