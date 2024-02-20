@@ -10,7 +10,7 @@
         <p class="py-4">Are you sure?</p>
         <div class="modal-action">
           <label @click="$emit('close')" class="btn text-white btn-error">Cancel</label>
-          <label class="btn text-white btn-success">Yes Update!</label>
+          <label class="btn text-white btn-success" @click="$emit('confirm')">Yes Update!</label>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
@@ -23,11 +23,8 @@
 const props = defineProps({
   show: Boolean
 })
-
 defineEmits(['close'])
-
 const show_modal = ref(false)
-
 watchEffect(() => {
   show_modal.value = props.show
 })
