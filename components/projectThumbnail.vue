@@ -31,7 +31,7 @@
 
 <script setup>
 defineProps({
-    project: Object,
+    project: Object
 });
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
