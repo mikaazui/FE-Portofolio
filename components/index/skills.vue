@@ -7,7 +7,7 @@
       <div class="uppercase text-sm font-light">Skills</div>
     </div>
     <div class="mt-5"> 
-      <div class="text-2xl md:text-4xl font-semibold text-accent mb-5">
+      <div class="text-2xl md:text-4xl font-semibold mb-5">
         Every great Projects begin with Wilingness to learn
       </div>
 

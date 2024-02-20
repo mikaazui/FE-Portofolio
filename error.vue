@@ -5,8 +5,11 @@
                 <div class="text-8xl text-error font-semibold mb-5">
                     {{ error.statusCode }}
                 </div>
-                <div class="text-2xl font-semibold mb-5">
+                <div class="text-2xl font-semibold mb-5" v-if="error.statusCode === 404">
                     Oops.. the page you're looking for aren't exist.
+                </div>
+                <div v-else-if="error.statusCode === 500">
+                    Internal Server Error
                 </div>
                 <div class="text-3xl font-semibold mb-5">
                     {{ error.message }}

@@ -1,6 +1,7 @@
 <template>
-  <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
-    <NuxtLink to="/#blog" class="text-4xl font-bold">{{ fullname }}</NuxtLink>
+  <div class="flex items-center px-6 md:px-14 border-b border-b-neutral py-6">
+    <button to="/#blog" class="text-4xl text-accent font-bold hover:bg-base-200 p-2 rounded-full duration-300" @click="back"> <lucideArrowLeft /> </button>
+    <NuxtLink to="/#blog" class="px-4 text-4xl text-accent font-bold">{{ fullname }}</NuxtLink>
   </div>
 </template>
 
@@ -11,6 +12,10 @@ const profile = useProfile.value;
 const fullname = computed(() => {
     return `${profile.firstName} ${profile.lastName}`
 })
+
+const back = () => {
+    window.history.back()
+}
 </script>
 
 <style></style>

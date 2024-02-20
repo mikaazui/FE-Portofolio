@@ -6,7 +6,7 @@
       <LucideBriefcase :size="18" class="text-accent" />
       <div class="uppercase text-sm font-light">Experience</div>
     </div>
-    <div class="text-3xl font-semibold text-white mb-4">Experience</div>
+    <div class="text-3xl font-semibold mb-4">Experience</div>
     <!-- list experience -->
     <div class="flex gap-12 group" v-for="(exp, i) in experiences" :key="i">
       <div class="flex flex-col items-center">
@@ -20,14 +20,15 @@
       <div class="mb-10">
         <div class="group-hover:text-secondary">
           <!-- TODO redeable data -->
-          {{ exp.startDate }} - {{ exp.endDate ? exp.endDate : "present" }}
+          {{ exp.readableStartDate }} - {{ exp.readableEndDate }}
         </div>
         <div class="flex flex-col gap-4">
+          <!-- TODO ubah sesuai kebutuhan (mana yang harus pertama) -->
           <div>
-            <div class="text-2xl md:text-4xl font-semibold mt-5">
+            <div class="text-2xl md:text-4xl font-semibold mt-5 mb-3">{{ exp.company }}</div>
+            <div class="text-light" >
               {{ exp.title }}
             </div>
-            <div class="text-light">{{ exp.company }}</div>
           </div>
           <div>
             <div class="font-semibold mt-5">
