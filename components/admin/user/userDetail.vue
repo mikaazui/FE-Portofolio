@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col">
+    <AdminAlertSuccess v-if="success"/>
     <!-- name -->
     <label class="form-control w-full max-w-xs">
       <div class="label">
@@ -20,10 +21,11 @@
       <div class="text-xs text-right text-error" v-if="errors.email">{{ errors.email }}</div>
     </label>
   </div>
-  <label class="btn grow mt-3 w-[320px]" for="confirm">Submit</label>
+  <label class="btn grow mt-3 w-[320px]" @click="confirm = true">Submit</label>
   <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
   <!-- modal -->
-  <input type="checkbox" id="confirm" class="modal-toggle" />
+  <AdminModalConfirm  :show="confirm" @close="confirm=false" @confirm="handleUpdate" />
+  <!-- <input type="checkbox" id="confirm" class="modal-toggle" />
   <div class="modal" role="dialog">
     <div class="modal-box">
       <form method="dialog">
@@ -40,7 +42,7 @@
     <form method="dialog" class="modal-backdrop">
       <label for="confirm">close</label>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -51,17 +53,16 @@ const errors = ref({});
 const fetchError = ref('');
 
 const formData = ref({
-  name: AuthStore.user.name,
-  email: AuthStore.user.email,
-  password: '',
-  current_password: '',
-  confirm_password: ''
+  name: AuthStore.user .name,
+  email: AuthStore.user.email
 });
 
 const success = ref(false)
+const confirm = ref(false)
 const handleUpdate = async () => {
   errors.value = {};
   fetchError.value = '';
+  confirm.value = false
   success.value = false
   try {
     console.log('masuk handle update')
