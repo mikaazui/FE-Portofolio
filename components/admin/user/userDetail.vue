@@ -27,7 +27,10 @@
   </label>
   <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
   <!-- modal -->
-  <AdminModalConfirm :show="confirm" @close="confirm = false" @yes="handleUpdate" />
+  <AdminModalConfirm :show="confirm" @close="confirm = false" @yes="handleUpdate" >
+    <h1 class="font-bold text-xl my-2">Hold On!</h1>
+    <p>Are you really gonna update your details?</p>
+  </AdminModalConfirm>
 </template>
 
 <script setup>

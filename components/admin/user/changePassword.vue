@@ -35,8 +35,11 @@
     Submit
     <span class="loading loading-spinner loading-sm px-3 flex items-center justify-center" v-show="isLoading"></span>
   </label>
-    <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
-  <AdminModalConfirm :show="confirm" @close="confirm = false" @yes="handleUpdate" />
+  <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
+  <AdminModalConfirm :show="confirm" text_confirm="Update Password!" @close="confirm = false" @yes="handleUpdate">
+    <h1 class="font-bold text-xl my-2">Hold On!</h1>
+    <p>Are you really gonna update your Password?</p>
+  </AdminModalConfirm>
   <!-- oke fixed -->
 </template>
 

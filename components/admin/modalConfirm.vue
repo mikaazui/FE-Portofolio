@@ -6,11 +6,10 @@
         <form method="dialog">
           <label @click="$emit('close')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
         </form>
-        <h3 class="font-bold text-lg">Confirm To Proceed</h3>
-        <p class="py-4">Are you sure?</p>
+        <slot />
         <div class="modal-action">
-          <label @click="$emit('close')" class="btn text-white btn-error">Cancel</label>
-          <label class="btn text-white btn-success" @click="$emit('yes')">Yes Update!</label>
+          <label @click="$emit('close')" class="btn text-white btn-error">Uhh..maybe later</label>
+          <label class="btn text-white btn-success" @click="$emit('yes')">{{ text_confirm || 'Yes Update!'}}</label>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
@@ -21,7 +20,8 @@
 
 <script setup>
 const props = defineProps({
-  show: Boolean
+  show: Boolean,
+  text_confirm: String
 })
 defineEmits(['close','yes'])
 const show_modal = ref(false)
