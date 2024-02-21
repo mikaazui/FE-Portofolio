@@ -12,13 +12,14 @@ export const useProfileStore = defineStore('profile', {
      this.profile = await Api.get('/profile')
     },
     async update(data){
-      // const api = useApiStore();
+      const Api = useApiStore();
       console.log('data before validation')
       console.log(data)
       //validate
       data - Validate(isUpdateProfile, data)
       console.log('data after validation')
       console.log(data)
+      this.profile = await Api.put('/profile', data);
     }
 
     

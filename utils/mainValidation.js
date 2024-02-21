@@ -6,7 +6,7 @@ const isString100 = Joi.string().max(100).trim();
 const isString255 = Joi.string().max(255).trim();
 const isEmail = Joi.string().email({tlds: {allow:false}}).trim().label("Email");
 const isYear = Joi.number().positive();
-const isText = Joi.string().trim();
-const isURL = Joi.string().uri().trim();
+const isText = Joi.string().trim().allow(null, '');
+const isURL = Joi.string().uri().trim().allow(null, '');
 
 export { isID, isString25, isString100, isString255, isYear, isText, isURL, isEmail };

@@ -9,7 +9,7 @@
         </div>
         <input v-model="formData.firstName" type="text" placeholder="First Name"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.firstName">{{ errors.firstName }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -18,7 +18,7 @@
         </div>
         <input v-model="formData.lastName" type="text" placeholder="Last Name"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.lastName">{{ errors.lastName }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -26,7 +26,7 @@
           <span class="label-text">City</span>
         </div>
         <input v-model="formData.city" type="text" placeholder="City" class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.city">{{ errors.city }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -35,7 +35,7 @@
         </div>
         <input v-model="formData.country" type="text" placeholder="Country"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.country">{{ errors.country }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -43,7 +43,7 @@
           <span class="label-text">Job</span>
         </div>
         <input v-model="formData.job" type="text" placeholder="Job" class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.job">{{ errors.job }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -51,7 +51,7 @@
           <span class="label-text">Phone</span>
         </div>
         <input v-model="formData.phone" type="text" placeholder="Phone" class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.phone">{{ errors.phone }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -65,7 +65,7 @@
             </button>
           </template>
         </DatePicker>
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.dob">{{ errors.dob }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -74,7 +74,7 @@
         </div>
         <input v-model="formData.address" type="text" placeholder="Address"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.address">{{ errors.address }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
@@ -83,7 +83,7 @@
         </div>
         <input v-model="formData.website" type="text" placeholder="Website"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.website">{{ errors.website }}</div>
       </label>
     </div>
     <!-- avatar -->
@@ -110,7 +110,7 @@
           <span class="label-text">Description</span>
         </div>
         <textarea v-model="formData.bio" placeholder="Bio" rows="7" class="textarea textarea-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.bio">{{ errors.bio }}</div>
       </label>
       <!-- submit -->
       <label class="btn grow mt-3 w-[320px] flex items-center justify-center" @click="confirm = true">
@@ -135,8 +135,6 @@ import { DatePicker } from 'v-calendar'
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const ProfileStore = useProfileStore()
-const errors = ref({});
-const fetchError = ref('');
 const success = ref(false);
 const confirm = ref(false);
 const isLoading = ref(false);
@@ -154,6 +152,8 @@ const formData = ref({
   bio: ProfileStore.profile.bio,
   website: ProfileStore.profile.website
 });
+const errors = ref({});
+const fetchError = ref('');
 //confirmation
 
 //handle update
@@ -177,10 +177,14 @@ const handleUpdate = async () => {
     console.log(error)
     if (error instanceof Joi.ValidationError) {
       //joi error
+      console.log('error dari joi')
       errors.value = joiError(error)
+      console.log('============')
+      console.log(errors.lastName)
     } else {
       //fetch error
-      fetchError.value = error.message
+      console.log('error dari fetcherror')
+      fetchError.value = error.data.message
     }
   }
 };
