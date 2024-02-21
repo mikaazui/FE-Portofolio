@@ -1,4 +1,5 @@
 <template>
+  <AdminAlertSuccess :show="success" />
   <div class="grid grid-cols-2">
     <!-- profile -->
     <div>
@@ -57,8 +58,13 @@
         <div class="label">
           <span class="label-text">Dob</span>
         </div>
-        <input v-model="formData.dob" type="text" placeholder="Date Of Birth"
-          class="input input-bordered w-full max-w-xs" />
+        <DatePicker v-model="formData.dob" color="gray">
+          <template #default="{ togglePopover }">
+            <button @click="togglePopover" class="btn btn-outline border-neutral/25 font-normal">
+              {{ dayjs(formData.dob).format('D MMMM YYYY') }}
+            </button>
+          </template>
+        </DatePicker>
         <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
       </label>
 
@@ -106,22 +112,39 @@
         <textarea v-model="formData.bio" placeholder="Bio" rows="7" class="textarea textarea-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.name">{{ errors.name }}</div>
       </label>
+      <!-- submit -->
+      <label class="btn grow mt-3 w-[320px] flex items-center justify-center" @click="confirm = true">
+        <span>Submit</span>
+        <span class="loading loading-spinner loading-sm px-3" v-show="isLoading"></span>
+      </label>
+      <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
+      <!-- modal -->
+      <AdminModalConfirm :show="confirm" @close="confirm = false" @yes="handleUpdate">
+        <h1 class="font-bold text-xl my-2">Hold On!</h1>
+        <p>Are you really gonna update your details?</p>
+      </AdminModalConfirm>
     </div>
 
   </div>
 </template>
 
 <script setup>
+import Joi from 'joi'
+import dayjs from 'dayjs'
+import { DatePicker } from 'v-calendar'
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-
 const ProfileStore = useProfileStore()
 const errors = ref({});
+const fetchError = ref('');
+const success = ref(false);
+const confirm = ref(false);
+const isLoading = ref(false);
+
 
 const formData = ref({
   firstName: ProfileStore.profile.firstName,
   lastName: ProfileStore.profile.lastName,
-  avatar: ProfileStore.profile.avatar,
   city: ProfileStore.profile.city,
   country: ProfileStore.profile.country,
   job: ProfileStore.profile.job,
@@ -131,7 +154,36 @@ const formData = ref({
   bio: ProfileStore.profile.bio,
   website: ProfileStore.profile.website
 });
+//confirmation
 
+//handle update
+const handleUpdate = async () => {
+  //reset error
+  errors.value = {};
+  fetchError.value = '';
+  confirm.value = false
+  isLoading.value = true
+  try {
+    await ProfileStore.update(formData.value);
+    success.value = true
+    isLoading.value = false
+    setTimeout(() => {
+      success.value = false
+    }, 3000);
+
+  } catch (error) {
+    isLoading.value = false
+    console.log('ada error')
+    console.log(error)
+    if (error instanceof Joi.ValidationError) {
+      //joi error
+      errors.value = joiError(error)
+    } else {
+      //fetch error
+      fetchError.value = error.message
+    }
+  }
+};
 </script>
 
 <style></style>
