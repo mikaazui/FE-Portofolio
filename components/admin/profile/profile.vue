@@ -180,7 +180,6 @@ const handleUpdate = async () => {
       console.log('error dari joi')
       errors.value = joiError(error)
       console.log('============')
-      console.log(errors.lastName)
     } else {
       //fetch error
       console.log('error dari fetcherror')

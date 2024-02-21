@@ -1,7 +1,6 @@
 export default defineNuxtRouteMiddleware( async(to, from) => {
     const authStore = useAuthStore();
     const token = useCookie('token')
-    console.log('auth middleaer is running')
 
     // check token > melalui cookies
     if (to.path != '/admin/login') {
