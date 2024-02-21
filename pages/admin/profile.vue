@@ -36,7 +36,8 @@ email     String   @id @db.VarChar(100)
 <script setup>
 definePageMeta({
   layout: 'admin',
-  middleware: ['auth']
+  middleware: ['auth'],
+  ssr:true
 });
 
 const ProfileStore = useProfileStore()

@@ -45,8 +45,7 @@
 import Joi from 'joi';
 definePageMeta({
     layout: false,
-    middleware: ['auth'],
-    ssr: true
+    middleware: ['auth']
 });
 const AuthStore = useAuthStore()
 

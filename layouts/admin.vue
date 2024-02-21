@@ -85,9 +85,7 @@
 </template>
 
 <script setup>
-  definePageMeta({
-    colorMode: 'system'
-  });
+import 'v-calendar/style.css';   
 
 const props = defineProps({
   toggleDrawer: Boolean
@@ -95,6 +93,7 @@ const props = defineProps({
 
 //use watch effect to handle problem
 const authStore = useAuthStore()
+console.log(authStore.user)
 
 </script>
 
