@@ -98,6 +98,7 @@
           </div>
         </div>
       </div>
+      <!-- avatar edit -->
       <label class="form-control w-full max-w-xs">
         <div class="label">
           <span class="label-text">Pick an avatar</span>
@@ -144,6 +145,7 @@ const formData = ref({
   firstName: ProfileStore.profile.firstName,
   lastName: ProfileStore.profile.lastName,
   city: ProfileStore.profile.city,
+  avatar: ProfileStore.profile.avatar,
   country: ProfileStore.profile.country,
   job: ProfileStore.profile.job,
   phone: ProfileStore.profile.phone,
@@ -180,6 +182,7 @@ const handleUpdate = async () => {
       console.log('error dari joi')
       errors.value = joiError(error)
       console.log('============')
+      console.log(errors.lastName)
     } else {
       //fetch error
       console.log('error dari fetcherror')
