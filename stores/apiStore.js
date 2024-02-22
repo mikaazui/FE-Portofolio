@@ -47,7 +47,7 @@ export const useApiStore = defineStore("Api", {
       console.log(config) 
       const jsonData = JSON.stringify(data);
       try {
-        const data = await $fetch(apiUri + path, {
+        const response = await $fetch(apiUri + path, {
           method: "PUT",
           body: jsonData,
           headers: {
@@ -55,7 +55,7 @@ export const useApiStore = defineStore("Api", {
           },
           credentials: "include",
         });
-        return data;
+        return response;
       } catch (error) {
         this.handleError(error);
       }
