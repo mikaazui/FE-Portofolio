@@ -8,8 +8,16 @@ export const useEducationStore = defineStore("education", {
             const api = useApiStore();
             this.education = await api.get("/educations");
             console.log(this.education)
+        },
+        async update () {
 
+        },
+        async delete ( id ) {
+            const api = useApiStore();
+            this.education = await api.delete(`/educations/${id}`)
+            console.log(`ready to delete ${id}`)
         }
+
     }
 
 })
