@@ -60,7 +60,7 @@
         </div>
         <DatePicker v-model="formData.dob" color="gray">
           <template #default="{ togglePopover }">
-            <button @click="togglePopover" class="btn btn-outline border-neutral/25 font-normal">
+            <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal">
               {{ dayjs(formData.dob).format('D MMMM YYYY') }}
             </button>
           </template>
@@ -160,6 +160,8 @@ const fetchError = ref('');
 
 //handle update
 const handleUpdate = async () => {
+
+  if (isLoading.value) return;
   //reset error
   errors.value = {};
   fetchError.value = '';
@@ -175,17 +177,11 @@ const handleUpdate = async () => {
 
   } catch (error) {
     isLoading.value = false
-    console.log('ada error')
-    console.log(error)
     if (error instanceof Joi.ValidationError) {
       //joi error
-      console.log('error dari joi')
       errors.value = joiError(error)
-      console.log('============')
-      console.log(errors.lastName)
     } else {
       //fetch error
-      console.log('error dari fetcherror')
       fetchError.value = error.data.message
     }
   }
