@@ -11,15 +11,28 @@ export const useProfileStore = defineStore('profile', {
      this.profile = await Api.get('/profile')
     },
 
-    async update(data){
+    async update(data, avatar){
       const Api = useApiStore();
-      console.log('data before validation')
-      console.log(data)
-      //validate
+      const formData = new FormData();
       data = Validate(isUpdateProfile, data)
-      console.log('data after validation')
-      console.log(data)
-      this.profile = await Api.put('/profile', data);
+      console.log(avatar)
+      //validate
+      // CARA PERTAMA
+      for (let[key, value] of Object.entries(data)) {
+        console.log()
+
+        if(value == null) {
+          value = ''
+
+        }
+        formData.append(key, value);
+      }
+      console.log(formData)
+      if (avatar) {
+        formData.append('avatar', avatar);
+      }
+      
+      this.profile = await Api.put('/profile', formData);
     }
 
     

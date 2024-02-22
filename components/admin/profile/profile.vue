@@ -93,8 +93,8 @@
       <div>
         <div class="avatar">
           <div class="w-[230px] rounded-xl">
-            <div v-if="!ProfileStore.profile.avatar" class="aspect-square w-[230px] rounded-xl bg-gray-400"></div>
-            <img v-else :src="apiUri + ProfileStore.profile.avatar" />
+            <div v-if="!avatar" class="aspect-square w-[230px] rounded-xl bg-gray-400"></div>
+            <img v-else :src="avatar" />
           </div>
         </div>
       </div>
@@ -103,7 +103,10 @@
         <div class="label">
           <span class="label-text">Pick an avatar</span>
         </div>
-        <input type="file" class="file-input file-input-md file-input-bordered w-full max-w-xs" />
+        <div>
+          <input type="file" @change="handleFile" accept="image/*"
+            class="file-input file-input-md file-input-bordered w-full max-w-xs" />
+        </div>
       </label>
       <!-- bio -->
       <label class="form-control w-full max-w-xs">
@@ -156,6 +159,31 @@ const formData = ref({
 });
 const errors = ref({});
 const fetchError = ref('');
+
+const avatar = ref(
+  ProfileStore.profile.avatar ?
+    apiUri + ProfileStore.profile.avatar
+    : null
+
+);
+
+let file_avatar = null;
+const handleFile = (e) => {
+  console.log(e.target.files[0])
+  if (e.target.files.length) {
+    const file = e.target.files[0];
+    file_avatar = file;
+
+    //conver file to dataString
+    //data yang bisa dibaca di tag html
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      avatar.value = reader .result
+    }
+
+  }
+};
 //confirmation
 
 //handle update
@@ -167,8 +195,8 @@ const handleUpdate = async () => {
   confirm.value = false
   isLoading.value = true
   try {
-    await ProfileStore.update(formData.value);
-    
+    await ProfileStore.update(formData.value, file_avatar);
+
     success.value = true
     isLoading.value = false
     setTimeout(() => {
@@ -181,8 +209,17 @@ const handleUpdate = async () => {
       //joi error
       errors.value = joiError(error)
     } else {
-      //fetch error
-      fetchError.value = error.data.message
+      if (error.data) {
+        //fetch error
+        console.log(error)
+        console.log(error.status)
+        console.log(error.message)
+        fetchError.value = error.message
+      }
+      else{
+        console.log('error codingan')
+        console.log(error)
+      }
     }
   }
 };
