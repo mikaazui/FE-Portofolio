@@ -13,7 +13,7 @@
     <slot />
       <div class="modal-action"> 
         <label @click="$emit('close')" class="btn btn-neutral">Cancel!</label>
-        <label class="btn btn-error text-white" @click="$emit('yes')">Sure, Delete!</label>
+        <label class="btn btn-error text-white" @click="handleDelete">Sure, Delete!</label>
       </div>
     </div>
     <form method="dialog" class="modal-backdrop">
@@ -27,11 +27,30 @@ const props = defineProps({
   show: Boolean,
   data: Object
 })
+console.log(props.value)
+const EduStore = useEducationStore();
+
 defineEmits(['close', 'yes'])
 const show_modal = ref(false)
 watchEffect(() => {
   show_modal.value = props.show
 })
+
+const handleDelete = async () => {
+  try {
+    console.log(props.data.id)
+    console.log('data deleted')
+    // await EduStore.delete(props.data.id)
+    // $emit('yes')
+    // $emit('close')
+    
+  } catch (error) {
+    console.log(error)
+    
+  }
+  
+
+}
 
 </script>
 

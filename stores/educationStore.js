@@ -12,9 +12,9 @@ export const useEducationStore = defineStore("education", {
         async update () {
 
         },
-        async delete ( id ) {
+        async delete (id) {
             const api = useApiStore();
-            this.education = await api.delete(`/educations/${id}`)
+            // this.education = await api.delete(`/education/${id}`)
             console.log(`ready to delete ${id}`)
         }
 

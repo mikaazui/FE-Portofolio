@@ -26,15 +26,15 @@
             <button @click="edit = true" class="btn btn-outline btn-sm m-2 btn-circle">
               <lucidePen size="16" />
             </button>
+            <AdminEducationModalEdit :show="edit" @close="edit = false" />
+            <AdminEducationRemoveConModal :show="remove" @close="remove = false" @click="deleteData = edu" :data="edu">
+              <div class="text-xl font-semibold pb-3">Are you sure to delete [[ DataToBeDelete ]]?</div>
+              <div>This operation cannot be undoed after executed</div>
+            </AdminEducationRemoveConModal>
           </tr>
         </tbody>
       </table>
     </div>
-    <AdminEducationModalEdit :show="edit" @close="edit = false" />
-    <AdminEducationRemoveConModal :show="remove" @close="remove = false" @yes="handleDelete">
-      <div class="text-xl font-semibold pb-3">Are you sure to delete [[ DataToBeDelete ]]?</div>
-      <div>This operation cannot be undoed after executed</div>
-    </AdminEducationRemoveConModal>
   </div>
 </template>
 
@@ -48,13 +48,17 @@ definePageMeta({
 
 const edit = ref(false);
 const remove = ref(false);
-const deleteData = ref({});
-const updateData = ref({})
+const deleteData = ref(null);
+const updateData = ref(null);
 
 const EduStore = useEducationStore();
 onBeforeMount(async () => {
   await EduStore.get();
 });
+
+const getEdu = async () => {
+  await EduStore.get();
+};
 
 const filter = ref("");
 const dataTable = computed(() => {
