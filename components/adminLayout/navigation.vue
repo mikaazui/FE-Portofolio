@@ -20,6 +20,11 @@ const menus = [
     icon: resolveComponent("LucideNotebook-tabs"),
   },
   {
+    title: "Education",
+    to: "/admin/education",
+    icon: resolveComponent("LucideGraduationCap"),
+  },
+  {
     title: "Profile",
     to: "/admin/profile",
     icon: resolveComponent("LucideUser"),

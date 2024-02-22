@@ -1,4 +1,5 @@
 <template>
+  <div class="text-xl font-semibold pb-3">Profile</div>
   <div class="flex flex-col">
     <div role="tablist" class="tabs tabs-lifted">
       <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Profile" checked />
