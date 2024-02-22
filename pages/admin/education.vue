@@ -20,7 +20,7 @@
             <td class="text-center">{{ edu.startYear }} - {{ edu.endYear ? edu.endYear : "Present" }}</td>
             <td class="text-center">{{ edu.major ? edu.major : "-" }}</td>
             <td class="text-center">{{ edu.degree ? edu.degree : "-" }}</td>
-            <button @click="confirm = true" class="btn btn-outline btn-sm m-2 btn-circle">
+            <button @click="remove = true" class="btn btn-outline btn-sm m-2 btn-circle">
               <LucideTrash2 :size="16" />
             </button>
             <button @click="edit = true" class="btn btn-outline btn-sm m-2 btn-circle">
@@ -31,7 +31,7 @@
       </table>
     </div>
     <AdminEducationModalEdit :show="edit" @close="edit = false" />
-    <AdminEducationRemoveConModal :show="confirm" @close="confirm = false" @yes="handleDelete">
+    <AdminEducationRemoveConModal :show="remove" @close="remove = false" @yes="handleDelete">
       <div class="text-xl font-semibold pb-3">Are you sure to delete [[ DataToBeDelete ]]?</div>
       <div>This operation cannot be undoed after executed</div>
     </AdminEducationRemoveConModal>
@@ -47,8 +47,9 @@ definePageMeta({
 })
 
 const edit = ref(false);
-const confirm = ref(false);
-const dataToBeDelete = ref({});
+const remove = ref(false);
+const deleteData = ref({});
+const updateData = ref({})
 
 const EduStore = useEducationStore();
 onBeforeMount(async () => {
@@ -71,14 +72,6 @@ const dataTable = computed(() => {
   }
 });
 
-const handleDelete = async (data) => {
-  console.log('masuk method handle delete')
-  confirm.value = false
-  await EduStore.delete( data.value.id );
-  await EduStore.get();
-
-
-};
 
 
 </script>
