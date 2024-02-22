@@ -160,7 +160,6 @@ const fetchError = ref('');
 
 //handle update
 const handleUpdate = async () => {
-
   if (isLoading.value) return;
   //reset error
   errors.value = {};
@@ -169,6 +168,7 @@ const handleUpdate = async () => {
   isLoading.value = true
   try {
     await ProfileStore.update(formData.value);
+    
     success.value = true
     isLoading.value = false
     setTimeout(() => {

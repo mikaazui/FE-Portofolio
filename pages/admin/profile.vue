@@ -14,24 +14,6 @@
 
   </div>
 </template>
-<!-- 
-email     String   @id @db.VarChar(100)
-  firstName String   @db.VarChar(100)
-  lastName  String   @db.VarChar(100)
-  avatar    String?  @db.VarChar(255)
-  city      String?  @db.VarChar(100)
-  country   String?  @db.VarChar(100)
-  job       String?  @db.VarChar(100)
-  phone     String?  @db.VarChar(25)
-  dob       DateTime @db.Date
-  address   String?  @db.Text
-  bio       String?  @db.Text
-  website   String?  @db.VarChar(100)
-  instagram String?  @db.VarChar(100)
-  github    String?  @db.VarChar(100)
-  linkedin  String?  @db.VarChar(100)
-  discord   String?  @db.VarChar(100)
-  twitter   String?  @db.VarChar(100) -->
 
 <script setup>
 definePageMeta({
@@ -39,6 +21,7 @@ definePageMeta({
   middleware: ['auth'],
   ssr:true
 });
+
 
 const ProfileStore = useProfileStore()
 
