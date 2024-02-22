@@ -7,7 +7,6 @@
         <!-- head -->
         <thead>
           <tr>
-            <th></th>
             <th>institution</th>
             <th class="text-center">Periode</th>
             <th class="text-center">Major</th>
