@@ -1,4 +1,9 @@
 <template>
+  <AdminEducationModalEdit :show="edit" @close="edit = false" />
+  <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
+    <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?</div>
+    <div>This operation cannot be undoed after executed</div>
+  </AdminEducationRemoveConModal>
   <div>
     <AdminAlertSuccess :show="success" />
     <div class="pb-3 text-xl font-semibold">Education</div>
@@ -31,11 +36,6 @@
                 <lucidePen size="16" />
               </button>
             </div>
-            <AdminEducationModalEdit :show="edit" @close="edit = false" />
-            <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
-              <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?</div>
-              <div>This operation cannot be undoed after executed</div>
-            </AdminEducationRemoveConModal>
           </tr>
         </tbody>
       </table>
