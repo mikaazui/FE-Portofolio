@@ -29,27 +29,28 @@
             <th>Periode</th>
             <th>Title</th>
             <th>Location</th>
-            <th class="text-center">Action</th>
+            <th class="pl-7">Action</th>
           </tr>
         </thead>
         <tbody>
-          <!-- row 1 -->
-          <tr v-for="exp in dataTable" :key="exp.id">
-            <td class="whitespace-nowrap">{{ exp.company }}</td>
-            <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate :
-              "Present" }}</td>
-            <td>{{ exp.title ? exp.title : "-" }}</td>
-            <td>{{ exp.location ? exp.location : "-" }}</td>
-            <!-- <td class="">{{ exp.description ? exp.description : "-" }}</td> -->
-            <div class="flex items-center justify-normal">
-              <button @click="deleteData = exp; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
-                <LucideTrash2 :size="16" />
-              </button>
-              <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
-                <lucidePen size="16" />
-              </button>
-            </div>
-          </tr>
+            <!-- row 1 -->
+            <tr v-for="exp in dataTable" :key="exp.id">
+              <td class="whitespace-nowrap">{{ exp.company }}</td>
+              <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate :
+                "Present" }}</td>
+              <td>{{ exp.title ? exp.title : "-" }}</td>
+              <td>{{ exp.location ? exp.location : "-" }}</td>
+              <td>
+                <div class="flex items-center my-auto">
+                  <button @click="deleteData = exp; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                    <LucideTrash2 :size="16" />
+                  </button>
+                  <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                    <lucidePen size="16" />
+                  </button>
+                </div>
+              </td>
+            </tr>
         </tbody>
       </table>
     </div>
