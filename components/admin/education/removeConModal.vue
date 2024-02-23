@@ -2,18 +2,21 @@
   <!-- modal -->
   <input type="checkbox" v-model="show_modal" class="modal-toggle" />
   <div class="modal" role="dialog">
-    <div class="modal-box bg-warning text-black">
+    <div class="text-black modal-box bg-warning">
       <form method="dialog">
-        <label @click="$emit('close')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        <label @click="$emit('close')" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</label>
       </form>
-      <div class="text-xl flex items-center font-semibold pb-3">
+      <div class="flex items-center pb-3 text-xl font-semibold">
         <div>WARNING! </div>
         <lucideAlertTriangle :size="18" />
       </div>
     <slot />
       <div class="modal-action"> 
         <label @click="$emit('close')" class="btn btn-neutral">Cancel!</label>
-        <label class="btn btn-error text-white" @click="handleDelete">Sure, Delete!</label>
+        <label class="text-white btn btn-error" @click="$emit('yes'); isLoading = true;">
+          Sure, Delete!
+          <span class="px-3 loading loading-spinner loading-sm" v-show="isLoading"></span>
+        </label>
       </div>
     </div>
     <form method="dialog" class="modal-backdrop">
@@ -27,31 +30,16 @@ const props = defineProps({
   show: Boolean,
   data: Object
 })
-console.log(props.value)
-const EduStore = useEducationStore();
-
+const isLoading = ref(false)
 defineEmits(['close', 'yes'])
 const show_modal = ref(false)
+const data = ref()
 watchEffect(() => {
   show_modal.value = props.show
-})
-
-const handleDelete = async () => {
-  try {
-    console.log(props.data.id)
-    console.log('data deleted')
-    // await EduStore.delete(props.data.id)
-    // $emit('yes')
-    // $emit('close')
-    
-  } catch (error) {
-    console.log(error)
-    
+  if (props.show){
+    isLoading.value = false
   }
-  
-
-}
-
+})
 </script>
 
 <style></style>

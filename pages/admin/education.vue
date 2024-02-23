@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="text-xl font-semibold pb-3">Education</div>
-    <input v-model="filter" type="text" placeholder="Search" class="input input-sm input-bordered w-full max-w-xs" />
+    <AdminAlertSuccess :show="success" />
+    <div class="pb-3 text-xl font-semibold">Education</div>
+    <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
     <div class="overflow-x-auto">
       <table class="table table-zebra">
         <!-- head -->
@@ -20,15 +21,15 @@
             <td class="text-center">{{ edu.startYear }} - {{ edu.endYear ? edu.endYear : "Present" }}</td>
             <td class="text-center">{{ edu.major ? edu.major : "-" }}</td>
             <td class="text-center">{{ edu.degree ? edu.degree : "-" }}</td>
-            <button @click="remove = true" class="btn btn-outline btn-sm m-2 btn-circle">
+            <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <LucideTrash2 :size="16" />
             </button>
-            <button @click="edit = true" class="btn btn-outline btn-sm m-2 btn-circle">
+            <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <lucidePen size="16" />
             </button>
             <AdminEducationModalEdit :show="edit" @close="edit = false" />
-            <AdminEducationRemoveConModal :show="remove" @close="remove = false" @click="deleteData = edu" :data="edu">
-              <div class="text-xl font-semibold pb-3">Are you sure to delete [[ DataToBeDelete ]]?</div>
+            <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
+              <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?</div>
               <div>This operation cannot be undoed after executed</div>
             </AdminEducationRemoveConModal>
           </tr>
@@ -48,8 +49,8 @@ definePageMeta({
 
 const edit = ref(false);
 const remove = ref(false);
-const deleteData = ref(null);
-const updateData = ref(null);
+const isLoading = (false);
+const success = ref(false);
 
 const EduStore = useEducationStore();
 onBeforeMount(async () => {
@@ -59,12 +60,14 @@ onBeforeMount(async () => {
 const getEdu = async () => {
   await EduStore.get();
 };
+const deleteData = ref(null);
+const updateData = ref(null);
 
 const filter = ref("");
 const dataTable = computed(() => {
   console.log(filter.value)
   const search = filter.value.toLowerCase()
-
+  
   if (search != '') {
     return EduStore.education.filter(edu => {
       //pastikan huruf lower
@@ -75,6 +78,34 @@ const dataTable = computed(() => {
     return EduStore.education
   }
 });
+
+watchEffect(() => {
+  console.log(deleteData.value)
+});
+
+const handleDelete = async () => {
+  try {
+    const id = deleteData.value.id;
+    //proses hapus
+    await EduStore.delete(id);
+    //hide modal
+    remove.value = false
+    //success modal
+    success.value = true
+    //hide success modal
+    setTimeout(() => {
+      success.value = false
+    }, 3000);
+    
+    //referesh data
+    await EduStore.get()
+    
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
 
 
 
