@@ -10,7 +10,7 @@
     <AdminAlertSuccess class="mb-3" :show="success" />
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
       <div class="flex items-center gap-3">
-        <lucideSchool :size="20" class="" />Add Education
+        <lucideSchool :size="20" class="" />Education
       </div>
       <button @click="addEdu = true" class="btn btn-md btn-primary ">
         <lucidePlus :size="20" />
@@ -61,7 +61,7 @@ const edit = ref(false);
 const remove = ref(false);
 const isLoading = (false);
 const success = ref(false);
-const addEdu = ref(null);
+const addEdu = ref(false);
 
 
 const EduStore = useEducationStore();
@@ -88,9 +88,9 @@ const dataTable = computed(() => {
   }
 });
 
-watchEffect(() => {
-  console.log(deleteData.value)
-});
+// watchEffect(() => {
+//   console.log(deleteData.value)
+// });
 
 const handleDelete = async () => {
   try {

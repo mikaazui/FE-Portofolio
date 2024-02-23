@@ -14,8 +14,15 @@ export const useExperienceStore = defineStore("experience", {
             console.log(`ready to delete ${id}`)
             this.experience = await api.delete(`/experience/${id}`)
         },
-        async update () {
-
+        async create (data) {
+            const api = useApiStore();
+            console.log(`data before validation`)
+            console.log(data)
+            //validasi
+            data = Validate(isExperience, data);
+            console.log(`data after validation`)
+            console.log(data)
+            await api.post("/experience", data);
         }
         
     }

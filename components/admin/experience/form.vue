@@ -6,57 +6,57 @@
       <form method="dialog">
         <label @click="$emit('close')" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</label>
       </form>
-      <h1 class="text-xl font-semibold">Add Education</h1>
+      <h1 class="text-xl font-semibold">Add Experience</h1>
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">institution Name</span>
+          <span class="label-text">Company</span>
         </div>
-        <input v-model="formData.insituitionName" type="text" placeholder="institution Name"
+        <input v-model="formData.company" type="text" placeholder="Company"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.insituitionName">{{ errors.insituitionName }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.company">{{ errors.company }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">Major</span>
+          <span class="label-text">location</span>
         </div>
-        <input v-model="formData.major" type="text" placeholder="Major" class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.major">{{ errors.major }}</div>
+        <input v-model="formData.location" type="text" placeholder="Location" class="input input-bordered w-full max-w-xs" />
+        <div class="text-xs text-right text-error" v-if="errors.location">{{ errors.location }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">Degree</span>
+          <span class="label-text">title</span>
         </div>
-        <input v-model="formData.degree" type="text" placeholder="Degree" class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.degree">{{ errors.degree }}</div>
-      </label>
-      
-      <label class="form-control w-full max-w-xs">
-        <div class="label">
-          <span class="label-text">Degree</span>
-        </div>
-        <input v-model="formData.city" type="text" placeholder="city" class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.city">{{ errors.city }}</div>
+        <input v-model="formData.title" type="text" placeholder="Title" class="input input-bordered w-full max-w-xs" />
+        <div class="text-xs text-right text-error" v-if="errors.title">{{ errors.title }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">Start Year</span>
+          <span class="label-text">Description</span>
         </div>
-        <input v-model="formData.startYear" type="text" placeholder="Start Year"
+        <input v-model="formData.description" type="text" placeholder="Description" class="input input-bordered w-full max-w-xs" />
+        <div class="text-xs text-right text-error" v-if="errors.description">{{ errors.description }}</div>
+      </label>
+
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Start Date</span>
+        </div>
+        <input v-model="formData.startDate" type="text" placeholder="Start Date"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.startYear">{{ errors.startYear }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.startDate">{{ errors.startDate }}</div>
       </label>
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">End Year</span>
+          <span class="label-text">End Date</span>
         </div>
-        <input v-model="formData.endYear" type="text" placeholder="End Year"
+        <input v-model="formData.endDate" type="text" placeholder="End Date"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.endYear">{{ errors.endYear }}</div>
+        <div class="text-xs text-right text-error" v-if="endDate">{{ endDate }}</div>
       </label>
 
 
@@ -83,12 +83,12 @@ const errors = ({})
 const fetchError = ref('')
 const isLoading = ref(false)
 const formData = ref({
-  insituitionName: '',
-  major: '',
-  degree: '',
-  city: '',
-  startYear: '',
-  endYear: '',
+  company: '',
+  locatiom: '',
+  title: '',
+  description: '',
+  startDate: '',
+  endDate: '',
 })
 
 const emits = defineEmits(['close', 'yes', 'saved'])
@@ -98,16 +98,16 @@ watchEffect(() => {
 
   //reset form
   formData.value = {
-    insituitionName: '',
-    major: '',
-    degree: '',
-    city: '',
-    startYear: '',
-    endYear: '',
+    company: '',
+  location: '',
+  title: '',
+  description: '',
+  startDate: '',
+  endDate: '',
   }
 })
 
-const EduStore = useEducationStore();
+const ExpStore = useExperienceStore()
 const handleSave = async () => {
   isLoading.value = true
   try {
@@ -116,9 +116,11 @@ const handleSave = async () => {
     console.log('handle save')
     console.log(formData.value)
     //ubah data endYEar jika kosong
-    if (formData.value.endYear == '') formData.value.endYear = null
+    if (formData.value.endDate == '') formData.value.endDate = null
 
-    await EduStore.create(formData.value)
+    await ExpStore.create(formData.value)
+    console.log('data ready to post')
+    console.log(formData.value)
     show_modal.value = false
     isLoading.value = false
     emits('saved')

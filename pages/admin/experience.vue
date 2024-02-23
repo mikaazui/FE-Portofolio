@@ -1,12 +1,24 @@
 <template>
+  <AdminExperienceForm :show="addExp" @close="addExp = false" @saved="saved" />
   <AdminEducationModalEdit :show="edit" @close="edit = false" />
   <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
-    <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?</div>
+    <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.company }}?
+    </div>
     <div>This operation cannot be undoed after executed</div>
   </AdminEducationRemoveConModal>
   <div>
     <AdminAlertSuccess :show="success" />
-    <div class="pb-3 text-xl font-semibold">Education</div>
+    <div class="pb-3 text-xl font-semibold">
+      <div class="flex items-center justify-between pb-3 text-xl font-semibold">
+        <div class="flex items-center gap-3">
+          <LucideBriefcase :size="20" class="" />Experience
+        </div>
+        <button @click="addExp = true" class="btn btn-md btn-primary">
+          <lucidePlus :size="20" />
+          Add Experience
+        </button>
+      </div>
+    </div>
     <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
     <div class="overflow-x-auto">
       <table class="table table-zebra">
@@ -24,7 +36,8 @@
           <!-- row 1 -->
           <tr v-for="exp in dataTable" :key="exp.id">
             <td class="whitespace-nowrap">{{ exp.company }}</td>
-            <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate : "Present" }}</td>
+            <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate :
+              "Present" }}</td>
             <td>{{ exp.title ? exp.title : "-" }}</td>
             <td>{{ exp.location ? exp.location : "-" }}</td>
             <!-- <td class="">{{ exp.description ? exp.description : "-" }}</td> -->
@@ -55,6 +68,7 @@ const edit = ref(false);
 const remove = ref(false);
 const isLoading = (false);
 const success = ref(false);
+const addExp = ref(false);
 
 const ExpStore = useExperienceStore();
 onBeforeMount(async () => {
@@ -68,7 +82,7 @@ const filter = ref("");
 const dataTable = computed(() => {
   console.log(filter.value)
   const search = filter.value.toLowerCase()
-  
+
   if (search != '') {
     return ExpStore.experience.filter(exp => {
       //pastikan huruf lower
@@ -80,9 +94,9 @@ const dataTable = computed(() => {
   }
 });
 
-watchEffect(() => {
-  console.log(deleteData.value)
-});
+// watchEffect(() => {
+//   console.log(deleteData.value)
+// });
 
 const handleDelete = async () => {
   try {
@@ -97,14 +111,26 @@ const handleDelete = async () => {
     setTimeout(() => {
       success.value = false
     }, 3000);
-    
+
     //referesh data
     await ExpStore.get()
-    
+
   } catch (error) {
     console.log(error)
   }
 };
+
+const saved = async () => {
+  addExp.value = false
+  success.value = true
+  //hide success modal
+  setTimeout(() => {
+    success.value = false
+  }, 3000);
+  //fetch 2
+  await ExpStore.get();
+
+}
 
 
 
