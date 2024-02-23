@@ -8,25 +8,29 @@
         <!-- head -->
         <thead>
           <tr>
-            <th>institution</th>
-            <th class="text-center">Periode</th>
-            <th class="text-center">Major</th>
-            <th class="text-center">Degree</th>
+            <th>Company</th>
+            <th>Periode</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="edu in dataTable" :key="edu.id">
-            <td>{{ edu.insituitionName }}</td>
-            <td class="text-center">{{ edu.startYear }} - {{ edu.endYear ? edu.endYear : "Present" }}</td>
-            <td class="text-center">{{ edu.major ? edu.major : "-" }}</td>
-            <td class="text-center">{{ edu.degree ? edu.degree : "-" }}</td>
-            <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
-              <LucideTrash2 :size="16" />
-            </button>
-            <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
-              <lucidePen size="16" />
-            </button>
+          <tr v-for="exp in dataTable" :key="exp.id">
+            <td class="whitespace-nowrap">{{ exp.company }}</td>
+            <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate : "Present" }}</td>
+            <td>{{ exp.title ? exp.title : "-" }}</td>
+            <td>{{ exp.location ? exp.location : "-" }}</td>
+            <!-- <td class="">{{ exp.description ? exp.description : "-" }}</td> -->
+            <div class="flex items-center justify-normal">
+              <button @click="deleteData = exp; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                <LucideTrash2 :size="16" />
+              </button>
+              <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                <lucidePen size="16" />
+              </button>
+            </div>
             <AdminEducationModalEdit :show="edit" @close="edit = false" />
             <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
               <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?</div>
@@ -52,9 +56,9 @@ const remove = ref(false);
 const isLoading = (false);
 const success = ref(false);
 
-const EduStore = useEducationStore();
+const ExpStore = useExperienceStore();
 onBeforeMount(async () => {
-  await EduStore.get();
+  await ExpStore.get();
 });
 
 const deleteData = ref(null);
@@ -66,13 +70,13 @@ const dataTable = computed(() => {
   const search = filter.value.toLowerCase()
   
   if (search != '') {
-    return EduStore.education.filter(edu => {
+    return ExpStore.experience.filter(exp => {
       //pastikan huruf lower
-      const insituitionName = edu.insituitionName.toLowerCase();
-      return insituitionName.includes(search)
+      const company = exp.company.toLowerCase();
+      return company.includes(search)
     });
   } else {
-    return EduStore.education
+    return ExpStore.experience
   }
 });
 
@@ -84,7 +88,7 @@ const handleDelete = async () => {
   try {
     const id = deleteData.value.id;
     //proses hapus
-    await EduStore.delete(id);
+    await ExpStore.delete(id);
     //hide modal
     remove.value = false
     //success modal
@@ -95,7 +99,7 @@ const handleDelete = async () => {
     }, 3000);
     
     //referesh data
-    await EduStore.get()
+    await ExpStore.get()
     
   } catch (error) {
     console.log(error)
