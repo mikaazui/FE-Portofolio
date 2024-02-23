@@ -1,7 +1,22 @@
 <template>
+  <AdminEducationForm :show="addEdu" @close="addEdu = false" @saved="saved" />
+  <AdminEducationModalEdit :show="edit" @close="edit = false" />
+  <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
+    <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?
+    </div>
+    <div>This operation cannot be undoed after executed</div>
+  </AdminEducationRemoveConModal>
   <div>
-    <AdminAlertSuccess :show="success" />
-    <div class="pb-3 text-xl font-semibold">Education</div>
+    <AdminAlertSuccess class="mb-3" :show="success" />
+    <div class="flex items-center justify-between pb-3 text-xl font-semibold">
+      <div class="flex items-center gap-3">
+        <lucideSchool :size="20" class="" />Add Education
+      </div>
+      <button @click="addEdu = true" class="btn btn-md btn-primary ">
+        <lucidePlus :size="20" />
+        Add Education
+      </button>
+    </div>
     <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
     <div class="overflow-x-auto">
       <table class="table table-zebra">
@@ -27,11 +42,6 @@
             <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <lucidePen size="16" />
             </button>
-            <AdminEducationModalEdit :show="edit" @close="edit = false" />
-            <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
-              <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?</div>
-              <div>This operation cannot be undoed after executed</div>
-            </AdminEducationRemoveConModal>
           </tr>
         </tbody>
       </table>
@@ -51,6 +61,8 @@ const edit = ref(false);
 const remove = ref(false);
 const isLoading = (false);
 const success = ref(false);
+const addEdu = ref(null);
+
 
 const EduStore = useEducationStore();
 onBeforeMount(async () => {
@@ -64,7 +76,7 @@ const filter = ref("");
 const dataTable = computed(() => {
   console.log(filter.value)
   const search = filter.value.toLowerCase()
-  
+
   if (search != '') {
     return EduStore.education.filter(edu => {
       //pastikan huruf lower
@@ -93,14 +105,26 @@ const handleDelete = async () => {
     setTimeout(() => {
       success.value = false
     }, 3000);
-    
+
     //referesh data
     await EduStore.get()
-    
+
   } catch (error) {
     console.log(error)
   }
 };
+
+const saved = async () => {
+  addEdu.value = false
+  success.value = true
+  //hide success modal
+  setTimeout(() => {
+    success.value = false
+  }, 3000);
+  //fetch 2
+  await EduStore.get();
+
+}
 
 
 

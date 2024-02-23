@@ -40,7 +40,7 @@ export const useProfileStore = defineStore("profile", {
       if (avatar) {
         const formData = new FormData();
         formData.append("avatar", avatar);
-        //fetxh 2
+        //fetch 2
         this.profile = await Api.put("/profile", formData);
       }
     },

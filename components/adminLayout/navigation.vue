@@ -22,7 +22,7 @@ const menus = [
   {
     title: "Education",
     to: "/admin/education",
-    icon: resolveComponent("LucideGraduationCap"),
+    icon: resolveComponent("LucideSchool"),
   },
   {
     title: "Experience",
