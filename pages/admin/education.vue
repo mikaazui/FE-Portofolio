@@ -1,6 +1,6 @@
 <template>
   <AdminEducationForm :show="addEdu" @close="addEdu = false" @saved="saved" />
-  <AdminEducationModalEdit :show="edit" @close="edit = false" />
+  <AdminEducationModalEdit :show="edit" @close="edit = false" @yes="handleUpdate" />
   <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?
     </div>
@@ -39,7 +39,7 @@
             <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <LucideTrash2 :size="16" />
             </button>
-            <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+            <button @click="updateData = edu; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <lucidePen size="16" />
             </button>
           </tr>
@@ -88,9 +88,9 @@ const dataTable = computed(() => {
   }
 });
 
-// watchEffect(() => {
-//   console.log(deleteData.value)
-// });
+watchEffect(() => {
+  console.log(updateData.value)
+});
 
 const handleDelete = async () => {
   try {
@@ -113,6 +113,15 @@ const handleDelete = async () => {
     console.log(error)
   }
 };
+
+const handleUpdate = async () => {
+  try {
+    console.log('masuk method update')
+    
+  } catch (error) {
+    
+  }
+}
 
 const saved = async () => {
   addEdu.value = false
