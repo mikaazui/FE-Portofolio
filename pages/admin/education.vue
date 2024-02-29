@@ -1,6 +1,6 @@
 <template>
   <AdminEducationForm :show="addEdu" @close="addEdu = false" @saved="saved" />
-  <AdminEducationModalEdit :show="edit" @close="edit = false" @yes="handleUpdate" />
+  <AdminEducationModalEdit :show="edit" :data="updateData" @close="edit = false" @yes="handleUpdate" />
   <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?
     </div>
@@ -116,6 +116,9 @@ const handleDelete = async () => {
 
 const handleUpdate = async () => {
   try {
+    const id = updateData.value.id;
+    //proses update
+    console.log(id)
     console.log('masuk method update')
     
   } catch (error) {

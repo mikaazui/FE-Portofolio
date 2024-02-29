@@ -77,14 +77,53 @@
 
 <script setup>
 const props = defineProps({
+  data: Object,
   show: Boolean
   // text_confirm: String
+});
+
+const EduStore = useEducationStore();
+
+const handleSave = async () => {
+  try {
+    isLoading = true;
+
+    if(!formData.value.endYear) formData.value.endYear = null;
+
+    if(!props.data) {
+      //jika gaada >> create
+      await EduStore.create(formData.value)
+    } else {
+      //jika ada >> update
+      await EduStore.update(props.data._id, formData.value)
+    }
+    
+  } catch (error) {
+    
+  }
+}
+
+watchEffect (() => {
+  show_modal.value = props.show
+  //reset form
+  const formData = ref({
+    institutionName: props.data ? props.data.insituition : 'Data not found',
+    city: props.data ? props.data.city : 'Data not found',
+    startYear: props.data ? props.data.startYear : 'Data not found',
+    endYear: props.data ? props.data.endYear : 'Data not found',
+    major: props.data ? props.data.major : 'Data not found',
+    degree: props.data ? props.data.degree : 'Data not found',
+  });
+  
 })
+
+
+
+console.log(formData.value)
+  
+
 defineEmits(['close', 'yes'])
 const show_modal = ref(false)
-watchEffect(() => {
-  show_modal.value = props.show
-})
 
 
 </script>
