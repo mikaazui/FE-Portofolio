@@ -32,7 +32,7 @@
         <input v-model="formData.degree" type="text" placeholder="Degree" class="input input-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.degree">{{ errors.degree }}</div>
       </label>
-      
+
       <label class="form-control w-full max-w-xs">
         <div class="label">
           <span class="label-text">Degree</span>
@@ -49,16 +49,29 @@
           class="input input-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.startYear">{{ errors.startYear }}</div>
       </label>
+      <div class="flex items-center gap-3">
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">End Year</span>
+          </div>
+          <DatePicker v-model="formData.endYear" color="gray">
+            <template #default="{ togglePopover }">
+              <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal" :disabled="isPresent">
+                {{ formData.endYear }}
+                {{ dayjs(formData.dob).format('D MMMM YYYY') }}
+              </button>
+            </template>
+          </DatePicker>
+          <div class="text-xs text-right text-error" v-if="errors.dob">{{ errors.dob }}</div>
 
-      <label class="form-control w-full max-w-xs">
-        <div class="label">
-          <span class="label-text">End Year</span>
+        </label>
+        <div class="flex items-center">
+          <input v-mode="isPresent" type="checkbox" @change="handlePresent" class="checkbox" />
+          <label for="" class="label">Present</label>
         </div>
-        <input v-model="formData.endYear" type="text" placeholder="End Year"
-          class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="errors.endYear">{{ errors.endYear }}</div>
-      </label>
 
+
+      </div>
 
       <div class="flex gap-3 py-3 justify-end">
         <button @click="$emit('close')" class="btn btn-error text-white">Close</button>
@@ -73,6 +86,8 @@
 
 <script setup>
 import Joi from 'joi';
+import dayjs from 'dayjs'
+import { DatePicker } from 'v-calendar'
 const props = defineProps({
   show: Boolean,
   text_confirm: String,
@@ -116,7 +131,7 @@ const handleSave = async () => {
     console.log('handle save')
     console.log(formData.value)
     //ubah data endYEar jika kosong
-    if (formData.value.endYear == '') formData.value.endYear = null
+    if(isPresent.value) formData.value.endYear = null
 
     await EduStore.create(formData.value)
     show_modal.value = false
@@ -145,6 +160,13 @@ const handleSave = async () => {
   }
 };
 
+const handlePresent = (e) => {
+  console.log(e)
+  isPresent.value = e.target.checked
+
+
+}
+const isPresent = ref(false)
 
 
 </script>
