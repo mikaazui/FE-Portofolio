@@ -43,12 +43,18 @@
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">Start Year</span>
+          <span class="label-text">Dob</span>
         </div>
-        <input v-model="formData.startYear" type="text" placeholder="Start Year"
-          class="input input-bordered w-full max-w-xs" />
+        <DatePicker v-model="formData.startYear" color="gray">
+          <template #default="{ togglePopover }">
+            <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal">
+              {{ dayjs(formData.dob).format('D MMMM YYYY') }}
+            </button>
+          </template>
+        </DatePicker>
         <div class="text-xs text-right text-error" v-if="errors.startYear">{{ errors.startYear }}</div>
       </label>
+
       <div class="flex items-center gap-3">
         <label class="form-control w-full max-w-xs">
           <div class="label">
@@ -62,7 +68,7 @@
               </button>
             </template>
           </DatePicker>
-          <div class="text-xs text-right text-error" v-if="errors.dob">{{ errors.dob }}</div>
+          <div class="text-xs text-right text-error" v-if="errors.endYear">{{ errors.endYear }}</div>
 
         </label>
         <div class="flex items-center">
