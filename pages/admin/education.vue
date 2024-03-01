@@ -1,6 +1,5 @@
 <template>
-  <AdminEducationForm :show="addEdu" @close="addEdu = false" @saved="saved" />
-  <AdminEducationModalEdit :show="edit" :data="updateData" @close="edit = false" />
+  <AdminEducationForm :data="updateData" :show="showForm" @close="showForm = false" @saved="saved"  />
   <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?
     </div>
@@ -12,10 +11,10 @@
       <div class="flex items-center gap-3">
         <lucideSchool :size="20" class="" />Education
       </div>
-      <button @click="addEdu = true" class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center">
+      <button @click="updateData = null; showForm = true" class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center">
         <lucidePlus :size="20" />
         <div class="max-lg:hidden">Add Education</div>
-
+        
       </button>
     </div>
     <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
@@ -40,7 +39,7 @@
             <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <LucideTrash2 :size="16" />
             </button>
-            <button @click="updateData = edu; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+            <button @click="updateData = edu; showForm = true"  class="m-2 btn btn-outline btn-sm btn-circle">
               <lucidePen size="16" />
             </button>
           </tr>
@@ -53,7 +52,7 @@
         <div class="uppercase font-semibold">{{ edu.insituitionName }} </div>
         <div class="flex items-center justify-between">
         <div>{{ dayjs(edu.startYear).format('D MMMM YYYY') }} - {{ dayjs(edu.endYear).format('D MMMM YYYY') ?
-            dayjs(edu.endYear).format('D MMMM YYYY') : "Present" }}</div>
+            edu.endYear : "Present" }}</div>
           <div class="flex justify-between gap-2">
 
             <div class="dropdown dropdown-bottom dropdown-end">
@@ -80,9 +79,7 @@
               </div>
             </div>
           </div>
-
         </div>
-
         <div class="flex justify-between">
           <div class="flex items-center justify-between btn btn-accent">
             <div>Major</div>
@@ -96,6 +93,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
 </template>
@@ -112,10 +110,7 @@ const edit = ref(false);
 const remove = ref(false);
 const isLoading = (false);
 const success = ref(false);
-const addEdu = ref(false);
-
-
-
+const showForm = ref(false);
 
 const EduStore = useEducationStore();
 onBeforeMount(async () => {
@@ -180,8 +175,7 @@ const handleSave = async () => {
   } catch (error) {
 
   }
-}
-
+};
 
 const saved = async () => {
   addEdu.value = false
