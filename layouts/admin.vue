@@ -71,7 +71,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col items-center justify-center">
           <!-- main content -->
-          <div class="bg-base-100 h-full w-full rounded-2xl shadow-xl lg-rounded-3xl flex flex-col p-6 lg:-16">
+          <div class="bg-base-100 h-full w-full rounded-2xl shadow-xl lg-rounded-3xl flex flex-col p-6 md:p-12 lg:-16">
             <slot />
           </div>
         </div>
