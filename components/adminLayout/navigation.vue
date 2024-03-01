@@ -30,6 +30,11 @@ const menus = [
     icon: resolveComponent("LucideBriefcase"),
   },
   {
+    title: "Skills",
+    to: "/admin/skills",
+    icon: resolveComponent("LucideBoxes"),
+  },
+  {
     title: "Project",
     to: "/admin/project",
     icon: resolveComponent("LucideNotebook-tabs"),
