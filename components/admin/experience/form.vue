@@ -21,7 +21,8 @@
         <div class="label">
           <span class="label-text">location</span>
         </div>
-        <input v-model="formData.location" type="text" placeholder="Location" class="input input-bordered w-full max-w-xs" />
+        <input v-model="formData.location" type="text" placeholder="Location"
+          class="input input-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.location">{{ errors.location }}</div>
       </label>
 
@@ -37,7 +38,8 @@
         <div class="label">
           <span class="label-text">Description</span>
         </div>
-        <input v-model="formData.description" type="text" placeholder="Description" class="input input-bordered w-full max-w-xs" />
+        <input v-model="formData.description" type="text" placeholder="Description"
+          class="input input-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.description">{{ errors.description }}</div>
       </label>
 
@@ -56,7 +58,7 @@
         </div>
         <input v-model="formData.endDate" type="text" placeholder="End Date"
           class="input input-bordered w-full max-w-xs" />
-        <div class="text-xs text-right text-error" v-if="endDate">{{ endDate }}</div>
+        <div class="text-xs text-right text-error" v-if="errors.endDate">{{ errors.endDate }}</div>
       </label>
 
 
@@ -84,7 +86,7 @@ const fetchError = ref('')
 const isLoading = ref(false)
 const formData = ref({
   company: '',
-  locatiom: '',
+  location: '',
   title: '',
   description: '',
   startDate: '',
@@ -99,11 +101,11 @@ watchEffect(() => {
   //reset form
   formData.value = {
     company: '',
-  location: '',
-  title: '',
-  description: '',
-  startDate: '',
-  endDate: '',
+    location: '',
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
   }
 })
 
