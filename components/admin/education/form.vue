@@ -35,7 +35,7 @@
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">Degree</span>
+          <span class="label-text">City</span>
         </div>
         <input v-model="formData.city" type="text" placeholder="city" class="input input-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.city">{{ errors.city }}</div>
@@ -43,12 +43,12 @@
 
       <label class="form-control w-full max-w-xs">
         <div class="label">
-          <span class="label-text">Dob</span>
+          <span class="label-text">Start Year</span>
         </div>
         <DatePicker v-model="formData.startYear" color="gray">
           <template #default="{ togglePopover }">
             <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal">
-              {{ dayjs(formData.dob).format('D MMMM YYYY') }}
+              {{ dayjs(formData.startYear).format('D MMMM YYYY') }}
             </button>
           </template>
         </DatePicker>
@@ -63,8 +63,7 @@
           <DatePicker v-model="formData.endYear" color="gray">
             <template #default="{ togglePopover }">
               <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal" :disabled="isPresent">
-                {{ formData.endYear }}
-                {{ dayjs(formData.dob).format('D MMMM YYYY') }}
+                {{ dayjs(formData.endYear).format('D MMMM YYYY') }}
               </button>
             </template>
           </DatePicker>
@@ -72,7 +71,7 @@
 
         </label>
         <div class="flex items-center">
-          <input v-mode="isPresent" type="checkbox" @change="handlePresent" class="checkbox" />
+          <input v-model="isPresent" type="checkbox" @change="handlePresent" class="checkbox" />
           <label for="" class="label">Present</label>
         </div>
 
@@ -82,11 +81,13 @@
       <div class="flex gap-3 py-3 justify-end">
         <button @click="$emit('close')" class="btn btn-error text-white">Close</button>
         <button @click="handleSave" class="btn btn-success text-white">Save</button>
-        <div class="text-xs text-error" v-if="fetchError">{{ fetchError }}</div>
+        <div class="text-xs text-error" >{{ fetchError }}</div>
       </div>
     </div>
   </div>
 </template>
+
+<!-- TODO PINDAHIN METHOD UPDATE KESINI -->
 
 
 
@@ -109,7 +110,7 @@ const formData = ref({
   degree: '',
   city: '',
   startYear: '',
-  endYear: '',
+  endYear: ''
 })
 
 const emits = defineEmits(['close', 'yes', 'saved'])
@@ -123,8 +124,8 @@ watchEffect(() => {
     major: '',
     degree: '',
     city: '',
-    startYear: '',
-    endYear: '',
+    startYear: new Date(),
+    endYear: new Date()
   }
 })
 
@@ -167,10 +168,7 @@ const handleSave = async () => {
 };
 
 const handlePresent = (e) => {
-  console.log(e)
   isPresent.value = e.target.checked
-
-
 }
 const isPresent = ref(false)
 
