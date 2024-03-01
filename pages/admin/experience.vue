@@ -9,7 +9,7 @@
   <div>
     <AdminAlertSuccess :show="success" />
     <div class="pb-3 text-xl font-semibold">
-      <div class="flex items-center justify-between pb-3 text-xl font-semibold">
+      <div class="flex items-center justify-between  text-xl font-semibold">
         <div class="flex items-center gap-3">
           <LucideBriefcase :size="20" class="" />Experience
         </div>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto max-lg:hidden">
       <table class="table table-zebra">
         <!-- head -->
         <thead>
@@ -33,37 +33,84 @@
           </tr>
         </thead>
         <tbody>
-            <!-- row 1 -->
-            <tr v-for="exp in dataTable" :key="exp.id">
-              <td class="whitespace-nowrap">{{ exp.company }}</td>
-              <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate :
-                "Present" }}</td>
-              <td>{{ exp.title ? exp.title : "-" }}</td>
-              <td>{{ exp.location ? exp.location : "-" }}</td>
-              <td>
-                <div class="flex items-center my-auto">
-                  <button @click="deleteData = exp; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
-                    <LucideTrash2 :size="16" />
-                  </button>
-                  <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
-                    <lucidePen size="16" />
-                  </button>
-                </div>
-              </td>
-            </tr>
+          <!-- row 1 -->
+          <tr v-for="exp in dataTable" :key="exp.id">
+            <td class="whitespace-nowrap">{{ exp.company }}</td>
+            <td class="whitespace-nowrap">{{ exp.readableStartDate }} - {{ exp.readableEndDate ? exp.readableEndDate :
+              "Present" }}</td>
+            <td>{{ exp.title ? exp.title : "-" }}</td>
+            <td>{{ exp.location ? exp.location : "-" }}</td>
+            <td>
+              <div class="flex items-center my-auto">
+                <button @click="deleteData = exp; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                  <LucideTrash2 :size="16" />
+                </button>
+                <button @click="edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                  <lucidePen size="16" />
+                </button>
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
+
+    <div class="lg:hidden py-5">
+      <div v-for="exp in dataTable" :key="exp.id" class="card-body bg-base-200 drop-shadow-lg">
+        <div class="uppercase font-semibold">{{ exp.title }} </div>
+        <div class="flex items-center justify-between">
+          <div>{{ dayjs(exp.startDate).format('D MMMM YYYY') }} - {{ dayjs(exp.endDate).format('D MMMM YYYY') ?
+            dayjs(exp.endDate).format('D MMMM YYYY') : "Present" }}</div>
+          <div class="flex justify-between gap-2">
+
+            <div class="dropdown dropdown-bottom dropdown-end">
+              <div tabindex="0" role="button" class="btn bg-base-300 m-1">
+                <LucideMoreVertical :size="16" />
+              </div>
+
+              <div class="">
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                  <li>
+                    <a @click="updateData = exp; edit = true" class="rounded-lg p-1.5">
+                      <LucidePen :size="16" />
+                      Edit
+                    </a>
+                  </li>
+                  <li>
+                    <a @click="deleteData = exp; remove = true" class="bg-error rounded-lg p-1.5">
+                      <LucideTrash2 :size="16" />
+                      Delete
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <div class="flex items-center justify-between btn btn-accent">
+            <div>{{ exp.company }}</div>
+          </div>
+          <div class="flex items-center justify-between btn btn-accent">
+            <div> {{  }} ntar aja diisinya</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script setup>
-// import { useEducationStore } from 'educationStore.js';
+// import { useexpcationStore } from 'expcationStore.js';
 definePageMeta({
   layout: 'admin',
   middleware: ['auth'],
   ssr: true
 })
+import dayjs from 'dayjs'
 
 const edit = ref(false);
 const remove = ref(false);
