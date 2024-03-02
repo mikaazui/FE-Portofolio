@@ -2,95 +2,67 @@
   <!-- modal -->
   <input type="checkbox" v-model="show_modal" class="modal-toggle" />
   <div class="modal" role="dialog">
-     <div class="modal-box">
-        <form method="dialog">
-           <label @click="$emit('close')" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</label>
-        </form>
-        <h1 class="text-xl font-semibold"> {{ data ? `Update ${data.insituitionName}` : 'Add Skill' }} </h1>
+    <div class="modal-box">
+      <form method="dialog">
+        <label @click="$emit('close')" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</label>
+      </form>
+      <h1 class="text-xl font-semibold"> {{ data ? `Update ${data.insituitionName}` : 'Add Skill' }} </h1>
 
-        <label class="form-control w-full max-w-xs">
-           <div class="label">
-              <span class="label-text">institution Name</span>
-           </div>
-           <input v-model="formData.insituitionName" type="text" placeholder="institution Name"
-              class="input input-bordered w-full max-w-xs" />
-           <div class="text-xs text-right text-error" v-if="errors.insituitionName">{{ errors.insituitionName }}</div>
-        </label>
-
-        <label class="form-control w-full max-w-xs">
-           <div class="label">
-              <span class="label-text">Major</span>
-           </div>
-           <input v-model="formData.major" type="text" placeholder="Major" class="input input-bordered w-full max-w-xs" />
-           <div class="text-xs text-right text-error" v-if="errors.major">{{ errors.major }}</div>
-        </label>
-
-        <label class="form-control w-full max-w-xs">
-           <div class="label">
-              <span class="label-text">Degree</span>
-           </div>
-           <input v-model="formData.degree" type="text" placeholder="Degree"
-              class="input input-bordered w-full max-w-xs" />
-           <div class="text-xs text-right text-error" v-if="errors.degree">{{ errors.degree }}</div>
-        </label>
-
-        <label class="form-control w-full max-w-xs">
-           <div class="label">
-              <span class="label-text">City</span>
-           </div>
-           <input v-model="formData.city" type="text" placeholder="city" class="input input-bordered w-full max-w-xs" />
-           <div class="text-xs text-right text-error" v-if="errors.city">{{ errors.city }}</div>
-        </label>
-
-        <label class="form-control w-full max-w-xs">
-           <div class="label">
-              <span class="label-text">Start Year</span>
-           </div>
-           <DatePicker v-model="formData.startYear" color="gray">
-              <template #default="{ togglePopover }">
-                 <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal">
-                    {{ dayjs(formData.startYear).format('YYYY') }}
-                 </button>
-              </template>
-           </DatePicker>
-           <div class="text-xs text-right text-error" v-if="errors.startYear">{{ errors.startYear }}</div>
-        </label>
-
-        <!-- <div class="flex items-center gap-3">
-           <label class="form-control w-full max-w-xs">
-              <div class="label">
-                 <span class="label-text">End Year</span>
-              </div>
-              <DatePicker v-model="formData.endYear" color="gray">
-                 <template #default="{ togglePopover }">
-                    <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal"
-                       :disabled="isPresent">
-                       {{ dayjs(formData.endDate).format('YYYY') }}
-                    </button>
-                 </template>
-              </DatePicker>
-              <div class="text-xs text-right text-error" v-if="errors.endYear">{{ errors.endYear }}</div>
-
-           </label>
-           -->
-           <div class="flex items-center">
-              <!-- TODO CHECKBOXNYA ? JIKA ADA DATA > CHECKBOX TERCENTANG -->
-              <input type="checkbox" v-model="isPresent" @change="handlePresent" class="checkbox" />
-              <label for="" class="label">Present</label>
-           </div>
-
-
-        <div class="flex gap-3 py-3 justify-end">
-           <button @click="$emit('close')" class="btn btn-error text-white">Close</button>
-           <button @click="handleSave" class="btn btn-success text-white">
-              {{ data ? 'Update' : 'Save' }}
-              <span v-show="isLoading" class="loading loading-spinner loading-md"></span>
-           </button>
-           <div class="text-xs text-error">{{ fetchError }}</div>
+      <!-- Skill Title -->
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Title</span>
         </div>
-     </div>
-  </div>
+        <input v-model="formData.title" type="text" placeholder="Skill Name"
+          class="input input-bordered w-full max-w-xs" />
+        <div class="text-xs text-right text-error" v-if="errors.title">{{ errors.title }}</div>
+      </label>
 
+      <!-- Category -->
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Category</span>
+        </div>
+        <input v-model="formData.category" type="text" placeholder="Category"
+          class="uppercase input input-bordered w-full max-w-xs" />
+        <div class="text-xs text-right text-error" v-if="errors.category">{{ errors.category }}</div>
+
+        <select @change="(e) => formData.category = e.target.value" class="select select-sm select-bordered w-full max-w-xs mt-3">
+          <option value="all">All Category</option>
+          <option v-for="cat in SkillStore.categories" :key="cat.id" :value="cat.title">{{ cat.title }}</option>
+        </select>
+
+        <div class="flex gap-1 flex-wrap mt-3">
+          <button v-for="cat in SkillStore.categories" :key="cat.id" @click="formData.category = cat.title" class="btn rounded-xl btn-outline btn-sm btn-ghost">{{ cat.title }}</button>
+
+        </div>
+      </label>
+
+      <!-- Svg -->
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">SVG</span>
+        </div>
+
+        <div class="bg-base-200 p-3 rounded-lg mb-2">
+          <div v-html="formData.svg"></div>
+        </div>
+
+        <textarea v-model="formData.svg" placeholder="SVG" rows="7" class="textarea textarea-bordered w-full max-w-xs" />
+        <div class="text-xs text-right text-error" v-if="errors.svg">{{ errors.svg }}</div>
+      </label>
+
+
+      <div class="flex gap-3 py-3 justify-end">
+        <button @click="$emit('close')" class="btn btn-error text-white">Close</button>
+        <button @click="handleSave" class="btn btn-success text-white">
+          {{ data ? 'Update' : 'Save' }}
+          <span v-show="isLoading" class="loading loading-spinner loading-md"></span>
+        </button>
+        <div class="text-xs text-error">{{ fetchError }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <!-- TODO PINDAHIN METHOD UPDATE KESINI -->
@@ -101,10 +73,12 @@ const props = defineProps({
   show: Boolean,
 })
 
+
 import dayjs from 'dayjs'
 import { DatePicker } from 'v-calendar'
 import Joi from 'joi'
 
+const SkillStore = useSkillStore();
 const errors = ({})
 const fetchError = ref('')
 const isLoading = ref(false)
@@ -116,6 +90,13 @@ const formData = ref({})
 
 watchEffect(() => {
   show_modal.value = props.show
+
+  formData.value = {
+    title: '',
+    category: '',
+    svg: ''
+  }
+
 }
 
 )

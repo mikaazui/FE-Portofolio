@@ -44,7 +44,8 @@
         <tbody>
           <!-- row 1 -->
           <tr v-for="skill in dataTable" :key="skill.id">
-            <td class="w-24" v-html="skill.svg">
+            <td class="w-24">
+              <div v-html="skill.svg"></div>
             </td>
             <td>{{ skill.title }}</td>
             <td>{{ skill.category.title }}</td>
