@@ -27,6 +27,14 @@ export const useSkillStore = defineStore("skills", {
       await Api.post('/skill', data)
       
     },
+    async update (id, data) {
+      const Api = useApiStore()
+      //validasi
+      data = Validate(isSkill, data)
+      //fetch
+      this.skills  = await Api.put(`/skill/${id}`, data)
+      this.categories  = await Api.put(`/skill/${id}`, data)
+    },
     async delete (id) {
       const Api = useApiStore()
       //delete fetch

@@ -52,7 +52,7 @@
               <button @click="deleteData = skill; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
                 <LucideTrash2 :size="16" />
               </button>
-              <button @click="updateData = skill; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+              <button @click="updateData = skill; showForm = true" class="m-2 btn btn-outline btn-sm btn-circle">
                 <lucidePen size="16" />
               </button>
             </td>
