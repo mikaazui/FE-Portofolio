@@ -6,7 +6,7 @@
       <form method="dialog">
         <label @click="$emit('close')" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</label>
       </form>
-      <h1 class="text-xl font-semibold"> {{ data ? `Update ${data.insituitionName}` : 'Add Skill' }} </h1>
+      <h1 class="text-xl font-semibold"> {{ data ? `Update ${data.title}` : 'Add Skill' }} </h1>
 
       <!-- Skill Title -->
       <label class="form-control w-full max-w-xs">
@@ -27,13 +27,15 @@
           class="uppercase input input-bordered w-full max-w-xs" />
         <div class="text-xs text-right text-error" v-if="errors.category">{{ errors.category }}</div>
 
-        <select @change="(e) => formData.category = e.target.value" class="select select-sm select-bordered w-full max-w-xs mt-3">
+        <select @change="(e) => formData.category = e.target.value"
+          class="select select-sm select-bordered w-full max-w-xs mt-3">
           <option value="all">All Category</option>
           <option v-for="cat in SkillStore.categories" :key="cat.id" :value="cat.title">{{ cat.title }}</option>
         </select>
 
         <div class="flex gap-1 flex-wrap mt-3">
-          <button v-for="cat in SkillStore.categories" :key="cat.id" @click="formData.category = cat.title" class="btn rounded-xl btn-outline btn-sm btn-ghost">{{ cat.title }}</button>
+          <button v-for="cat in SkillStore.categories" :key="cat.id" @click="formData.category = cat.title"
+            class="btn rounded-xl btn-outline btn-sm btn-ghost">{{ cat.title }}</button>
 
         </div>
       </label>
@@ -96,8 +98,34 @@ watchEffect(() => {
     category: '',
     svg: ''
   }
+});
 
+const handleSave = async () => {
+  errors.value = {};
+  fetchError.value = '';
+  try {
+    //sjow laoading
+    isLoading.value = true;
+    await SkillStore.create(formData.value)
+    //disable laoading
+    isLoading.value = false;
+  } catch (error) {
+    //disable laoading
+    isLoading.value = false;
+    // emit saved
+    emits('saved')
+
+    if (error instanceof Joi.ValidationError) {
+      errors.value = joiError(error);
+    } else {
+      if (error.data) {
+        fetchError.value = error.data.message
+      } else {
+        console.log(error)
+      }
+    }
+
+  }
 }
 
-)
 </script>

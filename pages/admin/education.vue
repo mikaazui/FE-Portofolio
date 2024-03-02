@@ -158,24 +158,24 @@ const handleDelete = async () => {
   }
 };
 
-const handleSave = async () => {
-  try {
-    isLoading = true;
+// const handleSave = async () => {
+//   try {
+//     isLoading = true;
 
-    if (!formData.value.endYear) formData.value.endYear = null;
+//     if (!formData.value.endYear) formData.value.endYear = null;
 
-    if (!props.data) {
-      //jika gaada >> create
-      await EduStore.create(formData.value)
-    } else {
-      //jika ada >> update
-      await EduStore.update(props.data._id, formData.value)
-    }
+//     if (!props.data) {
+//       //jika gaada >> create
+//       await EduStore.create(formData.value)
+//     } else {
+//       //jika ada >> update
+//       await EduStore.update(props.data._id, formData.value)
+//     }
 
-  } catch (error) {
+//   } catch (error) {
 
-  }
-};
+//   }
+// };
 
 const saved = async () => {
   addEdu.value = false

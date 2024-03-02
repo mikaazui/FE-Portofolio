@@ -1,16 +1,13 @@
 <template>
-  <AdminEducationForm />
-  <!-- :show="addEdu" @close="addEdu = false" @saved="saved" -->
-  <AdminEducationModalEdit />
-  <!-- :show="edit" :data="updateData" @close="edit = false" -->
-  <AdminEducationRemoveConModal>
-    <!-- :show="-" :data="-" @close="-" @yes="-" -->
+  <AdminAlertSuccess class="mb-3" :show="success" />
+
+  <AdminSkillRemoveModalCon :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.title }}?
     </div>
     <div>This operation cannot be undoed after executed</div>
-  </AdminEducationRemoveConModal>
+  </AdminSkillRemoveModalCon>
+
   <div>
-    <!-- <AdminAlertSuccess class="mb-3" :show="success" /> -->
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
       <div class="flex items-center gap-3">
         <lucideBoxes :size="20" class="" />Skills
@@ -111,7 +108,7 @@
     </div>
   </div>
 
-  <AdminSkillForm :show="showForm" :data="updateData" @close="showForm = false" />
+  <AdminSkillForm :show="showForm" :data="updateData" @close="showForm = false" @saved="saved" />
 </template>
 
 <script setup>
@@ -141,11 +138,12 @@ console.log(SkillStore.categories)
 
 
 
-const deleteData = ref();
-const updateData = ref();
+const deleteData = ref(null);
+const updateData = ref(null);
 const edit = ref(false);
 const remove = ref(false);
 const showForm = ref(false);
+const success = ref(false);
 
 
 const filter = ref("");
@@ -168,6 +166,7 @@ const dataTable = computed(() => {
         } else {
           return skillTtitle.includes(search) && skill.skillCategoryId == selectedCatId
         }
+
       });
     } else {
       //rerun berdasarkan all
@@ -187,6 +186,39 @@ const dataTable = computed(() => {
   }
 });
 
+const handleDelete = async () => {
+  try {
+    const id = deleteData.value.id;
+    //proses hapus
+    await SkillStore.delete(id);
+    //hide modal
+    remove.value = false
+    //success modal
+    success.value = true
+    //hide success modal
+    setTimeout(() => {
+      success.value = false
+    }, 3000);
+
+    //referesh data
+    await SkillStore.get()
+
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+const saved = async () => {
+  addEdu.value = false
+  success.value = true
+  //hide success modal
+  setTimeout(() => {
+    success.value = false
+  }, 3000);
+  //fetch 2
+  await EduStore.get();
+
+}
 
 
 </script>
