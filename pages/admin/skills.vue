@@ -1,27 +1,35 @@
 <template>
-  <AdminEducationForm  />
+  <AdminEducationForm />
   <!-- :show="addEdu" @close="addEdu = false" @saved="saved" -->
-  <AdminEducationModalEdit  />
+  <AdminEducationModalEdit />
   <!-- :show="edit" :data="updateData" @close="edit = false" -->
-  <AdminEducationRemoveConModal > 
+  <AdminEducationRemoveConModal>
     <!-- :show="-" :data="-" @close="-" @yes="-" -->
-  <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.title }}?
+    <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.title }}?
     </div>
     <div>This operation cannot be undoed after executed</div>
   </AdminEducationRemoveConModal>
   <div>
-    <AdminAlertSuccess class="mb-3" :show="success" />
+    <!-- <AdminAlertSuccess class="mb-3" :show="success" /> -->
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
       <div class="flex items-center gap-3">
         <lucideBoxes :size="20" class="" />Skills
       </div>
-      <button @click="addEdu = true" class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center">
+      <button @click="showForm = true" class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center">
         <lucidePlus :size="20" />
-        <div class="max-lg:hidden">Add Education</div>
+        <div class="max-lg:hidden">Add Skill</div>
 
       </button>
     </div>
-    <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
+    <div class="flex gap-3 items-center">
+      <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
+
+      <select v-model="selectedCategory" @change="filter = ''" class="select select-sm select-bordered w-full max-w-xs">
+        <option value="all">All Category</option>
+        <option v-for="cat in SkillStore.categories" :key="cat.id" :value="cat.id">{{ cat.title }}</option>
+      </select>
+    </div>
+
     <div class="overflow-x-auto max-lg:hidden">
       <table class="table table-zebra">
         <!-- head -->
@@ -35,25 +43,27 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="skill in SkillStore.skills" :key="skill.id">
+          <tr v-for="skill in dataTable" :key="skill.id">
             <td class="w-24" v-html="skill.svg">
             </td>
             <td>{{ skill.title }}</td>
             <td>{{ skill.category.title }}</td>
             <td>{{ skill._count.projects }}</td>
-            <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
-              <LucideTrash2 :size="16" />
-            </button>
-            <button @click="updateData = edu; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
-              <lucidePen size="16" />
-            </button>
+            <td>
+              <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                <LucideTrash2 :size="16" />
+              </button>
+              <button @click="updateData = edu; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                <lucidePen size="16" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="lg:hidden py-5">
-      <div v-for="skill in SkillStore.skill" :key="skill.id" class="card-body bg-base-200 drop-shadow-lg">
+      <div v-for="skill in dataTable" :key="skill.id" class="card-body bg-base-200 drop-shadow-lg">
         <div class="uppercase font-semibold">{{ skill.title }} </div>
         <div class="flex items-center justify-between">
           <div class="flex justify-between gap-2">
@@ -71,7 +81,7 @@
                       Edit
                     </a>
                   </li>
-                  <li>
+                  <li v-if="skill._count.projects">
                     <a @click="deleteData = skill; remove = true" class="bg-error rounded-lg p-1.5">
                       <LucideTrash2 :size="16" />
                       Delete
@@ -92,7 +102,7 @@
           </div>
           <div class="flex items-center justify-between btn btn-accent">
             <div>Degree</div>
-            <div> {{  }}</div>
+            <div> {{ }}</div>
           </div>
 
         </div>
@@ -100,6 +110,7 @@
     </div>
   </div>
 
+  <AdminSkillForm :show="showForm" :data="updateData" @close="showForm = false" />
 </template>
 
 <script setup>
@@ -108,45 +119,73 @@ definePageMeta({
   layout: 'admin',
   middleware: ['auth'],
 })
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 
 const SkillStore = useSkillStore();
 onBeforeMount(async () => {
   try {
-    await SkillStore.get();
-    
+    await Promise.all([
+      SkillStore.get(),
+      SkillStore.getCategories(),
+    ]);
+
   } catch (error) {
     console.log(error)
   }
 });
+
+console.log(SkillStore.categories)
+
+
+
 
 
 const deleteData = ref();
 const updateData = ref();
 const edit = ref(false);
 const remove = ref(false);
+const showForm = ref(false);
 
 
 const filter = ref("");
+//selected category
+const selectedCategory = ref('all');
+
 const dataTable = computed(() => {
   try {
-    console.log(filter.value)
+    // console.log(filter.value)
     const search = filter.value.toLowerCase()
-  
+    const selectedCatId = selectedCategory.value
+
     if (search != '') {
       return SkillStore.skills.filter(skill => {
         //pastikan huruf lower
-        const insituitionName = skill.insituitionName.toLowerCase();
-        return insituitionName.includes(search)
+        const skillTtitle = skill.title.toLowerCase();
+
+        if (selectedCatId == 'all') {
+          return skillTtitle.includes(search)
+        } else {
+          return skillTtitle.includes(search) && skill.skillCategoryId == selectedCatId
+        }
       });
     } else {
-      return SkillStore.skills
+      //rerun berdasarkan all
+      if (selectedCatId == 'all') {
+        return SkillStore.skills;
+      }
+      else {
+        //rerun berdasarkan od
+        return SkillStore.skills.filter(skill => {
+          return skill.skillCategoryId == selectedCatId
+        })
+      }
     }
-    
+
   } catch (error) {
     console.log(error)
   }
 });
+
 
 
 </script>
