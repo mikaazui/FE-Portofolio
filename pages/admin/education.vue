@@ -33,7 +33,7 @@
           <!-- row 1 -->
           <tr v-for="edu in dataTable" :key="edu.id">
             <td>{{ edu.insituitionName }}</td>
-            <td class="text-center">{{ dayjs(edu.startYear).format('D MMMM YYYY') }} - {{ dayjs(edu.endYear).format('D MMMM YYYY') ? dayjs(edu.endYear).format('D MMMM YYYY') : "Present" }}</td>
+            <td class="text-center">{{ edu.readableStartYear}} - {{ edu.readableEndYear }}</td>
             <td class="text-center">{{ edu.major ? edu.major : "-" }}</td>
             <td class="text-center">{{ edu.degree ? edu.degree : "-" }}</td>
             <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
