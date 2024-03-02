@@ -49,7 +49,7 @@
             <DatePicker v-model="formData.startYear" color="gray">
                <template #default="{ togglePopover }">
                   <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal">
-                     {{ formData.startYear ? dayjs(formData.startYear).format('YYYY') : '2024' }}
+                     {{ dayjs(formData.startYear).format('YYYY') }}
                   </button>
                </template>
             </DatePicker>
