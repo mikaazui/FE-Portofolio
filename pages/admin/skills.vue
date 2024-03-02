@@ -1,11 +1,12 @@
 <template>
   <AdminAlertSuccess class="mb-3" :show="success" />
-
   <AdminSkillRemoveModalCon :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.title }}?
     </div>
     <div>This operation cannot be undoed after executed</div>
   </AdminSkillRemoveModalCon>
+  <AdminSkillForm :show="showForm" :data="updateData" @close="showForm = false" @saved="saved" />
+
 
   <div>
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
@@ -48,10 +49,10 @@
             <td>{{ skill.category.title }}</td>
             <td>{{ skill._count.projects }}</td>
             <td>
-              <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
+              <button @click="deleteData = skill; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
                 <LucideTrash2 :size="16" />
               </button>
-              <button @click="updateData = edu; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
+              <button @click="updateData = skill; edit = true" class="m-2 btn btn-outline btn-sm btn-circle">
                 <lucidePen size="16" />
               </button>
             </td>
@@ -79,7 +80,7 @@
                       Edit
                     </a>
                   </li>
-                  <li v-if="skill._count.projects">
+                  <li>
                     <a @click="deleteData = skill; remove = true" class="bg-error rounded-lg p-1.5">
                       <LucideTrash2 :size="16" />
                       Delete
@@ -108,7 +109,6 @@
     </div>
   </div>
 
-  <AdminSkillForm :show="showForm" :data="updateData" @close="showForm = false" @saved="saved" />
 </template>
 
 <script setup>
@@ -122,29 +122,26 @@ definePageMeta({
 const SkillStore = useSkillStore();
 onBeforeMount(async () => {
   try {
-    await Promise.all([
-      SkillStore.get(),
-      SkillStore.getCategories(),
-    ]);
+    await getData();
 
   } catch (error) {
     console.log(error)
   }
 });
 
-console.log(SkillStore.categories)
 
+const getData = (async () => {
+  Promise.all([
+    SkillStore.get(),
+    SkillStore.getCategories(),
+  ])
+})
 
-
-
-
-const deleteData = ref(null);
-const updateData = ref(null);
-const edit = ref(false);
 const remove = ref(false);
 const showForm = ref(false);
 const success = ref(false);
-
+const deleteData = ref(null)
+const updateData = ref(null)
 
 const filter = ref("");
 //selected category
@@ -169,7 +166,7 @@ const dataTable = computed(() => {
 
       });
     } else {
-      //rerun berdasarkan all
+      //return berdasarkan all
       if (selectedCatId == 'all') {
         return SkillStore.skills;
       }
@@ -179,7 +176,7 @@ const dataTable = computed(() => {
           return skill.skillCategoryId == selectedCatId
         })
       }
-    }
+    };
 
   } catch (error) {
     console.log(error)
@@ -189,6 +186,7 @@ const dataTable = computed(() => {
 const handleDelete = async () => {
   try {
     const id = deleteData.value.id;
+    console.log(deleteData)
     //proses hapus
     await SkillStore.delete(id);
     //hide modal
@@ -209,14 +207,14 @@ const handleDelete = async () => {
 };
 
 const saved = async () => {
-  addEdu.value = false
+  showForm.value = false
   success.value = true
   //hide success modal
   setTimeout(() => {
     success.value = false
   }, 3000);
   //fetch 2
-  await EduStore.get();
+  await SkillStore.get();
 
 }
 

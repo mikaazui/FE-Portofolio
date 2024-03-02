@@ -109,6 +109,8 @@ const handleSave = async () => {
     await SkillStore.create(formData.value)
     //disable laoading
     isLoading.value = false;
+    emits('saved')
+    
   } catch (error) {
     //disable laoading
     isLoading.value = false;
