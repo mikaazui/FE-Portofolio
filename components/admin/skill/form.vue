@@ -68,8 +68,6 @@
    </div>
 </template>
 
-<!-- TODO PINDAHIN METHOD UPDATE KESINI -->
-
 <script setup>
 const props = defineProps({
    data: Object,

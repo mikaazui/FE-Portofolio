@@ -46,6 +46,7 @@
               <div v-html="skill.svg"></div>
             </td>
             <td>{{ skill.title }}</td>
+            <!-- TODO NTAR FIX BUG DISINI (CANNOT READ CATEGORY OF UNDEFINED) -->
             <td>{{ skill.category.title }}</td>
             <td>{{ skill._count.projects }}</td>
             <td>
