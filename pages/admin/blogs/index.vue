@@ -86,7 +86,7 @@ const nextPage = async () => {
     await getData()
   }
 };
-
+//fetch data blog
 const getData = (async () => {
   await BlogStore.get(page.value, filter.value)
 });
