@@ -10,11 +10,12 @@
       </button>
     </div>
 
-    <div class="flex justify-end">
+    <div class="flex justify-between my-3">
+      <input @keyup.enter="page = 1;getData()" v-model="filter" type="text" placeholder="Type here" class="input inpur-sm input-bordered w-full max-w-xs" />
       <div class="join">
-        <button class="join-item btn" @click="page != 1 ? page-- : page">«</button>
+        <button class="join-item btn" @click="prevPage">«</button>
         <button class="join-item btn">{{ page }}</button>
-        <button class="join-item btn" @click="page != BlogStore.maxPage ? page++ : page">»</button>
+        <button class="join-item btn" @click="nextPage">»</button>
       </div>
     </div>
 
@@ -30,9 +31,16 @@
           <p class="line-clamp-2">{{ blog.content }}</p>
         </div>
       </div>
-      
+    </div>
+
+    <!-- TODO TAMBAHIN SVG NOT FOUND -->
+    <div v-if="BlogStore.blogs.length == 0">
+      <!-- TODO ADD IMAGE NOT FOUND -->
+      <div class="text-center text-xl opacity-35 font-semibold">No Data</div>
+
     </div>
     
+
     <div class="flex justify-end">
       <div class="join">
         <button class="join-item btn" @click="page != 1 ? page-- : page">«</button>
@@ -80,8 +88,10 @@ const nextPage = async () => {
 };
 
 const getData = (async () => {
-  await BlogStore.get(page.value)
+  await BlogStore.get(page.value, filter.value)
 });
+
+const filter = ref('');
 
 
 

@@ -45,10 +45,10 @@ export const useBlogStore = defineStore('blog', {
   },
   actions: {
 
-    async get(page = 1) {
+    async get(page = 1, search = '') {
       const api = useApiStore();
-      this.data = await api.get(`/blogs?limit=12&page=${page}`);
-      console.log(this.data);
+      this.data = await api.get(`/blogs?limit=12&page=${page}&search=${search}`);
+        console.log(this.data);
     },
 
   }
