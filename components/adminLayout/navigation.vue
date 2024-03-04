@@ -34,10 +34,15 @@ const menus = [
     to: "/admin/skills",
     icon: resolveComponent("LucideBoxes"),
   },
+  // {
+  //   title: "Project",
+  //   to: "/admin/project",
+  //   icon: resolveComponent("LucideNotebook-tabs"),
+  // },
   {
-    title: "Project",
-    to: "/admin/project",
-    icon: resolveComponent("LucideNotebook-tabs"),
+    title: "Blog",
+    to: "/admin/blogs",
+    icon: resolveComponent("LucideFileText"),
   },
 ];
 
