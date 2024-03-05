@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useApiStore } from "./apiStore";
+import { isCreateBlog } from '~/utils/blogValidation';
 
 export const useBlogStore = defineStore('blog', {
   state: () => ({ data: null }),
@@ -50,6 +51,18 @@ export const useBlogStore = defineStore('blog', {
       this.data = await api.get(`/blogs?limit=12&page=${page}&search=${search}`);
         console.log(this.data);
     },
+    async create (data) {
+      const Api = useApiStore();
+      //validasi
+      data = Validate(isCreateBlog, data);
+      //fetch
+      await Api.post("/blog", data);
+    },
+    async delete(id) {
+      const Api = useApiStore();
+      //delete fetch
+      await Api.delete(`/blog/${id}`);
+    }
 
   }
 })

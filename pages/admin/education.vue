@@ -1,5 +1,5 @@
 <template>
-  <AdminEducationForm :data="updateData" :show="showForm" @close="showForm = false" @saved="saved"  />
+  <AdminEducationForm :data="updateData" :show="showForm" @close="showForm = false" @saved="saved" />
   <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?
     </div>
@@ -11,10 +11,11 @@
       <div class="flex items-center gap-3">
         <lucideSchool :size="20" class="" />Education
       </div>
-      <button @click="updateData = null; showForm = true" class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center">
+      <button @click="updateData = null; showForm = true"
+        class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center">
         <lucidePlus :size="20" />
         <div class="max-lg:hidden">Add Education</div>
-        
+
       </button>
     </div>
     <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
@@ -33,13 +34,13 @@
           <!-- row 1 -->
           <tr v-for="edu in dataTable" :key="edu.id">
             <td>{{ edu.insituitionName }}</td>
-            <td class="text-center">{{ edu.readableStartYear}} - {{ edu.readableEndYear }}</td>
+            <td class="text-center">{{ edu.readableStartYear }} - {{ edu.readableEndYear }}</td>
             <td class="text-center">{{ edu.major ? edu.major : "-" }}</td>
             <td class="text-center">{{ edu.degree ? edu.degree : "-" }}</td>
             <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <LucideTrash2 :size="16" />
             </button>
-            <button @click="updateData = edu; showForm = true"  class="m-2 btn btn-outline btn-sm btn-circle">
+            <button @click="updateData = edu; showForm = true" class="m-2 btn btn-outline btn-sm btn-circle">
               <lucidePen size="16" />
             </button>
           </tr>
@@ -51,8 +52,8 @@
       <div v-for="edu in dataTable" :key="edu.id" class="card-body bg-base-200 drop-shadow-lg">
         <div class="uppercase font-semibold">{{ edu.insituitionName }} </div>
         <div class="flex items-center justify-between">
-        <div>{{ dayjs(edu.startYear).format('D MMMM YYYY') }} - {{ dayjs(edu.endYear).format('D MMMM YYYY') ?
-            edu.endYear : "Present" }}</div>
+          <div>{{ dayjs(edu.startYear).format('D MMMM YYYY') }} - {{ dayjs(edu.endYear).format('D MMMM YYYY') ?
+    edu.endYear : "Present" }}</div>
           <div class="flex justify-between gap-2">
 
             <div class="dropdown dropdown-bottom dropdown-end">
