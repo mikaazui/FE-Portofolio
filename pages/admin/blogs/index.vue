@@ -211,6 +211,15 @@ const handleDelete = async (id) => {
     await BlogStore.delete(deleteData.value.id)
     console.log(deleteData.value.id);
 
+    //hide modal
+    remove.value = false
+    //success modal
+    success.value = true
+    //hide success modal
+    setTimeout(() => {
+      success.value = false
+    }, 3000);
+
     //refresh data
     await getData();
   } catch (error) {

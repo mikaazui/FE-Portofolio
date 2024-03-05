@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 import { useApiStore } from "./apiStore";
-import { isCreateBlog } from '~/utils/blogValidation';
+import { isCreateBlog } from "~/utils/blogValidation";
 
-export const useBlogStore = defineStore('blog', {
+export const useBlogStore = defineStore("blog", {
   state: () => ({ data: null }),
   getters: {
     // blogs(state) {
@@ -36,33 +36,43 @@ export const useBlogStore = defineStore('blog', {
     //   }
     //   return 0
     // },
-    blogs: (state) => state.data ? state.data.data : [],
-    limit: (state) => state.data ? state.data.limit : 10,
-    maxPage: (state) => state.data ? state.data.maxPage : 1,
-    page: (state) => state.data ? state.data.page : 1,
-    total: (state) => state.data ? state.data.total : 0
-
-    
+    blogs: (state) => (state.data ? state.data.data : []),
+    limit: (state) => (state.data ? state.data.limit : 10),
+    maxPage: (state) => (state.data ? state.data.maxPage : 1),
+    page: (state) => (state.data ? state.data.page : 1),
+    total: (state) => (state.data ? state.data.total : 0),
   },
   actions: {
-
-    async get(page = 1, search = '') {
+    async get(page = 1, search = "") {
       const api = useApiStore();
-      this.data = await api.get(`/blogs?limit=12&page=${page}&search=${search}`);
-        console.log(this.data);
+      this.data = await api.get(
+        `/blogs?limit=12&page=${page}&search=${search}`
+      );
+      console.log(this.data);
     },
-    async create (data) {
+    async create(data, photos) {
       const Api = useApiStore();
-      //validasi
       data = Validate(isCreateBlog, data);
+      console.log("masuk api");
+      
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("content", data.content);
+
+      //append foto dengan loop
+      for (const photo of photos) {
+        formData.append("photos", photo);
+      }
+      console.log(data);
+
       //fetch
-      await Api.post("/blog", data);
+      await Api.post("/blog", formData);
+      console.log("blog uploaded");
     },
     async delete(id) {
       const Api = useApiStore();
       //delete fetch
       await Api.delete(`/blog/${id}`);
-    }
-
-  }
-})
+    },
+  },
+});

@@ -26,15 +26,12 @@ export const useApiStore = defineStore("Api", {
       const apiUri = config.public.apiUri;
       const jsonData = JSON.stringify(data);
       try {
-        const data = await $fetch(apiUri + path, {
+        const response = await $fetch(apiUri + path, {
           method: "POST",
-          body: jsonData,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          body: data,
           credentials: "include",
         });
-        return data;
+        return response;
       } catch (error) {
         console.log("kena error");
         this.handleError(error);

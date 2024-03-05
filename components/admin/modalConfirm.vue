@@ -22,7 +22,8 @@
 const props = defineProps({
   show: Boolean,
   text_confirm: String,
-  isLoading: Boolean
+  isLoading: Boolean,
+  data: Object
 })
 defineEmits(['close','yes'])
 const show_modal = ref(false)

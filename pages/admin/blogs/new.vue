@@ -45,11 +45,11 @@
       <!-- TODO BENERIN DELETE ACTION BUTTONNYA -->
       <div>
         <div class="my-2">Photos</div>
-        <div class="overflow-auto flex flex-nowrap gap-3 h-40">
-          <div v-for="(photo, index) in photo_previews" class="flex relative h-40 flex-nowrap gap-3 rounded-xl">
+        <div class="overflow-auto flex flex-nowrap gap-3 h-40 ">
+          <div v-for="(photo, index) in photo_previews" class="flex bg-gray-400 relative h-40 flex-nowrap gap-3 rounded-xl">
             <div
               v-if="!photo_previews.length"
-              class="aspect-video h-40 w-full rounded-lg bg-gray-400"
+              class="aspect-video h-40 w-full rounded-lg "
             ></div>
 
             <img
@@ -115,6 +115,7 @@
           <button @click="confirm = true" class="btn text-white btn-success">
             Save
           </button>
+          <span class="text-error" v-if="fetchError">{{ fetchError }}</span>
         </div>
       </div>
     </div>
@@ -122,27 +123,30 @@
 </template>
 
 <script setup>
-import joi from 'joi';
+import Joi from 'joi';
 definePageMeta({
   layout: "admin",
   middleware: ["auth"],
 });
 
-const formData = reactive({
+const BlogStore = useBlogStore();
+
+const formData = ref({
   title: "",
   content: "",
+  photos: [],
 });
 
 const errors = ref({
   title: "",
   content: "",
+  photos: "",
 });
 
 const success = ref(false)
 const confirm = ref(false);
 const isLoading = ref(false);
 const fetchError = ref('');
-const errors = ref({});
 
 const photo_previews = ref([]);
 const file_photos = [];
@@ -171,7 +175,7 @@ const handleFile = async (e) => {
 //   photo_previews.value.splice(index, 1);
 // };
 
-const handleSave = () => {
+const handleSave = async() => {
   errors.value =  {};
   fetchError.value = '';
   
@@ -179,10 +183,26 @@ const handleSave = () => {
     isLoading.value = true
     console.log(formData.value);
     console.log(file_photos);
-    success.value = true
+    await BlogStore.create(formData.value, file_photos);
+    setTimeout(() => {
+      success.value = false
+    }, 3000);
     
+    confirm.value = false
+    success.value = true
     isLoading.value = false
+    //reset form
+    formData.value = {
+      title: "",
+      content: "",
+      photos: [],
+    }
+    setTimeout(() => {
+      navigateTo('/admin/blogs')
+    }, 3000);
+    
   } catch (error) {
+    console.log(error)
     isLoading.value = false
     if (error instanceof Joi.ValidationError) {
       //joi error
@@ -193,7 +213,7 @@ const handleSave = () => {
         console.log(error)
         console.log(error.status)
         console.log(error.message)
-        fetchError.value = error.message
+        fetchError.value = error.data.message
       }
       else{
         errors.value = error.message
