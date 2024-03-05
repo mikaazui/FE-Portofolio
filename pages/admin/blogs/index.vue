@@ -47,90 +47,95 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-2 sm:grid-cols-4">
-      <div
-        v-for="blog in BlogStore.blogs"
-        :key="blog.id"
-        class="card bg-base-100 shadow-xl"
-      >
-        <figure>
-          <div
-            class="dropdown dropdown-bottom dropdown-end absolute right-0 top-0 lg:hidden"
-          >
+    <div class="">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-4 ">
+        <div
+          v-for="blog in BlogStore.blogs"
+          :key="blog.id"
+          class="card bg-base-100 shadow-xl hover:scale-105 transition ease-in-out duration-150"
+        >
+          <figure>
             <div
-              tabindex="0"
-              role="button"
-              class="btn btn-sm dark:bg-white/40 btn-ghost btn-circle m-1"
+              class="dropdown dropdown-bottom dropdown-end absolute right-0 top-0 md:hidden"
             >
-              <LucideMoreVertical :size="16" />
-            </div>
-
-            <div class="">
-              <ul
+              <div
                 tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                role="button"
+                class="btn btn-sm dark:bg-white/40 btn-ghost btn-circle m-1"
               >
-                <li>
-                  <button
-                    @click="
-                      updateData = edu;
-                      edit = true;
-                    "
-                    class="rounded-lg p-1.5"
-                  >
-                    <LucidePen :size="16" />
-                    Edit
-                  </button>
-                </li>
-                <li>
-                  <button
-                    @click="
-                      remove = true;
-                      deleteData = blog;
-                    "
-                     :data="deleteData"
-                    class="bg-error rounded-lg p-1.5"
-                  >
-                    <LucideTrash2 :size="16" />
-                    Delete
-                  </button>
-                </li>
-              </ul>
+                <LucideMoreVertical :size="16" />
+              </div>
+  
+              <div class="">
+                <ul
+                  tabindex="0"
+                  class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <button
+                      @click="
+                        updateData = edu;
+                        edit = true;
+                      "
+                      class="rounded-lg p-1.5"
+                    >
+                      <LucidePen :size="16" />
+                      Edit
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      @click="
+                        remove = true;
+                        deleteData = blog;
+                      "
+                       :data="deleteData"
+                      class="bg-error rounded-lg p-1.5"
+                    >
+                      <LucideTrash2 :size="16" />
+                      Delete
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <img
+              class="w-full aspect-video object-cover group group-hover:scale-150 transition-300"
+              v-if="blog.photos.length"
+              :src="apiUri + blog.photos[0].path"
+            />
+            <div v-else class="bg-neutral/20 aspect-video w-full"></div>
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">{{ blog.title }}</h2>
+            <p class="line-clamp-2">{{ blog.content }}</p>
+            <div class="flex-col flex gap-3 justify-end max-md:hidden">
+              <button
+                @click="
+                  updateData = edu;
+                  edit = true;
+                "
+                class="btn btn-sm rounded-lg p-1.5"
+              >
+                <LucidePen :size="16" />
+                Edit
+              </button>
+              <button
+                @click="
+                  remove = true;
+                  deleteData = blog;
+                "
+                 :data="deleteData"
+                class="btn btn-sm btn-error flex items-center rounded-lg p-1.5"
+              >
+                <LucideTrash2 :size="16" />
+                Delete
+              </button>
             </div>
           </div>
-          <img
-            class="w-full aspect-video object-cover"
-            v-if="blog.photos.length"
-            :src="apiUri + blog.photos[0].path"
-          />
-          <div v-else class="bg-neutral/20 aspect-video w-full"></div>
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">{{ blog.title }}</h2>
-          <p class="line-clamp-2">{{ blog.content }}</p>
-          <div class="flex-col flex gap-3 justify-end">
-            <button
-              @click="
-                updateData = edu;
-                edit = true;
-              "
-              class="btn btn-sm rounded-lg p-1.5"
-            >
-              <LucidePen :size="16" />
-              Edit
-            </button>
-            <button
-              @click="
-                remove = true;
-                deleteData = blog;
-              "
-               :data="deleteData"
-              class="btn btn-sm btn-error flex items-center rounded-lg p-1.5"
-            >
-              <LucideTrash2 :size="16" />
-              Delete
-            </button>
-          </div>
+  
+          
         </div>
       </div>
     </div>

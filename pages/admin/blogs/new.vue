@@ -1,7 +1,7 @@
 <template>
   <div>
     <AdminAlertSuccess class="mb-3" :show="success" />
-    <AdminModalConfirm :show="confirm" @close="confirm = false" :data="formData" @yes="handleSave" >
+    <AdminModalConfirm :show="confirm" @close="confirm = false" :data="formData" @yes="handleSave" text_confirm="Save" >
       <div class="text-xl font-semibold">Are you sure to save this new blog?</div>
     </AdminModalConfirm>
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
@@ -46,49 +46,49 @@
       <div>
         <div class="my-2">Photos</div>
         <div class="overflow-auto flex flex-nowrap gap-3 h-40 ">
-          <div v-for="(photo, index) in photo_previews" class="flex bg-gray-400 relative h-40 flex-nowrap gap-3 rounded-xl">
-            <div
-              v-if="!photo_previews.length"
-              class="aspect-video h-40 w-full rounded-lg "
-            ></div>
-
+          <div
+          v-if="!photo_previews.length"
+            class="aspect-video h-40 bg-base-200 rounded-lg"
+          ></div>
+          <div v-for="(photo, index) in photo_previews" class="flex h-40 flex-nowrap gap-2 relative rounded-xl">
+            
             <img
-              :src="photo"
-              class="rounded-lg bg-base-300 max-h-full min-w-60 max-w-60 flex justify-center items-center aspect-video"
+            :src="photo"
+            class="rounded-lg bg-base-300 max-h-full min-w-60 max-w-60 flex justify-center items-center aspect-video"
             >
-          
             <div
             class="dropdown dropdown-bottom dropdown-end absolute right-0 top-0"
           >
-            <div
-              tabindex="0"
-              role="button"
-              class="btn btn-sm dark:bg-white/40 btn-ghost btn-circle m-1"
-            >
-              <LucideMoreVertical :size="16" />
-            </div>
-  
-            <div class="">
-              <ul
-                tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <button
-                    @click="photo_previews.splice(index, 1); file_photos.splice(index, 1)"
-                    class="bg-error rounded-lg p-1.5"
-                  >
-                    <LucideTrash2 :size="16" />
-                    Delete
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-sm dark:bg-white/40 btn-ghost btn-circle m-1"
+          >
+            <LucideMoreVertical :size="16" class="text-accent"/>
           </div>
-  
-           
+      
+          <div class="">
+            <ul
+              tabindex="0"
+              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <button
+                  @click="photo_previews.splice(index, 1); file_photos.splice(index, 1)"
+                  class="bg-error rounded-lg p-1.5"
+                >
+                  <LucideTrash2 :size="16" />
+                  Delete
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
+        
+        
+        
+      </div>
+    </div>
           </img>
 
         <!-- avatar edit -->
@@ -155,6 +155,7 @@ const handleFile = async (e) => {
   if (e.target.files.length) {
     for (const file of e.target.files) {
       const reader = new FileReader();
+      console.log(file)
       reader.readAsDataURL(file);
       reader.onload = () => {
         if (photo_previews.value.length < 10) {
@@ -181,8 +182,6 @@ const handleSave = async() => {
   
   try {
     isLoading.value = true
-    console.log(formData.value);
-    console.log(file_photos);
     await BlogStore.create(formData.value, file_photos);
     setTimeout(() => {
       success.value = false
@@ -200,7 +199,7 @@ const handleSave = async() => {
     setTimeout(() => {
       navigateTo('/admin/blogs')
     }, 3000);
-    
+
   } catch (error) {
     console.log(error)
     isLoading.value = false

@@ -9,7 +9,7 @@
         <slot />
         <div class="modal-action">
           <label @click="$emit('close')" class="btn text-white btn-error">Uhh..maybe later</label>
-          <label class="btn text-white btn-success" @click="$emit('yes')">{{ text_confirm || 'Yes Update!'}} <span v-show="isLoading" class="loading loading-spinner loading-md"></span></label>
+          <label class="btn text-white btn-success" @click="$emit('yes')">{{ text_confirm || 'Yes Create!'}} <span v-show="isLoading" class="loading loading-spinner loading-md"></span></label>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
