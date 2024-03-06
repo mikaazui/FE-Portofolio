@@ -47,8 +47,13 @@ export const useBlogStore = defineStore("blog", {
       const api = useApiStore();
       this.data = await api.get(
         `/blogs?limit=12&page=${page}&search=${search}`
-      );
-      console.log(this.data);
+        );
+        console.log(this.data);
+      },
+      async getById(id) {
+        const api = useApiStore();
+        return api.get(`/blog/${id}`);
+        
     },
     async create(data, photos) {
       const Api = useApiStore();
@@ -73,6 +78,37 @@ export const useBlogStore = defineStore("blog", {
       const Api = useApiStore();
       //delete fetch
       await Api.delete(`/blog/${id}`);
+    },
+    async update (id, data, new_photos) {
+      const Api = useApiStore();
+      //validasi
+      console.log('data sebelum validsi')
+      console.log(data)
+      data = Validate(isUpdateBlog, data);
+      console.log('data sesudah validsi')
+      console.log(data)
+      
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("content", data.content);
+
+      //append foto lama by looping
+      for (let i = 0; i < data.photos.length; i++) {
+        const id = data.photos[i];
+        formData.append(`photos[${i}]`, id);
+
+        console.log(formData.get(`photos[${i}]`));
+      }
+
+      console.log(formData.get('title'));
+      console.log(formData.get('content'));
+
+      //append foto baru
+      for (const photo of new_photos) {
+        formData.append('photos', photo);
+      }
+
+      await Api.put(`/blog/${id}`, formData);
     },
   },
 });

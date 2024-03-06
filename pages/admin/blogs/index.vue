@@ -15,7 +15,7 @@
       <div class="flex items-center gap-3">
         <lucideFile :size="20" class="" />Blog
       </div>
-      <NuxtLink 
+      <NuxtLink
         to="/admin/blogs/new"
         class="btn btn-md btn-primary max-lg:w-12 flex items-center justify-center"
       >
@@ -23,7 +23,6 @@
         <div class="max-lg:hidden">Add Blog</div>
       </NuxtLink>
     </div>
-    
 
     <div
       class="flex max-sm:flex-col max-sm:items-end sm:justify-between gap-2 my-3"
@@ -48,7 +47,7 @@
     </div>
 
     <div class="">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-4 ">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-4">
         <div
           v-for="blog in BlogStore.blogs"
           :key="blog.id"
@@ -65,23 +64,21 @@
               >
                 <LucideMoreVertical :size="16" />
               </div>
-  
+
               <div class="">
                 <ul
                   tabindex="0"
                   class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <button
-                      @click="
-                        updateData = edu;
-                        edit = true;
-                      "
+                    <NuxtLink
+                      :to="`/admin/blogs/update?id=${blog.id}`"
+                      :data="blog"
                       class="rounded-lg p-1.5"
                     >
                       <LucidePen :size="16" />
                       Edit
-                    </button>
+                    </NuxtLink>
                   </li>
                   <li>
                     <button
@@ -89,7 +86,7 @@
                         remove = true;
                         deleteData = blog;
                       "
-                       :data="deleteData"
+                      :data="deleteData"
                       class="bg-error rounded-lg p-1.5"
                     >
                       <LucideTrash2 :size="16" />
@@ -99,7 +96,7 @@
                 </ul>
               </div>
             </div>
-  
+
             <img
               class="w-full aspect-video object-cover group group-hover:scale-150 transition-300"
               v-if="blog.photos.length"
@@ -111,22 +108,20 @@
             <h2 class="card-title">{{ blog.title }}</h2>
             <p class="line-clamp-2">{{ blog.content }}</p>
             <div class="flex-col flex gap-3 justify-end max-md:hidden">
-              <button
-                @click="
-                  updateData = edu;
-                  edit = true;
-                "
+              <NuxtLink
+                :to="`/admin/blogs/update?id=${blog.id}`"
+                :data="blog"
                 class="btn btn-sm rounded-lg p-1.5"
               >
                 <LucidePen :size="16" />
                 Edit
-              </button>
+              </NuxtLink>
               <button
                 @click="
                   remove = true;
                   deleteData = blog;
                 "
-                 :data="deleteData"
+                :data="deleteData"
                 class="btn btn-sm btn-error flex items-center rounded-lg p-1.5"
               >
                 <LucideTrash2 :size="16" />
@@ -134,8 +129,6 @@
               </button>
             </div>
           </div>
-  
-          
         </div>
       </div>
     </div>
@@ -180,13 +173,9 @@ const deleteData = ref(null);
 const edit = ref(false);
 const updateData = ref("");
 const remove = ref(false);
+
 onBeforeMount(async () => {
   await getData();
-
-  // console.log(BlogStore.data)
-  // console.log(BlogStore.blogs)
-  // console.log(BlogStore.total)
-  // console.log(BlogStore.maxPage)
 });
 
 const prevPage = async () => {
@@ -213,16 +202,16 @@ const handleDelete = async (id) => {
   try {
     console.log(id);
     //delete data
-    await BlogStore.delete(deleteData.value.id)
+    await BlogStore.delete(deleteData.value.id);
     console.log(deleteData.value.id);
 
     //hide modal
-    remove.value = false
+    remove.value = false;
     //success modal
-    success.value = true
+    success.value = true;
     //hide success modal
     setTimeout(() => {
-      success.value = false
+      success.value = false;
     }, 3000);
 
     //refresh data

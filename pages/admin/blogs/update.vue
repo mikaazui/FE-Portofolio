@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div v-if="data">
     <AdminAlertSuccess class="mb-3" :show="success" />
     <AdminModalConfirm :show="confirm" @close="confirm = false" :data="formData" @yes="handleSave" text_confirm="Save" >
       <div class="text-xl font-semibold">Are you sure to save this new blog?</div>
     </AdminModalConfirm>
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
       <div class="flex items-center gap-3">
-        <lucideFile :size="20" class="" />Create Blog
+        <lucideFile :size="20" class="" />Update Blog
       </div>
     </div>
 
@@ -53,7 +53,7 @@
           <div v-for="(photo, index) in photo_previews" class="flex h-40 flex-nowrap gap-2 relative rounded-xl">
             
             <img
-            :src="photo"
+            :src="photo.path"
             class="rounded-lg bg-base-300 max-h-full min-w-60 max-w-full flex justify-center items-center aspect-video"
             >
             <div
@@ -129,26 +129,44 @@ definePageMeta({
   middleware: ["auth"],
 });
 
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
 const BlogStore = useBlogStore();
+const route = useRoute()
+const { id } = route.query
+const fetchData = await BlogStore.getById(id)
+
+const data = ref(fetchData)
+console.log(data)
 
 const formData = ref({
-  title: "",
-  content: "",
+  title: data.value ? data.value.title :''  ,
+  content: data.value ? data.value.content : ''  ,
   photos: [],
 });
 
+//map photo
+const current_photos = data.value.photos.map(photo => {
+  return {
+    path: apiUri + photo.path,
+    id: photo.id
+  }
+})
+
+console.log(current_photos)
 const errors = ref({
   title: "",
   content: "",
   photos: "",
 });
 
+
 const success = ref(false)
 const confirm = ref(false);
 const isLoading = ref(false);
 const fetchError = ref('');
 
-const photo_previews = ref([]);
+const photo_previews = ref(current_photos);
 const file_photos = [];
 
 const handleFile = async (e) => {
@@ -163,14 +181,18 @@ const handleFile = async (e) => {
           file_photos.push(file);
 
           //TAMPUNG PREVIEW
-          photo_previews.value.push(reader.result);
+          photo_previews.value.push({
+          path:  reader.result,
+          //tanpa id karena foto baru
+          });
         }
       };
     }
   }
   //reset input file selector
-  e.target.value = "";
+  e.target.value = '';
 };
+
 
 // const removePhotoPreview = (index) => {
 //   photo_previews.value.splice(index, 1);
@@ -182,7 +204,19 @@ const handleSave = async() => {
   
   try {
     isLoading.value = true
-    await BlogStore.create(formData.value, file_photos);
+    const dataUpdate = {...formData.value}
+    //tambahin foto lama
+
+    for (const p of photo_previews.value) {
+      if (p.id != undefined) {
+        dataUpdate.photos.push(p.id)
+      }
+    }
+    
+    console.log(dataUpdate)
+    
+    await BlogStore.update(data.value.id, dataUpdate, file_photos);
+    
     setTimeout(() => {
       success.value = false
     }, 3000);
