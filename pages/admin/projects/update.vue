@@ -2,11 +2,11 @@
   <div v-if="data">
     <AdminAlertSuccess class="mb-3" :show="success" />
     <AdminModalConfirm :show="confirm" @close="confirm = false" :data="formData" @yes="handleSave" text_confirm="Save" >
-      <div class="text-xl font-semibold">Are you sure to save this new blog?</div>
+      <div class="text-xl font-semibold">Are you sure to save this new project?</div>
     </AdminModalConfirm>
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
       <div class="flex items-center gap-3">
-        <lucideFile :size="20" class="" />Update Blog
+        <lucideFile :size="20" class="" />Update Project
       </div>
     </div>
 
@@ -131,10 +131,10 @@ definePageMeta({
 
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-const BlogStore = useBlogStore();
+const ProjectStore = useProjectStore();
 const route = useRoute()
 const { id } = route.query
-const fetchData = await BlogStore.getById(id)
+const fetchData = await ProjectStore.getById(id)
 
 const data = ref(fetchData)
 console.log(data)
@@ -215,7 +215,7 @@ const handleSave = async() => {
     
     console.log(dataUpdate)
     
-    await BlogStore.update(data.value.id, dataUpdate, file_photos);
+    await ProjectStore.update(data.value.id, dataUpdate, file_photos);
     
     setTimeout(() => {
       success.value = false
@@ -225,15 +225,14 @@ const handleSave = async() => {
     success.value = true
     isLoading.value = false
     //reset form
-      //ga perlu reset form ga sih
-    // formData.value = {
-    //   title: "",
-    //   content: "",
-    //   photos: [],
-    // }
+    formData.value = {
+      title: "",
+      content: "",
+      photos: [],
+    }
     setTimeout(() => {
       navigateTo('/admin/blogs')
-    }, 1000);
+    }, 3000);
 
   } catch (error) {
     console.log(error)
