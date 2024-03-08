@@ -89,7 +89,7 @@
         
       </div>
     </div>
-          </img>
+        </img>
 
         <!-- avatar edit -->
         <label class="form-control w-full max-w-xs">
@@ -115,6 +115,7 @@
           <button @click="confirm = true" class="btn text-white btn-success">
             Save
           </button>
+
           <span class="text-error" v-if="fetchError">{{ fetchError }}</span>
         </div>
       </div>

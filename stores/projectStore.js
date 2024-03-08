@@ -24,24 +24,36 @@ export const useProjectStore = defineStore("project", {
         return api.get(`/project/${id}`);
         
     },
-    async create(data, photos) {
+    async create(data, skills) {
       const Api = useApiStore();
+
+      console.log('data sebelum validasi')
+      console.log(data)
       data = Validate(isCreateProject, data);
-      console.log("masuk api");
-      
-    //   const formData = new FormData();
-    //   formData.append("title", data.title);
-    //   formData.append("content", data.content);
+      console.log('data abis validasi')
+      console.log(data)
 
-    //   //append foto dengan loop
-    //   for (const photo of photos) {
-    //     formData.append("photos", photo);
-    //   }
-    //   console.log(data);
+      // buat FORM DATA
+      const formData = new FormData();
 
-    //   //fetch
-    //   await Api.post("/blog", formData);
-    //   console.log("blog uploaded");
+      // key -> value
+      const array_keys = Object.keys(data);
+      for (const key of array_keys) {
+          // append by key & value
+          formData.append(key, data[key]);
+      }
+
+      for (let i = 0; i < skills.length; i++) {
+          const id = skills[i];
+
+          formData.append(`skills[${i}]`, id)
+      }
+      // // append foto dengan loop
+      // for (const photo of photos) {
+      //     formData.append("photos", photo)
+      // }
+
+      await Api.post('/project', formData);
     },
     async update (id, data, new_photos) {
       const Api = useApiStore();
@@ -52,27 +64,27 @@ export const useProjectStore = defineStore("project", {
       console.log('data sesudah validsi')
       console.log(data)
       
-    //   const formData = new FormData();
-    //   formData.append("title", data.title);
-    //   formData.append("content", data.content);
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("content", data.content);
 
-    //   //append foto lama by looping
-    //   for (let i = 0; i < data.photos.length; i++) {
-    //     const id = data.photos[i];
-    //     formData.append(`photos[${i}]`, id);
+      //append foto lama by looping
+      for (let i = 0; i < data.photos.length; i++) {
+        const id = data.photos[i];
+        formData.append(`photos[${i}]`, id);
 
-    //     console.log(formData.get(`photos[${i}]`));
-    //   }
+        console.log(formData.get(`photos[${i}]`));
+      }
 
-    //   console.log(formData.get('title'));
-    //   console.log(formData.get('content'));
+      console.log(formData.get('title'));
+      console.log(formData.get('content'));
 
-    //   //append foto baru
-    //   for (const photo of new_photos) {
-    //     formData.append('photos', photo);
-    //   }
+      //append foto baru
+      for (const photo of new_photos) {
+        formData.append('photos', photo);
+      }
 
-    //   await Api.put(`/blog/${id}`, formData);
+      await Api.put(`/project/${id}`, formData);
     },
     async delete(id) {
       const Api = useApiStore();
