@@ -3,7 +3,7 @@
         <!-- <div class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
             <NuxtLink to="/#blog" class="text-4xl font-bold">{{ fullname }}</NuxtLink>
         </div> -->
-        <indexHeader :ttile="blogs" :url="'/blog'" />
+        <indexHeader :title="blogs" :url="'/blog'" />
         <template v-if="blogs">
 
             <!-- loop data -->

@@ -1,6 +1,6 @@
 <template>
-  <ul class="menu p-4 w-64 min-h-full text-base-content side-menu max-lg:bg-base-200">
-    <div class="px-6 py-4 font-light text-xl">Main Menu</div>
+  <ul class="w-64 min-h-full p-4 menu text-base-content side-menu max-lg:bg-base-200">
+    <div class="px-6 py-4 text-xl font-light">Main Menu</div>
     <template v-for="menu in menus">
       <AdminLayoutNavItems :menu="menu" />
     </template>
@@ -15,15 +15,35 @@ const menus = [
     icon: resolveComponent("LucideLayoutDashboard"),
   },
   {
-    title: "Project",
-    to: "/admin/project",
-    icon: resolveComponent("LucideNotebook-tabs"),
-  },
-  {
     title: "Profile",
     to: "/admin/profile",
     icon: resolveComponent("LucideUser"),
-  }
+  },
+  {
+    title: "Education",
+    to: "/admin/education",
+    icon: resolveComponent("LucideSchool"),
+  },
+  {
+    title: "Experience",
+    to: "/admin/experience",
+    icon: resolveComponent("LucideBriefcase"),
+  },
+  {
+    title: "Skills",
+    to: "/admin/skills",
+    icon: resolveComponent("LucideBoxes"),
+  },
+  {
+    title: "Blog",
+    to: "/admin/blogs",
+    icon: resolveComponent("LucideFileText"),
+  },
+  {
+    title: "Project",
+    to: "/admin/projects",
+    icon: resolveComponent("LucideNotebook-tabs"),
+  },
 ];
 
 </script>

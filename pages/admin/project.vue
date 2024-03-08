@@ -6,7 +6,9 @@
 
 <script setup>
 definePageMeta({
-    layout: 'admin'
+    layout: 'admin',
+    middleware: ['auth'],
+    ssr: true
 })
 import { useCounterStore } from '../stores/counterStore';
 const CounterStore = useCounterStore();

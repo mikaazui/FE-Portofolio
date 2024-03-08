@@ -20,7 +20,7 @@
 
         <NuxtLink to="/admin" class="intro-x hidden lg:flex items-center gap-3">
           <img src="/logo.svg" alt="logo.svg" class="w-7 max-lg:hidden" srcset="">
-          <div class="font-semibold text-2xl max-lg:hidden">Valent Stefanos</div>
+          <div class="font-semibold text-2xl max-lg:hidden">{{ authStore.user.name }}</div>
         </NUxtLink>
         <!-- sisi kanan -->
         <div
@@ -71,7 +71,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col items-center justify-center">
           <!-- main content -->
-          <div class="bg-base-100 h-full w-full rounded-2xl shadow-xl lg-rounded-3xl flex flex-col p-16">
+          <div class="bg-base-100 h-full w-full rounded-2xl shadow-xl lg-rounded-3xl flex flex-col p-6 md:p-12 lg:-16">
             <slot />
           </div>
         </div>
@@ -85,21 +85,16 @@
 </template>
 
 <script setup>
-  definePageMeta({
-    colorMode: 'system'
-  });
+import 'v-calendar/style.css';   
 
 const props = defineProps({
   toggleDrawer: Boolean
 });
 
-onMounted(() => {
-  console.log("mounted")
-});
-
 //use watch effect to handle problem
 const authStore = useAuthStore()
 console.log(authStore.user)
+
 </script>
 
 <style>

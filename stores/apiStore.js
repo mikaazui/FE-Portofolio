@@ -16,7 +16,7 @@ export const useApiStore = defineStore("Api", {
         });
         return data;
       } catch (error) {
-        console.log('error di get')
+        console.log("error di get");
         this.handleError(error);
       }
     },
@@ -26,17 +26,14 @@ export const useApiStore = defineStore("Api", {
       const apiUri = config.public.apiUri;
       const jsonData = JSON.stringify(data);
       try {
-        const data = await $fetch(apiUri + path, {
+        const response = await $fetch(apiUri + path, {
           method: "POST",
-          body: jsonData,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          body: data,
           credentials: "include",
         });
-        return data;
+        return response;
       } catch (error) {
-        console.log('kena error')
+        console.log("kena error");
         this.handleError(error);
       }
     },
@@ -44,18 +41,17 @@ export const useApiStore = defineStore("Api", {
     async put(path, data) {
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
-      console.log(config) 
-      const jsonData = JSON.stringify(data);
+      if (!(data instanceof FormData)) {
+        data = JSON.stringify(data);
+      }
+
       try {
-        const data = await $fetch(apiUri + path, {
+        const response = await $fetch(apiUri + path, {
           method: "PUT",
-          body: jsonData,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          body: data,
           credentials: "include",
         });
-        return data;
+        return response;
       } catch (error) {
         this.handleError(error);
       }
@@ -97,12 +93,12 @@ export const useApiStore = defineStore("Api", {
       }
     },
     handleError(error) {
-      console.log('masuk error handle error')
+      console.log("masuk error handle error");
       //buat method untuk catch error ini supaya bisa dipakai semua method
       if (error.status == 401) {
         //hapus token
         const token = useCookie("token");
-        // token.value = "";
+        token.value = '';
 
         //lempar ke halaman login
         return navigateTo("/admin/login");
@@ -111,6 +107,7 @@ export const useApiStore = defineStore("Api", {
       if (error.status == 400) {
         throw error;
       }
+      // const message = error.message || error.data.message || "Internal Server Error!";
       //selain 401
       throw createError({
         statusCode: error.status || 500, //default code 500
