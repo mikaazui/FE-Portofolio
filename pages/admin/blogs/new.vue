@@ -41,8 +41,6 @@
         </div>
       </label>
 
-      <!-- TODO INI BENERIN NTAR -->
-      <!-- TODO BENERIN DELETE ACTION BUTTONNYA -->
       <div>
         <div class="my-2">Photos</div>
         <div class="overflow-auto flex flex-nowrap gap-3 h-40 ">

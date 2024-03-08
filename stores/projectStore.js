@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useApiStore } from "./apiStore";
-import { isCreateProject } from "~/utils/projectValidation.js";
+import { isCreateProject,isUpdateProject } from "~/utils/projectValidation.js";
 
 export const useProjectStore = defineStore("project", {
   state: () => ({ data: null }),
@@ -24,14 +24,10 @@ export const useProjectStore = defineStore("project", {
         return api.get(`/project/${id}`);
         
     },
-    async create(data, skills) {
+    async create(data, skills, photos) {
       const Api = useApiStore();
 
-      console.log('data sebelum validasi')
-      console.log(data)
       data = Validate(isCreateProject, data);
-      console.log('data abis validasi')
-      console.log(data)
 
       // buat FORM DATA
       const formData = new FormData();
@@ -48,42 +44,49 @@ export const useProjectStore = defineStore("project", {
 
           formData.append(`skills[${i}]`, id)
       }
-      // // append foto dengan loop
-      // for (const photo of photos) {
-      //     formData.append("photos", photo)
-      // }
+      // append foto dengan loop
+      for (const photo of photos) {
+          formData.append("photos", photo)
+      }
 
       await Api.post('/project', formData);
     },
-    async update (id, data, new_photos) {
+    async update (id, data, skills, new_photos) {
       const Api = useApiStore();
-      //validasi
-      console.log('data sebelum validsi')
-      console.log(data)
+
       data = Validate(isUpdateProject, data);
-      console.log('data sesudah validsi')
-      console.log(data)
       
+      //foto lama
+      const old_photos = data.photos;
+      delete data.photos;
+      
+      // buat FORM DATA
       const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("content", data.content);
+      
+      // key -> value
+      const array_keys = Object.keys(data);
+      for (const key of array_keys) {
+          // append by key & value
+          formData.append(key, data[key]);
+        }
+        
+        for (let i = 0; i < skills.length; i++) {
+          const id = skills[i];
 
-      //append foto lama by looping
-      for (let i = 0; i < data.photos.length; i++) {
-        const id = data.photos[i];
-        formData.append(`photos[${i}]`, id);
-
-        console.log(formData.get(`photos[${i}]`));
+          formData.append(`skills[${i}]`, id)
       }
 
-      console.log(formData.get('title'));
-      console.log(formData.get('content'));
-
+      //append foto lama
+      for (let i = 0; i < old_photos.length; i++) {
+        const id = old_photos[i];
+        formData.append(`photos[${i}]`, id);
+      }
       //append foto baru
       for (const photo of new_photos) {
-        formData.append('photos', photo);
+          formData.append('photos', photo);
       }
-
+      
+      
       await Api.put(`/project/${id}`, formData);
     },
     async delete(id) {
