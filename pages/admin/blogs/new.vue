@@ -169,7 +169,7 @@ const handleFile = async (e) => {
   }
   //reset input file selector
   e.target.value = "";
-};
+}; 
 
 // const removePhotoPreview = (index) => {
 //   photo_previews.value.splice(index, 1);

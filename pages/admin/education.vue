@@ -1,12 +1,12 @@
 <template>
-  <AdminEducationForm :data="updateData" :show="showForm" @close="showForm = false" @saved="saved" />
-  <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
+  <LazyAdminEducationForm :data="updateData" :show="showForm" @close="showForm = false"  @saved="saved" />
+  <LazyAdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.insituitionName }}?
     </div>
     <div>This operation cannot be undoed after executed</div>
-  </AdminEducationRemoveConModal>
+  </LazyAdminEducationRemoveConModal>
   <div>
-    <AdminAlertSuccess class="mb-3" :show="success" />
+    <LazyAdminAlertSuccess class="mb-3" :show="success" />
     <div class="flex items-center justify-between pb-3 text-xl font-semibold">
       <div class="flex items-center gap-3">
         <lucideSchool :size="20" class="" />Education
@@ -30,7 +30,7 @@
             <th class="text-center">Degree</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="dataTable">
           <!-- row 1 -->
           <tr v-for="edu in dataTable" :key="edu.id">
             <td>{{ edu.insituitionName }}</td>
@@ -45,6 +45,32 @@
             </button>
           </tr>
         </tbody>
+        <!-- skeleton loading -->
+        <tbody v-else>
+          <tr v-for="i in 6" :key="i">
+            <th>
+              <div class="skeleton w-22 h-6"></div>
+            </th>
+            <th>
+              <div class="flex justify-center gap-3">
+                <div class="skeleton w-14 h-6"></div>
+                <div class="skeleton w-14  h-6"></div>
+              </div>
+            </th>
+            <th>
+              <div class="skeleton w-22 h-6 mx-auto"></div>
+            </th>
+            <th>
+              <div class="skeleton w-22 h-6 mx-auto"></div>
+            </th>
+            <th>
+              <div class="flex gap-3 justify-center">
+                <div class="skeleton w-8 h-8 rounded-full"></div>
+                <div class="skeleton w-8 h-8 rounded-full"></div>
+              </div>
+            </th>
+          </tr>
+        </tbody>
       </table>
     </div>
 
@@ -52,8 +78,8 @@
       <div v-for="edu in dataTable" :key="edu.id" class="card-body bg-base-200 drop-shadow-lg">
         <div class="uppercase font-semibold">{{ edu.insituitionName }} </div>
         <div class="flex items-center justify-between">
-          <div>{{ dayjs(edu.startYear).format('D MMMM YYYY') }} - {{ dayjs(edu.endYear).format('D MMMM YYYY') ?
-    edu.endYear : "Present" }}</div>
+          <div>{{ edu.readableStartYear }} - {{ edu.endYear ?
+           edu.readableEndYear : "Present" }}</div>
           <div class="flex justify-between gap-2">
 
             <div class="dropdown dropdown-bottom dropdown-end">
@@ -159,34 +185,22 @@ const handleDelete = async () => {
   }
 };
 
-// const handleSave = async () => {
-//   try {
-//     isLoading = true;
 
-//     if (!formData.value.endYear) formData.value.endYear = null;
-
-//     if (!props.data) {
-//       //jika gaada >> create
-//       await EduStore.create(formData.value)
-//     } else {
-//       //jika ada >> update
-//       await EduStore.update(props.data._id, formData.value)
-//     }
-
-//   } catch (error) {
-
-//   }
-// };
 
 const saved = async () => {
-  addEdu.value = false
-  success.value = true
-  //hide success modal
-  setTimeout(() => {
-    success.value = false
-  }, 3000);
-  //fetch 2
-  await EduStore.get();
+  try {
+    // addEdu.value = false
+    success.value = true
+    //hide success modal
+    setTimeout(() => {
+      success.value = false
+    }, 3000);
+    //fetch 2
+    await EduStore.get();
+    
+  } catch (error) {
+    console.log(error)
+  }
 
 }
 

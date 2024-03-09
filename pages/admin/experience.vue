@@ -1,13 +1,14 @@
 <template>
-  <AdminExperienceForm :show="addExp" @close="addExp = false" @saved="saved" />
-  <AdminEducationModalEdit :show="edit" @close="edit = false" />
-  <AdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
+  <LazyAdminExperienceForm :show="addExp" @close="addExp = false" @saved="saved" />
+  <!-- //TODO ntar ubah ini ya -->
+  <LazyAdminEducationModalEdit :show="edit" @close="edit = false" />
+  <LazyAdminEducationRemoveConModal :show="remove" :data="deleteData" @close="remove = false" @yes="handleDelete">
     <div v-if="deleteData" class="pb-3 text-xl font-semibold">Are you sure to delete {{ deleteData.company }}?
     </div>
     <div>This operation cannot be undoed after executed</div>
-  </AdminEducationRemoveConModal>
+  </LazyAdminEducationRemoveConModal>
   <div>
-    <AdminAlertSuccess :show="success" />
+    <LazyAdminAlertSuccess :show="success" />
     <div class="pb-3 text-xl font-semibold">
       <div class="flex items-center justify-between  text-xl font-semibold">
         <div class="flex items-center gap-3">

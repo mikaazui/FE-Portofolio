@@ -58,20 +58,18 @@
 
          <div class="flex items-center gap-3">
             <label class="form-control w-full max-w-xs">
-               <div class="label">
-                  <span class="label-text">End Year</span>
-               </div>
-               <DatePicker v-model="formData.endYear" color="gray">
-                  <template #default="{ togglePopover }">
-                     <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal"
-                        :disabled="isPresent">
-                        {{ dayjs(formData.endDate).format('YYYY') }}
-                     </button>
-                  </template>
-               </DatePicker>
-               <div class="text-xs text-right text-error" v-if="errors.endYear">{{ errors.endYear }}</div>
-
-            </label>
+            <div class="label">
+               <span class="label-text">Start Year</span>
+            </div>
+            <DatePicker v-model="formData.endYear" color="gray">
+               <template #default="{ togglePopover }">
+                  <button @click="togglePopover" class="btn btn-outline border-neutral/90 font-normal">
+                     {{ dayjs(formData.endYear).format('YYYY') }}
+                  </button>
+               </template>
+            </DatePicker>
+            <div class="text-xs text-right text-error" v-if="errors.endYear">{{ errors.endYear }}</div>
+         </label>
             <div class="flex items-center">
                <!-- TODO CHECKBOXNYA ? JIKA ADA DATA > CHECKBOX TERCENTANG -->
                <input type="checkbox" v-model="isPresent" @change="handlePresent" class="checkbox" />
@@ -107,11 +105,12 @@ const props = defineProps({
 const errors = ({})
 const fetchError = ref('')
 const isLoading = ref(false)
-const emits = defineEmits(['close', 'saved'])
 const isPresent = ref(false)
-
+const EduStore = useEducationStore();
 const show_modal = ref(false)
 const formData = ref({})
+const emits = defineEmits(['close', 'saved'])
+
 
 watchEffect(() => {
    show_modal.value = props.show
@@ -119,34 +118,40 @@ watchEffect(() => {
    //reset form
    formData.value = {
       insituitionName: props.data ? props.data.insituitionName : '',
-      startYear: props.data ? props.data.startYear : '',
-      endYear: props.data ? props.data.endYear : '',
+      startYear: props.data ? props.data.startYear : new Date(),
+      endYear: props.data ? props.data.endYear : new Date() || '',
+      city: props.data ? props.data.city : '',
       major: props.data ? props.data.major : '',
       degree: props.data ? props.data.degree : ''
       //kondisi 1 props.data null
       //kondisi 2 props.data.endDate = null
 
-   };
+};
 
-   if (props.data) {
+
+
+if (props.data) {
       // tergantung kondisi endDate
-      isPresent.value = props.data.endDate == null;
+      isPresent.value = props.data.endDate == null ? true : '';
    } else {
       // default
       isPresent.value = false;
    }
 
+   console.log(props.data)
+   
 });
 
-const EduStore = useEducationStore();
+
+
 const handleSave = async () => {
    isLoading.value = true;
    try {
-
+      
       // jika isPresent ter-centang
       if (isPresent.value) {
          // ubah endDate menjadi null
-         formData.value.endDate = null;
+         formData.value.endDate = '';
       }
 
       if (!props.data) {
@@ -155,15 +160,18 @@ const handleSave = async () => {
       } else {
          //update
          const id = props.data.id;
-         await EduStore.create(id, formData.value)
+         await EduStore.update(id, formData.value)
       }
-
       isLoading.value = false;
+      
       // emit saved
-      emits('saved')
+      emits('saved');
    } catch (error) {
       isLoading.value = false;
-
+      console.log(formData.value)
+      console.log('error =============')
+      console.log(error)
+      
       if (error instanceof Joi.ValidationError) {
          errors.value = joiError(error);
       } else {
@@ -176,6 +184,7 @@ const handleSave = async () => {
    }
 };
 
+
 const handlePresent = (e) => {
    isPresent.value = e.target.checked
    if (isPresent.value) {
@@ -183,11 +192,5 @@ const handlePresent = (e) => {
    }
 }
 
-const showForm = ref(false);
-const editData = ref(null);
-
-const saved = () => {
-   console.log('saved')
-}
 
 </script>
