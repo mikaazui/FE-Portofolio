@@ -6,6 +6,20 @@ export const useExperienceStore = defineStore("experience", {
     actions: {
         async get () {
             const api = useApiStore();
+
+            const minimalDelay  = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve();
+                }, 1000);
+              });
+
+              const response = await Promise.all([
+                api.get("/experiences"),
+                minimalDelay
+              ]);
+
+              this.experience = response[0];
+            
             this.experience = await api.get("/experiences");
             console.log(this.experience)
         },

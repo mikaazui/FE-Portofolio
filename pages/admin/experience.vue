@@ -94,11 +94,11 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-between">
-          <div class="flex items-center justify-between btn btn-accent">
+        <div class="flex justify-between gap-3">
+          <div class="flex items-center grow justify-between btn btn-accent">
             <div>{{ exp.company }}</div>
           </div>
-          <div class="flex items-center justify-between btn btn-accent">
+          <div class="flex items-center grow justify-between btn btn-accent">
             <div> {{  }} ntar aja diisinya</div>
           </div>
 
@@ -133,7 +133,7 @@ const addExp = ref(false);
 
 const ExpStore = useExperienceStore();
 onBeforeMount(async () => {
-  // await ExpStore.get();
+  await ExpStore.get();
 });
 
 const deleteData = ref(null);
