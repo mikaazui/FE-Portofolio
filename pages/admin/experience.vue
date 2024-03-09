@@ -20,7 +20,7 @@
         </button>
       </div>
     </div>
-    <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
+    <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered mb-5" />
     <div class="overflow-x-auto max-lg:hidden">
       <table class="table table-zebra">
         <!-- head -->
@@ -30,10 +30,10 @@
             <th>Periode</th>
             <th>Title</th>
             <th>Location</th>
-            <th class="pl-7">Action</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="dataTable">
           <!-- row 1 -->
           <tr v-for="exp in dataTable" :key="exp.id">
             <td class="whitespace-nowrap">{{ exp.company }}</td>
@@ -53,10 +53,15 @@
             </td>
           </tr>
         </tbody>
+        <!-- skeleton loading -->
+        <!-- TODO TAR BIKIN BUAT YANG EXP -->
+        <tbody v-else>
+          <AdminEducationSkeletonLoad />
+        </tbody>
       </table>
     </div>
 
-    <div class="lg:hidden py-5">
+    <div class="lg:hidden py-5" v-if="dataTable">
       <div v-for="exp in dataTable" :key="exp.id" class="card-body bg-base-200 drop-shadow-lg">
         <div class="uppercase font-semibold">{{ exp.title }} </div>
         <div class="flex items-center justify-between">
@@ -100,6 +105,13 @@
         </div>
       </div>
     </div>
+    <!-- MOBILE SKELETON LOADING -->
+    <!-- TODO TAR BIKIN BUAT YANG EXP -->
+
+    <div v-else>
+      <AdminEducationSkeletonMobile />
+    </div>
+  
 
   </div>
 </template>
@@ -121,7 +133,7 @@ const addExp = ref(false);
 
 const ExpStore = useExperienceStore();
 onBeforeMount(async () => {
-  await ExpStore.get();
+  // await ExpStore.get();
 });
 
 const deleteData = ref(null);

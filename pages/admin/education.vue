@@ -18,7 +18,7 @@
 
       </button>
     </div>
-    <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered" />
+    <input v-model="filter" type="text" placeholder="Search" class="w-full max-w-xs input input-sm input-bordered mb-5" />
     <div class="overflow-x-auto max-lg:hidden">
       <table class="table table-zebra">
         <!-- head -->
