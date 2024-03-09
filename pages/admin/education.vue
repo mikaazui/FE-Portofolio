@@ -28,6 +28,7 @@
             <th class="text-center">Periode</th>
             <th class="text-center">Major</th>
             <th class="text-center">Degree</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody v-if="dataTable">
@@ -37,44 +38,25 @@
             <td class="text-center">{{ edu.readableStartYear }} - {{ edu.readableEndYear }}</td>
             <td class="text-center">{{ edu.major ? edu.major : "-" }}</td>
             <td class="text-center">{{ edu.degree ? edu.degree : "-" }}</td>
-            <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
-              <LucideTrash2 :size="16" />
-            </button>
-            <button @click="updateData = edu; showForm = true" class="m-2 btn btn-outline btn-sm btn-circle">
-              <lucidePen size="16" />
-            </button>
+            <td class="text-center">
+              <button @click="deleteData = edu; remove = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                <LucideTrash2 :size="16" />
+              </button>
+              <button @click="updateData = edu; showForm = true" class="m-2 btn btn-outline btn-sm btn-circle">
+                <lucidePen size="16" />
+              </button>
+
+            </td>
           </tr>
         </tbody>
         <!-- skeleton loading -->
         <tbody v-else>
-          <tr v-for="i in 6" :key="i">
-            <th>
-              <div class="skeleton w-22 h-6"></div>
-            </th>
-            <th>
-              <div class="flex justify-center gap-3">
-                <div class="skeleton w-14 h-6"></div>
-                <div class="skeleton w-14  h-6"></div>
-              </div>
-            </th>
-            <th>
-              <div class="skeleton w-22 h-6 mx-auto"></div>
-            </th>
-            <th>
-              <div class="skeleton w-22 h-6 mx-auto"></div>
-            </th>
-            <th>
-              <div class="flex gap-3 justify-center">
-                <div class="skeleton w-8 h-8 rounded-full"></div>
-                <div class="skeleton w-8 h-8 rounded-full"></div>
-              </div>
-            </th>
-          </tr>
+         <AdminEducationSkeletonLoad  />
         </tbody>
       </table>
     </div>
-
-    <div class="lg:hidden py-5">
+    <!-- mobile -->
+    <div v-if="dataTable" class="lg:hidden py-5">
       <div v-for="edu in dataTable" :key="edu.id" class="card-body bg-base-200 drop-shadow-lg">
         <div class="uppercase font-semibold">{{ edu.insituitionName }} </div>
         <div class="flex items-center justify-between">
@@ -102,17 +84,16 @@
                     </a>
                   </li>
                 </ul>
-
               </div>
             </div>
           </div>
         </div>
-        <div class="flex justify-between">
-          <div class="flex items-center justify-between btn btn-accent">
+        <div class="flex justify-between gap-3">
+          <div class="flex items-center grow justify-between btn btn-accent">
             <div>Major</div>
             <div>{{ edu.major }}</div>
           </div>
-          <div class="flex items-center justify-between btn btn-accent">
+          <div class="flex items-center grow justify-between btn btn-accent">
             <div>Degree</div>
             <div> {{ edu.degree }}</div>
           </div>
@@ -121,18 +102,20 @@
       </div>
     </div>
 
+    <!-- mobile skeleton -->
+    
+    <div v-else class="lg:hidden">
+     <AdminEducationSkeletonMobile />
+    </div>
   </div>
 
 </template>
 
 <script setup>
-// import { useEducationStore } from 'educationStore.js';
 definePageMeta({
   layout: 'admin',
   middleware: ['auth'],
 })
-import dayjs from 'dayjs'
-
 const edit = ref(false);
 const remove = ref(false);
 const isLoading = (false);
