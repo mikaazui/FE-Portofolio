@@ -42,5 +42,16 @@ export const useAuthStore = defineStore("auth", {
       const Api = useApiStore();
       this.user = await Api.put("/user", data);
     },
+    async isUserExist() {
+      const Api = useApiStore();
+      const {isExist} = await Api.get("/is-user-exist"); {isExist : true} 
+      return isExist
+    },
+    async createUser(data) {
+      const Api = useApiStore();
+      data = Validate(createFirstUserValidation, data)
+      //fetch
+      this.user = await Api.post("/first-user", data);
+    },
   },
 });
